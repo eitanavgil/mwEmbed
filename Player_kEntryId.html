@@ -20,13 +20,13 @@ mw.ready( function(){
 		mw.load( 'EmbedPlayer', function(){
 			$j( '#videoContainer' ).html(
 				'<video id="vid" width="400" height="300" '+ 
-					'kEntryId="' + $j( '#kEntryId' ).val()  + '">' +
+					'kentryid="' + $j( '#kentryid' ).val()  + '">' +
 				'</video>'
 			);			
 			
 			// Rewrite all the players on the page
 			$j('#vid').embedPlayer( {
-				'kEntryId' : $j('#kEntryId').val()				
+				'kentryid' : $j('#kentryid').val()				
 			} );
 		});
 	});
@@ -38,7 +38,7 @@ mw.ready( function(){
 	<span style="width:300px;float:left">
 		Partner id: <input id="kPartnerId" size="15" value="243342"><br />
 		Admin Secret <input id="kAdminSecret" size="15" value="075a32aa066775c1b96713cb71541ae9"><br />
-		Entry id: <input id="kEntryId" size="15" value="0_swup5zao"> <br />
+		Entry id: <input id="kentryid" size="15" value="0_swup5zao"> <br />
 	</span>
 	
 	<textarea style="width:300px;height:120px;float:left">

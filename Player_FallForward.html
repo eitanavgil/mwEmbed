@@ -2,25 +2,30 @@
 <head>
 <title>Fall forward html5</title>
 
-<!--   <script type="text/javascript" src="../mwEmbed/mwEmbedLoader.js"></script> -->
-<!-- <script type="text/javascript" src="../mwEmbed/mwEmbed.js"></script> -->
+<!-- <script type="text/javascript" src="../mwEmbed/mwEmbedLoader.js"></script>  --> 
+<!-- <script type="text/javascript" src="../mwEmbed/mwEmbed.js?debug=true>"></script>  --> 
 <script type="text/javascript" src="../mwEmbed/jsScriptLoader.php?class=window.jQuery,mwEmbed&debug=true"></script>
 <script type="text/javascript">
 
 mw.ready( function(){	
 
 	mw.setConfig( 'overlayControls', false );
-	mw.setConfig( 'analyticsCallbackLog', function( monitorEvent ){
-		
+	mw.setConfig( 'kalturaAnalyticsCallbackLog', function( monitorEvent ){
+		$j('#analyticsLog').append( monitorEvent + "\n");
 	});
 
 });
 </script>
 </head>
 <body>
-<h2> Fall forward: ( kaltura embed code on iPad / iPhone ) </h2>
-<div style="clear:both"></div>
+<h2> Fall forward: ( kaltura embed code on iPad / iPhone ) + analytics </h2>
 
+
+
+<div style="position:absolute;top:110px;left:450px;width:300px;height:300px;" >
+<i>Analytics events:</i> <br />
+<textarea id="analyticsLog" cols='40' rows='8' > </textarea>
+</div>
 
 <object id="kaltura_player" name="kaltura_player" 
 type="application/x-shockwave-flash" 
@@ -38,6 +43,9 @@ data="http://www.kaltura.com/index.php/kwidget/cache_st/1274763304/wid/_243342/u
 <a href="http://corp.kaltura.com/solutions/overview">video solutions</a> 
 <a href="http://corp.kaltura.com/technology/video_player">video player</a>
 </object>
+
+
+
 
 </body>
 </html>

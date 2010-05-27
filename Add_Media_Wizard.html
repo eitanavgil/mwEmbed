@@ -5,6 +5,7 @@
 	<title> Sample mwEmbed Add Media Wizard</title>
 	<!--  <script type="text/javascript" src="http://html5.kaltura.org/js"></script>  -->
 	<script type="text/javascript" src="../mwEmbed/mwEmbedLoader.js"></script>
+	<script type="text/javascript" src="../mwEmbed/mwEmbed.js"></script>
 	<style type="text/css">
 		body{
 			font-size:80%;
@@ -34,11 +35,11 @@
 				// Note selections in the textbox will take over the default query
 				'default_query' : 'fish',	
 				
-				//we only enabled commons
-	      //(since javascript includes from other servers would be problamatic ) in a default install
-	      //** but you can set this to 'all' to pull from multiple repositories  
-	      'enabled_providers' : [ 'wiki_commons', 'kaltura', 'archive_org', 'flickr', 'metavid' ]        	
-				
+					//we only enabled commons
+		      //(since javascript includes from other servers would be problamatic ) in a default install
+		      //** but you can set this to 'all' to pull from multiple repositories  
+		      'enabled_providers' : [ 'wiki_commons', 'kaltura', 'archive_org', 'flickr', 'metavid' ]        	
+					
 			} );			
  		} ); 			
 	});	

@@ -7,10 +7,11 @@ To use the library include the following javascript:
 In the head of your page you will need jQuery and the mwEmbed-player package:
 
 <!-- If your page already includes jQuery you can skip this step -->
-<script type="text/javascript" src="mwEmbed/libraries/jquery/jquery-1.4.2.js" ></scirpt>
+<script type="text/javascript" src="/kaltura-html5-player/jquery-1.4.2.min.js" ></scirpt>
 
-<!-- Here is the reference to the static mwEmbed player  -->
-<script type="text/javascript" src="mwEmbed/mwEmbed-player-static-package.js" ></scirpt>
+<!-- Include the css and javascript  -->
+<link rel="stylesheet" href="kaltura-html5-player/mwEmbed-player-static.css"></link> 
+<script type="text/javascript" src="kaltura-html5-player/mwEmbed-player-static.js" ></scirpt>
 
 ...
 Now in your HTML you can use the video tag and it will be given a user interface ie: 

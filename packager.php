@@ -16,13 +16,9 @@ $html5PlayerClassList = array(
 	// Core library ( includes core components and loader)
  	'mwEmbed',
 
-	// jquery css UI theme support
-	'mw.style.jqueryUiRedmond',
-
 	// Core Abstract player and skin
 	'mw.EmbedPlayer',
-	'ctrlBuilder',
-	'mw.style.EmbedPlayer',
+	'ctrlBuilder',	
 
 	// jquery ui and ui-slider
 	'j.ui',
@@ -30,9 +26,7 @@ $html5PlayerClassList = array(
 
 	// Player Skins
 	'kskinConfig',
-	'mw.style.kskin',
-	'mvpcfConfig',
-	'mw.style.mvpcf',
+	'mvpcfConfig',	
 
 	// Embed Libraries
 	'nativeEmbed',
@@ -45,17 +39,24 @@ $html5PlayerClassList = array(
 	'j.cookie',
 
 	// TimedText Module
-	'mw.TimedText',
-	'mw.style.TimedText',
+	'mw.TimedText',	
 	'j.fn.menu',
+);
+$html5PlayerStyleList = array( 
+	// Seperate all the style sheets for easy "editing" 
+	'mw.style.jqueryUiRedmond',
+	'mw.style.mwCommon',
+	'mw.style.EmbedPlayer',
+	'mw.style.mvpcf',
+	'mw.style.kskin',
+	'mw.style.TimedText',
 	'mw.style.jquerymenu',
-
 );
 
 // Switch among requested packages:
 switch( $packageName ) {
 	case 'dreamweaver-html5player':
-		pakageClassList( $packageName,  $html5PlayerClassList );
+		pakageClassList( $packageName,  $html5PlayerClassList,  $html5PlayerStyleList );
 	break;
 	default:
 		print "Package Name was not valid";
@@ -63,9 +64,16 @@ switch( $packageName ) {
 }
 
 // Get the entire string from the deployed version:
-function pakageClassList($packageName, $playerClassList ){
+function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleList ){
 	$zip = new ZipArchive();
-	$filename = './mwEmbed-' . $packageName . time() . '.zip';
+	$filename = './' . $packageName . '.zip';
+
+	$rootFileFolder = '/kaltura-html5-player';
+
+	// Remove the old zip if present
+	if( !unlink( $filename ) ){
+		exit( "error could not remove old package: " . $packageName . '.zip');
+	}
 
 	if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE) {
     	exit("cannot open <$filename>\n");
@@ -101,10 +109,15 @@ function pakageClassList($packageName, $playerClassList ){
 		'TimedText'	=> 'modules/TimedText'
 	);
 
-	// Get the combined javascript: ( setup the packaged class list )
-	$_GET['class'] = implode(',', $playerClassList);
-	$myScriptLoader = new jsScriptLoader();
 
+
+	/*******************
+	* CSS 
+	*******************/
+	// Clear out the script Loader for css build out
+	$myScriptLoader = new jsScriptLoader();
+	$_GET['class'] = implode(',', $html5PlayerStyleList);
+	$_GET['format'] = 'css';
 	ob_start();
 	// Run jsScriptLoader action:
 	if( !$myScriptLoader->outputFromCache() ){
@@ -112,31 +125,103 @@ function pakageClassList($packageName, $playerClassList ){
 	}
 	$scriptOutput = ob_get_clean();
 
+	//Output combined css
+	//file_put_contents( '../mwEmbed/mwEmbed-player-static.css', $scriptOutput );
+
+	$zip->addFromString( $rootFileFolder. "/mwEmbed-player-static.css", $scriptOutput);
+
+	/*******************
+	* JS
+	*******************/
+	$_GET['format'] = 'js';
+	// Get the combined javascript: ( setup the packaged class list )
+	$_GET['class'] = implode(',', $html5PlayerClassList);
+	$myScriptLoader = new jsScriptLoader();
+
+	ob_start();
+	// Run jsScriptLoader action:
+	if( !$myScriptLoader->outputFromCache() ){
+		$myScriptLoader->doScriptLoader();
+	}
+
+	$scriptOutput = ob_get_clean();
+	// Register the css classes ( static builds inlcude the css explicity )
+	$scriptOutput.= "\n" . implode('=1;', $html5PlayerStyleList) . "=1;\n";
+
 	// Output the static package to zip file
-	file_put_contents( '../mwEmbed/mwEmbed-player-static.js', $scriptOutput );
+	//file_put_contents( '../mwEmbed/mwEmbed-player-static.js', $scriptOutput );
+	$zip->addFromString( $rootFileFolder. "/mwEmbed-player-static.js", $scriptOutput);
 
-	// Loop over the directories if we find an "image" add it to the zip file with full path
-	// *yea static above should be js driven*
-	//$objects = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $moduleAbsoultePath ), RecursiveIteratorIterator::SELF_FIRST );
+	//Start with everything in the package name folder 
+	$packageTemplateDir = realpath( dirname( __FILE__ ) . "/$packageName" );
+	if( is_dir( $packageTemplateDir ) ) {
+		$objects = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $packageTemplateDir ), RecursiveIteratorIterator::SELF_FIRST );
+		foreach( $objects as $path => $object ) {
+			if( strpos( $path, '.svn' ) == 0 ) {
+				$targetZipPath = str_replace( $packageTemplateDir, '', $path );				
+				$zip->addFile( $path, $rootFileFolder . $targetZipPath );
+			}
+		}
+	} else {
+		die( "could not find pacakge directory template for $packageName ");
+	}
+	
+	// Add the jQuery: libraries/jquery/jquery-1.4.2.js
+	$zip->addFile( '../mwEmbed/libraries/jquery/jquery-1.4.2.min.js', $rootFileFolder . '/jquery-1.4.2.min.js' );
+	
+	// Loop over the directories if we find an "image", "swf", or "jar" add it with full path
+	$objects = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( '../mwEmbed/' ), RecursiveIteratorIterator::SELF_FIRST );
+	foreach( $objects as $path => $object ){
+		$ext = substr( $path, -4 );
+		$isValidModule = false;
+		foreach( $wgExtensionJavascriptModules as $moduleName => $modulePath ){
+			if( strpos( $path, $modulePath ) !== false ){
+				$isValidModule = true;
+			}
+		}
+		if( !	$isValidModule 
+				&& strpos( $path, 'libraries/jquery/'  ) === false 
+				&& strpos( $path, 'skins/common/'  ) === false ) {
+			//Skip the module not in module list nor is it a jquery asset
+			continue;
+		}
+		
 
-	// Get all the skin images in appropriate paths
+		if( $ext == '.swf' || $ext == '.jar' || $ext == '.gif' || $ext == 'jpeg' || $ext == '.jpg' || $ext == '.png' ){
+			$targetZipPath = str_replace( '../mwEmbed', '', $path);
+			$zip->addFile( $path, $rootFileFolder . $targetZipPath );
+		}	
+	}
+	// Overide the script-loder header
+	header("Content-Type: text/html");
 
-	//$zip->addFile(
-	//$zip->addFromString("mwEmbed/mwEmbed-player-static.js" , $mwEmbedStatic);
-	//die();
+ 	if( $zip->status == 0){
+			$stats= "<pre>";
+			$stats.= "numfiles: " . $zip->numFiles . "\n";
+			$stats.= "status:" . $zip->getStatusString() . "\n";
+			for($i = 0; $i < $zip->numFiles; $i++)
+			{  
+				$stats.= 'Filename: ' . $zip->getNameIndex($i) . "\n";
+			}
+			$stats.= "</pre>";
+			$zip->close(); 
+
+			echo 'Download <a href="'. $packageName .'.zip">' . $packageName. '.zip</a> ( ' . 
+				formatBytes( filesize( realpath( dirname( __FILE__ ) ) . "/{$packageName}.zip")  ). ' )<br />';
+			echo $stats;
+	} else { 
+		echo "Error: " . $zip->getStatusString(); 
+	}
 }
-
-
-/*
-
-$zip->addFromString("testfilephp.txt", "#1 This is a test string added as testfilephp.txt.\n");
-$zip->addFromString("testfilephp2.txt", "#2 This is a test string added as testfilephp2.txt.\n");
-$zip->addFile($thisdir . "/too.php","/testfromfile.php");
-echo "numfiles: " . $zip->numFiles . "\n";
-echo "status:" . $zip->status . "\n";
-$zip->close();
-
-*/
-// Set Download header
-
+function formatBytes($bytes, $precision = 2) {
+    $units = array('B', 'KB', 'MB', 'GB', 'TB');
+  
+    $bytes = max($bytes, 0);
+    $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+    $pow = min($pow, count($units) - 1);
+  
+    $bytes /= pow(1024, $pow);
+  
+    return round($bytes, $precision) . ' ' . $units[$pow];
+} 
 ?>

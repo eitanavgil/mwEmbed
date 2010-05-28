@@ -1,0 +1,33 @@
+For license info see LICENSE file
+
+For full un-minified source see  http://www.kaltura.org/project/HTML5_Video_Media_JavaScript_Library  
+
+To use the library include the following javascript:
+
+In the head of your page you will need jQuery and the mwEmbed-player package:
+
+<!-- If your page already includes jQuery you can skip this step -->
+<script type="text/javascript" src="mwEmbed/libraries/jquery/jquery-1.4.2.js" ></scirpt>
+
+<!-- Here is the reference to the static mwEmbed player  -->
+<script type="text/javascript" src="mwEmbed/mwEmbed-player-static-package.js" ></scirpt>
+
+...
+Now in your HTML you can use the video tag and it will be given a user interface ie: 
+
+<video poster="myPoster.jpg" style="width:400px;height:300px" durationHint="32.2" >
+    <source src="myOgg.ogg" />
+    <source src="myH.264.mp4" />
+</video>
+
+
+
+== Notes on Optimization == 
+
+mwEmbed is designed to be used with a script-loader and this static package sacrifices
+transport size and packages in code every client won't use, in order to be a single static file. 
+You can learn more about using mwEmbed with a script-loader on the project home page. Also if
+you remote include the kaltura code it works with the only-what-you-need loader system ie: 
+<script type="text/javascript" src="http://html5.kaltura.org/js" > </script>
+
+We may include some of these techniques in future versions of the static gadget. 

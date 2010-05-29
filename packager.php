@@ -55,7 +55,7 @@ $html5PlayerStyleList = array(
 
 // Switch among requested packages:
 switch( $packageName ) {
-	case 'dreamweaver-html5player':
+	case 'kaltura-html5player-dreamweaver-widget':
 		pakageClassList( $packageName,  $html5PlayerClassList,  $html5PlayerStyleList );
 	break;
 	default:

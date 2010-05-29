@@ -3,22 +3,22 @@
 <html>
 <head>
 	<title>Sample jqueryUI Themed Player</title>
-  <script type="text/javascript" src="http://html5.kaltura.org/js"></script>
+  	<script type="text/javascript" src="http://html5.kaltura.org/js"></script>
+	<script type="text/javascript">
+		// Turn off control overlay ( so you can see how its themed ) 
+		mw.setConfig( 'overlayControls', false );
+		// Add the theme roller:
+		mw.ready( function() {
+			if( $j.browser.mozilla ) {
+				mw.load( 'http://jqueryui.com/themeroller/developertool/developertool.js.php', function(){
+					//jquitr.addThemeRoller();
+				});
+			} else {
+				$j( 'body' ).append( '<div style="float:right;width:250px"> The themeroller, is only compatible with firefox at this time </div>' );
+			}
+		} );
+	</script>
 </head>
-<script type="text/javascript">
-	// Turn off control overlay ( so you can see how its themed ) 
-	mw.setConfig( 'overlayControls', false );
-	// Add the theme roller:
-	mw.ready( function() {
-		if( $j.browser.mozilla ) {
-			mw.load( 'http://jqueryui.com/themeroller/developertool/developertool.js.php', function(){
-				//jquitr.addThemeRoller();
-			});
-		} else {
-			$j( 'body' ).append( '<div style="float:right;width:250px"> The themeroller, is only compatible with firefox at this time </div>' );
-		}
-	} );
-</script>
 <body>
 <div id="main" style="width:700px;margin: 0 auto;">
 	<h3> Sample Themable Player:</h3>

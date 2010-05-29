@@ -84,7 +84,7 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleL
 	define( 'SCRIPTLOADER_MEDIAWIKI', true);
 	define( 'DO_MAINTENANCE', true);
 
-	// change to the mwEmbed Directory
+	// change to the mwEmbed Directory	
 	chdir( '../mwEmbed/' );
 
 	// Load the script loader:
@@ -194,6 +194,8 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleL
 			$zip->addFile( $path, $rootFileFolder . $targetZipPath );
 		}	
 	}
+	$zip->close(); 
+	$zip->open(  dirname( __FILE__ ) . "/" . $filename );
 	// Overide the script-loder header
 	header("Content-Type: text/html");
 
@@ -203,10 +205,14 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleL
 			$stats.= "status:" . $zip->getStatusString() . "\n";
 			for($i = 0; $i < $zip->numFiles; $i++)
 			{  
-				$stats.= 'Filename: ' . $zip->getNameIndex($i) . "\n";
+				$fileStat = $zip->statIndex($i) ;
+				$stats.= 'Filename: ' . $zip->getNameIndex($i) 
+					. ' ( ' . formatBytes( $fileStat['size'] ) 
+					. ', ' . formatBytes( $fileStat['comp_size'] )
+					. " ) \n";
 			}
 			$stats.= "</pre>";
-			$zip->close(); 
+		
 
 			echo 'Download <a href="'. $packageName .'.zip">' . $packageName. '.zip</a> ( ' . 
 				formatBytes( filesize( realpath( dirname( __FILE__ ) ) . "/{$packageName}.zip")  ). ' )<br />';

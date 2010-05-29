@@ -71,8 +71,10 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleL
 	$rootFileFolder = '/kaltura-html5-player';
 
 	// Remove the old zip if present
-	if( !unlink( $filename ) ){
-		exit( "error could not remove old package: " . $packageName . '.zip');
+	if( is_file( $filename ) ){
+		if( !unlink( $filename ) ){
+			exit( "error could not remove old package: " . $packageName . '.zip');
+		}
 	}
 
 	if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE) {

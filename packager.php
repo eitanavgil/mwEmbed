@@ -206,10 +206,10 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleL
 			for($i = 0; $i < $zip->numFiles; $i++)
 			{  
 				$fileStat = $zip->statIndex($i) ;
-				$stats.= 'Filename: ' . $zip->getNameIndex($i) 
-					. ' ( ' . formatBytes( $fileStat['size'] ) 
-					. ', ' . formatBytes( $fileStat['comp_size'] )
-					. " ) \n";
+				$stats.= 'File: ' 
+					. formatBytes( $fileStat['comp_size'] ) 
+					. ', ' . formatBytes( $fileStat['size'] )
+					. ' :: ' . $zip->getNameIndex($i) . " \n";
 			}
 			$stats.= "</pre>";
 		

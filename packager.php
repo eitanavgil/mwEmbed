@@ -212,7 +212,9 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleL
 		}
 		if( !	$isValidModule 
 				&& strpos( $path, 'libraries/jquery/'  ) === false 
-				&& strpos( $path, 'skins/common/'  ) === false ) {
+				&& strpos( $path, 'skins/common/'  ) === false 
+				&& strpos( $path, 'mwEmbed.js' ) === false 
+				&& strpos( $path, 'languages/') === false ) {
 			//Skip the module not in module list nor is it a jquery asset
 			continue;
 		}		

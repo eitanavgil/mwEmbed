@@ -23,11 +23,15 @@ THE SOFTWARE.
 For information and updates about the project see: 
 http://kaltura.org/project/HTML5_Media_JavaScript_Library
 
-For an overview of all mwEmbed files as part of the MediaWiki project see (licensed under GPL2): 
-http://www.mediawiki.org/wiki/MwEmbed
+The Kaltura HTML5 player Library code is Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+Other Libraries used include their licence info in their included path.
 
-The Kaltura HTML5 Video Library code for Dreamweaver is Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
-Libraries used include their licence info in their included path.
+MwEmbed player-widget is dual licenced under GPL2 or MIT license.
+
+The player-widget distrabution is limited to MIT license components. Outside 
+of this player-widget distrabution MwEmbed is packaged with GPL2 modules and
+compoents. For more information on the complete GPL2 distrabution visit:
+http://kaltura.org/project/HTML5_Media_JavaScript_Library
 
 For Contacts and Support - Kaltura inc.
 http://www.kaltura.com

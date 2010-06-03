@@ -3,8 +3,8 @@
 <html>
 <head>
 	<title> Sample Fallback Player </title>
-	<script type="text/javascript" src="http://html5.kaltura.org/js"></script>  
-	<!--   <script type="text/javascript" src="../mwEmbed/mwEmbedLoader.js"></script>  --> 
+	<!-- <script type="text/javascript" src="http://html5.kaltura.org/js"></script>   --> 
+	<script type="text/javascript" src="../mwEmbed/mwEmbedLoader.js"></script>  
 	<!-- <script type="text/javascript" src="../mwEmbed/mwEmbed.js"></script>    --> 		
 	<!-- <script type="text/javascript" src="../mwEmbed/jsScriptLoader.php?class=window.jQuery,mwEmbed&debug=true"></script> -->   	
 
@@ -17,8 +17,8 @@
 			if( vid.mediaElement && vid.mediaElement.selectedSource ){
 				$j('#format').text( vid.mediaElement.selectedSource.getTitle() );
 			}
-			if( vid.selected_player ) {
-				$j('#playertitle').text( vid.selected_player.getName() );
+			if( vid.selectedPlayer ) {
+				$j('#playertitle').text( vid.selectedPlayer.getName() );
 			}
 			setTimeout(updateTypeLoop, 1000);
 		}

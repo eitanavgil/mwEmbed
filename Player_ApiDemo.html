@@ -13,8 +13,8 @@ mw.ready( function(){
 		if( vid.mediaElement && vid.mediaElement.selectedSource ){
 			$j('#format').text( vid.mediaElement.selectedSource.getTitle() );
 		}
-		if( vid.selected_player ) {
-			$j('#playertitle').text( vid.selected_player.getName() );
+		if( vid.selectedPlayer ) {
+			$j('#playertitle').text( vid.selectedPlayer.getName() );
 		}
 		setTimeout(updateTypeLoop, 1000);
 	}

@@ -34,6 +34,7 @@ $html5PlayerClassList = array(
 	// Core Abstract player and skin
 	'mw.EmbedPlayer',
 	'ctrlBuilder',	
+	'j.hoverIntent',
 
 	// jquery ui and ui-slider
 	'j.ui',

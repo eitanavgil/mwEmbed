@@ -33,23 +33,23 @@ $html5PlayerClassList = array(
 
 	// Core Abstract player and skin
 	'mw.EmbedPlayer',
-	'ctrlBuilder',	
-	'j.hoverIntent',
+	'mw.PlayerControlBuilder',	
+	'j.fn.hoverIntent',
 
 	// jquery ui and ui-slider
 	'j.ui',
 	'j.ui.slider',
 
 	// Player Skins
-	'kskinConfig',
-	'mvpcfConfig',	
+	'mw.PlayerSkinKskin',
+	'mw.PlayerSkinMvpcf',	
 
 	// Embed Libraries
-	'nativeEmbed',
-	'javaEmbed',
-	'vlcEmbed',
-	'kplayerEmbed',
-	'genericEmbed',
+	'mw.EmbedPlayerNative',
+	'mw.EmbedPlayerJava',
+	'mw.EmbedPlayerVlc',
+	'mw.EmbedPlayerKplayer',
+	'mw.EmbedPlayerGeneric',
 
 	// jQuery plugin's used by Embed library
 	'j.cookie',
@@ -65,8 +65,8 @@ $html5PlayerStyleList = array(
 	'mw.style.jqueryUiRedmond',
 	'mw.style.mwCommon',
 	'mw.style.EmbedPlayer',
-	'mw.style.mvpcf',
-	'mw.style.kskin',
+	'mw.style.PlayerSkinMvpcf',
+	'mw.style.PlayerSkinKskin',
 	'mw.style.TimedText',
 	'mw.style.jquerymenu',
 );
@@ -139,6 +139,7 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleL
 	*******************/
 	// Clear out the script Loader for css build out
 	$myScriptLoader = new jsScriptLoader();
+	
 	$_GET['class'] = implode(',', $html5PlayerStyleList);
 	$_GET['format'] = 'css';
 	ob_start();

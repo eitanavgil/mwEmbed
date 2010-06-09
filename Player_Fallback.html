@@ -2,13 +2,11 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<title> Sample Fallback Player </title>
+	<title> Sample Fallback Player </title>		     
+	<script type="text/javascript" src="http://html5.kaltura.org/js"></script>	
 	
-	<script type="text/javascript" src="http://html5.kaltura.org/js"></script>  
-	
-	<!-- 	
-	<script type="text/javascript" src="http://html5.kaltura.org/js"></script>  
-	<script type="text/javascript" src="../mwEmbed/mwEmbedLoader.js"></script>     
+	<!-- 		
+	<script type="text/javascript" src="../mwEmbed/mwEmbedLoader.js"></script>  	
 	<script type="text/javascript" src="../mwEmbed/mwEmbed.js"></script> 	
 	<script type="text/javascript" src="../mwEmbed/jsScriptLoader.php?class=window.jQuery,mwEmbed&debug=true"></script> 
 	-->   	
@@ -20,10 +18,10 @@
 		function updateTypeLoop(){
 			var vid =  $j('#vid1').get(0);
 			if( vid.mediaElement && vid.mediaElement.selectedSource ){
-				$j('#format').text( vid.mediaElement.selectedSource.getTitle() );
+				$j( '#format' ).text( vid.mediaElement.selectedSource.getTitle() );
 			}
 			if( vid.selectedPlayer ) {
-				$j('#playertitle').text( vid.selectedPlayer.getName() );
+				$j( '#playertitle' ).text( vid.selectedPlayer.getName() );
 			}
 			setTimeout(updateTypeLoop, 1000);
 		}

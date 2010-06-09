@@ -12,10 +12,9 @@
 -->
   
 <script type="text/javascript">
-	if( document.URL.indexOf('forceMobileSafari')!=-1){		
-		mw.setConfig('forceMobileSafari', true);
-	}		
-	
+	if( document.URL.indexOf('forceMobileSafari') != -1 ){		
+		mw.setConfig( 'forceMobileSafari' , true );
+	}			
 	mw.setConfig( 'overlayControls', false );
 	mw.setConfig( 'kalturaAnalyticsCallbackLog', function( monitorEvent ){
 		$j('#analyticsLog').append( monitorEvent + "\n");
@@ -25,13 +24,13 @@
 </head>
 <body>
 <h2> Fall forward: ( kaltura embed code on iPad / iPhone ) + analytics </h2>
-<a href="?forceMobileSafari"> Force Mobile Safari</a> for testing with google chrome and desktop safari.
+<a href="?forceMobileSafari"> Force Mobile Safari</a> for testing with desktop chrome and safari.
 <br />
 
 
-<div style="position:absolute;top:110px;left:450px;width:300px;height:300px;" >
-<i>Analytics events:</i> ( video time, elapsed time )<br />
-<textarea id="analyticsLog" cols='40' rows='8' ></textarea>
+<div style="position:absolute;top:90px;left:450px;width:300px;height:300px;" >
+<i>Analytics events:</i> ( only html5 )<br />
+<textarea id="analyticsLog" cols='40' rows='24' ></textarea>
 </div>
 
 <object id="kaltura_player" name="kaltura_player" 

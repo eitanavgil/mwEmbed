@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title> Sample Fallback Player </title>		     
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject_src.js"></script> 	
+
+	<script type="text/javascript">	
+		var playerPath =  '../mwEmbed/modules/EmbedPlayer/binPlayers/kaltura-player';				
+	
+		var flashvars = {};
+		flashvars.autoPlay = "true";
+		flashvars.entryId = 'http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb_trailer_iphone270P.m4v';
+		flashvars.debugMode = "true";
+		flashvars.fileSystemMode = "true";
+		flashvars.widgetId = "_7463";
+		flashvars.partnerId = "7463";
+		flashvars.pluginDomain = "kdp3/plugins/";
+		flashvars.kml = "local";
+		flashvars.kmlPath = playerPath + '/config.xml';
+		flashvars.sourceType = "url";
+		
+		//flashvars.host = "www.kaltura.com";
+		flashvars.externalInterfaceDisabled = 'false';
+		flashvars.skinPath = playerPath + '/skin.swf';
+		
+		var params = { };
+		params.quality = "best";
+		params.wmode = "opaque";
+		params.allowfullscreen = "true";
+		params.allowscriptaccess = "always";
+		
+		var attributes = {};
+		attributes.id = this.pid;
+		attributes.name = this.pid;
+		
+		// Do the flash embedding with embedSWF		
+		swfobject.embedSWF( 
+			playerPath + "/kdp3.swf", 
+			'videoContainer', 
+			'400', 
+			'300', 
+			"10.0.0", 
+			playerPath + "/expressInstall.swf", 
+			flashvars, 
+			params, 
+			attributes
+		);
+		
+</script>
+</head>
+
+<body>
+<h3> Stand alone IE fail ( no mwEmbed ) :</h3>
+<div id="videoContainer" style="width:500px;height:300px;">
+
+</div>
+
+</body>
+</html>
+

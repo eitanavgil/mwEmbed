@@ -36,7 +36,7 @@
 		attributes.name = this.pid;
 		
 		// Do the flash embedding with embedSWF		
-		swfobject.embedSWF( 
+		/*swfobject.embedSWF( 
 			playerPath + "/kdp3.swf", 
 			'videoContainer', 
 			'400', 
@@ -46,12 +46,42 @@
 			flashvars, 
 			params, 
 			attributes
-		);
+		);*/
+		function pageReady(){
+			var flashVarsValue = '';
+			var amp = '';
+			for(var i in flashvars){
+				flashVarsValue += amp + i + '=' + flashvars[i];
+				amp = '&amp;';
+			}
+			var vid = document.getElementById( 'videoContainer' );
+			//vid.innerHTML = 'cat';
+			vid.innerHTML = '<object id="kaltura_player" ' +  
+				'name="kaltura_player" '+
+				'type="application/x-shockwave-flash" '+ 
+				'allowFullScreen="true" '+
+				'allowNetworking="all" ' + 
+				'allowScriptAccess="always" '+ 
+				'height="330" ' +
+				'width="400" ' +
+				//resource="http://akmi.kaltura.com/index.php/kwidget/cache_st/1276563653/wid/_133292/uiconf_id/48130/entry_id/0_zs9c0ntv"
+				///data="http://akmi.kaltura.com/index.php/kwidget/cache_st/1276563653/wid/_133292/uiconf_id/48130/entry_id/0_zs9c0ntv">
+				'data="../mwEmbed/modules/EmbedPlayer/binPlayers/kaltura-player/kdp3.swf" >' + 
+				  
+				  '<param name="allowFullScreen" value="true" />' +
+				  '<param name="allowNetworking" value="all" />' +
+				  '<param name="allowScriptAccess" value="always" />'+
+				  '<param name="bgcolor" value="#000000" />' +
+				  '<param name="flashVars" value="' + flashVarsValue + '" />' + 
+				  '<param name="movie"' + 
+				  'value="../mwEmbed/modules/EmbedPlayer/binPlayers/kaltura-player/kdp3.swf" />' + 	
+				'</object>'; 
+		}
 		
 </script>
 </head>
 
-<body>
+<body onload="pageReady()">
 <h3> Stand alone IE fail ( no mwEmbed ) :</h3>
 <div id="videoContainer" style="width:500px;height:300px;">
 

@@ -15,10 +15,10 @@ $licenseHeader = '/**
  * @license
  * mwEmbed
  * Dual licensed under the MIT or GPL Version 2 licenses.
- * 
- * @copyright (C) 2010 Kaltura 
+ *
+ * @copyright (C) 2010 Kaltura
  * @author Michael Dale ( michael.dale at kaltura.com )
- * 
+ *
  * @url http://www.kaltura.org/project/HTML5_Video_Media_JavaScript_Library
  *
  * Libraries used carry code license in headers
@@ -33,7 +33,7 @@ $html5PlayerClassList = array(
 
 	// Core Abstract player and skin
 	'mw.EmbedPlayer',
-	'mw.PlayerControlBuilder',	
+	'mw.PlayerControlBuilder',
 	'j.fn.hoverIntent',
 
 	// jquery ui and ui-slider
@@ -42,7 +42,7 @@ $html5PlayerClassList = array(
 
 	// Player Skins
 	'mw.PlayerSkinKskin',
-	'mw.PlayerSkinMvpcf',	
+	'mw.PlayerSkinMvpcf',
 
 	// Embed Libraries
 	'mw.EmbedPlayerNative',
@@ -55,13 +55,13 @@ $html5PlayerClassList = array(
 	'j.cookie',
 
 	// TimedText Module
-	'mw.TimedText',	
+	'mw.TimedText',
 	'j.fn.menu',
 );
-$html5PlayerStyleList = array( 
-	// Separate all the style sheets for path preservation 
+$html5PlayerStyleList = array(
+	// Separate all the style sheets for path preservation
 	// ( normally the script-loader serves absolute or relative paths
-	//  based on the scriptLoader location ) 
+	//  based on the scriptLoader location )
 	'mw.style.jqueryUiRedmond',
 	'mw.style.mwCommon',
 	'mw.style.EmbedPlayer',
@@ -84,13 +84,13 @@ switch( $packageName ) {
 // Get the entire string from the deployed version:
 function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleList ){
 	global $versionString, $licenseHeader;
-	
+
 	$zip = new ZipArchive();
 	$filename = './' . $packageName . '.' . $versionString . '.zip';
-	
-	
-	$rootFileFolder = 'kaltura-html5player-widget';	
-	
+
+
+	$rootFileFolder = 'kaltura-html5player-widget';
+
 	// 	Remove the old zip if present
 	if( is_file( $filename ) ){
 		if( !unlink( $filename ) ){
@@ -105,11 +105,11 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleL
 	define( 'SCRIPTLOADER_MEDIAWIKI', true);
 	define( 'DO_MAINTENANCE', true);
 
-	// change to the mwEmbed Directory	
+	// change to the mwEmbed Directory
 	chdir( '../mwEmbed/' );
 
 	// Load the script loader:
-	require_once( 'jsScriptLoader.php' );
+	require_once( 'ResourceLoader.php' );
 
 	// Load the no-mediawiki config ( we have a hybrid no-mediaWiki config setup )
 	require_once( 'includes/noMediaWikiConfig.php' );
@@ -135,17 +135,17 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleL
 
 
 	/*******************
-	* CSS 
+	* CSS
 	*******************/
 	// Clear out the script Loader for css build out
-	$myScriptLoader = new jsScriptLoader();
-	
+	$myResourceLoader = new ResourceLoader();
+
 	$_GET['class'] = implode(',', $html5PlayerStyleList);
 	$_GET['format'] = 'css';
 	ob_start();
-	// Run jsScriptLoader action:
-	if( !$myScriptLoader->outputFromCache() ){
-		$myScriptLoader->doScriptLoader();
+	// Run ResourceLoader action:
+	if( !$myResourceLoader->outputFromCache() ){
+		$myResourceLoader->doResourceLoader();
 	}
 	$scriptOutput = ob_get_clean();
 
@@ -160,98 +160,98 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleL
 	$_GET['format'] = 'js';
 	// Get the combined javascript: ( setup the packaged class list )
 	$_GET['class'] = implode(',', $html5PlayerClassList);
-	$myScriptLoader = new jsScriptLoader();
+	$myResourceLoader = new ResourceLoader();
 
 	ob_start();
-	// Run jsScriptLoader action:
-	if( !$myScriptLoader->outputFromCache() ){
-		$myScriptLoader->doScriptLoader();
+	// Run ResourceLoader action:
+	if( !$myResourceLoader->outputFromCache() ){
+		$myResourceLoader->doResourceLoader();
 	}
 
 	$scriptOutput = ob_get_clean();
-	
-	// Add the license header: 
+
+	// Add the license header:
 	$scriptOutput = $licenseHeader . "\n" . $scriptOutput;
-	
-	// Register the css classes ( static builds inlcude the css explicity )
+
+	// Register the css classes ( static builds include the css explicitly  )
 	$scriptOutput.= "\n" . implode('=1;', $html5PlayerStyleList) . "=1;\n";
 
-	// Disable local usage of cortado ( GPL package in MIT set) 
+	// Disable local usage of cortado ( GPL package in MIT set)
 	$scriptOutput.= "\n mw.setConfig( 'relativeCortadoAppletPath', false );\n";
-	
+
 	// Output the static package to zip file
 	//file_put_contents( '../mwEmbed/mwEmbed-player-static.js', $scriptOutput );
 	$zip->addFromString( $rootFileFolder. "/mwEmbed-player-static.js", $scriptOutput);
 
-	//Start with everything in the package name folder 
+	//Start with everything in the package name folder
 	$packageTemplateDir = realpath( dirname( __FILE__ ) . "/$packageName" );
 	if( is_dir( $packageTemplateDir ) ) {
 		$objects = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $packageTemplateDir ), RecursiveIteratorIterator::SELF_FIRST );
 		foreach( $objects as $path => $object ) {
 			if( strpos( $path, '.svn' ) == 0 ) {
 				if( is_file( $path )){
-					$targetZipPath = str_replace( $packageTemplateDir, '', $path );							
+					$targetZipPath = str_replace( $packageTemplateDir, '', $path );
 					$zip->addFile( $path, $rootFileFolder . $targetZipPath );
 				}
 			}
 		}
 	} else {
-		die( "could not find pacakge directory template for $packageName ");
+		die( "could not find package directory template for $packageName ");
 	}
-	
+
 	// Add the jQuery: libraries/jquery/jquery-1.4.2.js
 	$zip->addFile( '../mwEmbed/libraries/jquery/jquery-1.4.2.min.js', $rootFileFolder . '/jquery-1.4.2.min.js' );
-	
+
 	// Loop over the directories if we find an "image", "swf", or "jar" add it with full path
 	$objects = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( '../mwEmbed/' ), RecursiveIteratorIterator::SELF_FIRST );
 	foreach( $objects as $path => $object ){
-		$ext = substr($path, strrpos( $path, '.' )+1 );		
+		$ext = substr($path, strrpos( $path, '.' )+1 );
 		$isValidModule = false;
 		foreach( $wgExtensionJavascriptModules as $moduleName => $modulePath ){
 			if( strpos( $path, $modulePath ) !== false ){
 				$isValidModule = true;
 			}
 		}
-		if( !	$isValidModule 
-				&& strpos( $path, 'libraries/jquery/'  ) === false 
-				&& strpos( $path, 'skins/common/'  ) === false 
-				&& strpos( $path, 'mwEmbed.js' ) === false 
+		if( !	$isValidModule
+				&& strpos( $path, 'libraries/jquery/'  ) === false
+				&& strpos( $path, 'skins/common/'  ) === false
+				&& strpos( $path, 'mwEmbed.js' ) === false
 				&& strpos( $path, 'languages/') === false ) {
 			//Skip the module not in module list nor is it a jquery asset
 			continue;
-		}		
-		if( $ext == 'swf' || $ext == 'js' || $ext == 'gif' || 
+		}
+		if( $ext == 'swf' || $ext == 'js' || $ext == 'gif' ||
 			$ext == 'jpeg' || $ext == 'jpg' || $ext == 'png' || $ext == 'txt'){
-			$targetZipPath = str_replace( '../mwEmbed', '', $path);		
+			$targetZipPath = str_replace( '../mwEmbed', '', $path);
 			$zip->addFile( $path, $rootFileFolder . $targetZipPath );
 		}
 	}
-	$zip->close(); 
-	
+	$zip->close();
+
 	// unzip the file
 	$zip->open(  dirname( __FILE__ ) . "/" . $filename );
-	
+
 	chdir( dirname( __FILE__ ) .  "/" );
 	// remove the host zip file
 	unlink( $filename );
 	$zipDir = 'temp' . time() ;
-	// PHP zip SUCKS! (windows 7 can't read the zip file ) unzip and zip via command line :(	
+	// PHP zip SUCKS! (windows 7 can't read the zip file ) unzip and zip via command line :(
 	@$zip->extractTo(  dirname( __FILE__ ) .  "/" .  $zipDir );
-	$zip->close(); 
-	
-	chdir( dirname( __FILE__ ) .  "/" . $zipDir );	
-	// Run a shell compress ( also has weird syntax ) 
-	$zipCmd = "zip -r $packageName $packageName";		
+	$zip->close();
+
+	chdir( dirname( __FILE__ ) .  "/" . $zipDir );
+	// Run a shell compress ( also has weird syntax )
+	$zipCmd = "zip -r $packageName $packageName";
 	exec( $zipCmd );
 	// Go back to package directory
 	chdir( dirname( __FILE__ ) );
-	// move the zip file: 
+	// move the zip file:
 	rename( $zipDir .'/'. $packageName . '.zip', $filename );
 	// remove the temporary directory
 	recursiveDelete( $zipDir );
-	
 
-	
+
+
 	$zip->open(  dirname( __FILE__ ) . "/" . $filename );
 	// Overide the script-loder header
 	header("Content-Type: text/html");
@@ -261,33 +261,33 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleL
 			$stats.= "numfiles: " . $zip->numFiles . "\n";
 			$stats.= "status:" . $zip->getStatusString() . "\n";
 			for($i = 0; $i < $zip->numFiles; $i++)
-			{  
+			{
 				$fileStat = $zip->statIndex($i) ;
-				$stats.= 'File: ' 
-					. formatBytes( $fileStat['comp_size'] ) 
+				$stats.= 'File: '
+					. formatBytes( $fileStat['comp_size'] )
 					. ', ' . formatBytes( $fileStat['size'] )
 					. ' :: ' . $zip->getNameIndex($i) . " \n";
 			}
 			$stats.= "</pre>";
 
-		echo 'Download <a href="'. $packageName . '.' . $versionString .'.zip">' . $packageName. '.' . $versionString . '.zip</a> ( ' . 
+		echo 'Download <a href="'. $packageName . '.' . $versionString .'.zip">' . $packageName. '.' . $versionString . '.zip</a> ( ' .
 			formatBytes( filesize( dirname( __FILE__ ) . "/" . $filename  ) ). ' )<br />';
 		echo $stats;
-	} else { 
-		echo "Error: " . $zip->getStatusString(); 
+	} else {
+		echo "Error: " . $zip->getStatusString();
 	}
 }
 function formatBytes($bytes, $precision = 2) {
     $units = array('B', 'KB', 'MB', 'GB', 'TB');
-  
+
     $bytes = max($bytes, 0);
     $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
     $pow = min($pow, count($units) - 1);
-  
+
     $bytes /= pow(1024, $pow);
-  
+
     return round($bytes, $precision) . ' ' . $units[$pow];
-} 
+}
 function recursiveDelete( $str ){
 	if(is_file($str)){
 		return @unlink($str);
@@ -301,4 +301,3 @@ function recursiveDelete( $str ){
 	}
 }
 ?>
-	

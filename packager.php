@@ -13,7 +13,7 @@ $versionString = '1.1x';
 
 $licenseHeader = '/**
  * @license
- * mwEmbed
+ * Kaltura html5 video library ( code name mwEmbed )
  * Dual licensed under the MIT or GPL Version 2 licenses.
  *
  * @copyright (C) 2010 Kaltura
@@ -25,6 +25,11 @@ $licenseHeader = '/**
  */';
 
 $packageName = $_GET['name'];
+
+$html5PlayerConfig = array(
+	'relativeCortadoAppletPath' => 0,
+	'TimedText.showAddTextLink' =>  0
+);
 
 // This class list is used to create a static files in the html5 player package
 $html5PlayerClassList = array(
@@ -74,7 +79,7 @@ $html5PlayerStyleList = array(
 // Switch among requested packages:
 switch( $packageName ) {
 	case 'kaltura-html5player-widget':
-		pakageClassList( $packageName,  $html5PlayerClassList,  $html5PlayerStyleList );
+		pakageClassList( $packageName,  $html5PlayerClassList, $html5PlayerConfig,  $html5PlayerStyleList );
 	break;
 	default:
 		print "Package Name was not valid";
@@ -82,7 +87,7 @@ switch( $packageName ) {
 }
 
 // Get the entire string from the deployed version:
-function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleList ){
+function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig, $html5PlayerStyleList ){
 	global $versionString, $licenseHeader;
 
 	$zip = new ZipArchive();
@@ -177,7 +182,7 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerStyleL
 	$scriptOutput.= "\n" . implode('=1;', $html5PlayerStyleList) . "=1;\n";
 
 	// Disable local usage of cortado ( GPL package in MIT set)
-	$scriptOutput.= "\n mw.setConfig( 'relativeCortadoAppletPath', false );\n";
+	$scriptOutput.= "\nmw.setConfig( " . json_encode( $html5PlayerConfig ) . ");\n";
 
 	// Output the static package to zip file
 	//file_put_contents( '../mwEmbed/mwEmbed-player-static.js', $scriptOutput );

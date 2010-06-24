@@ -27,7 +27,7 @@ You can remove the kaltura attribution for the player by adding the following ja
 
 You can add a custom jquery ui theme by using the theme wizard: 
 http://www.kaltura.org/apis/html5lib/kplayer-examples/Player_Themable.html
-Downloading that theme and adding a refrence to jquery-ui-.custom.css after the mwEmbed-player-static.css file.
+Downloading that theme and adding a reference to jquery-ui-.custom.css after the mwEmbed-player-static.css file.
 
 More documentation at: 
 http://www.kaltura.org/project/HTML5_Video_Media_JavaScript_Library

@@ -219,6 +219,16 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 				$isValidModule = true;
 			}
 		}
+		// Special case of core loader.js file
+		if( $path == '../mwEmbed/loader.js' ){
+			$loaderText = file_get_contents( $path );
+			$loaderText = preg_replace( '/mwEnabledModuleList\s*\=\s*\[(.*)\]/siU',
+				'mwEnabledModuleList=[\'' . implode( "','", array_keys( $wgExtensionJavascriptModules ) ) . '\']',
+			 	$loaderText);
+			$zip->addFromString( $rootFileFolder . '/loader.js',  $loaderText);
+		}
+		// Special loader case:
+		//if( strpos( $path )=== 'loader.js' );
 		if( !	$isValidModule
 				&& strpos( $path, 'libraries/jquery/'  ) === false
 				&& strpos( $path, 'skins/common/'  ) === false
@@ -227,7 +237,7 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 			//Skip the module not in module list nor is it a jquery asset
 			continue;
 		}
-		if( $ext == 'swf' || $ext == 'js' || $ext == 'gif' ||
+		if( $ext == 'swf' || $ext == 'js' || $ext == 'gif' || $ext == 'css' ||
 			$ext == 'jpeg' || $ext == 'jpg' || $ext == 'png' || $ext == 'txt'){
 			$targetZipPath = str_replace( '../mwEmbed', '', $path);
 			$zip->addFile( $path, $rootFileFolder . $targetZipPath );

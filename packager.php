@@ -58,6 +58,8 @@ $html5PlayerClassList = array(
 
 	// jQuery plugin's used by Embed library
 	'j.cookie',
+	// In case the browser does not include native JSON
+	'JSON',
 
 	// TimedText Module
 	'mw.TimedText',

@@ -233,11 +233,12 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 				&& strpos( $path, 'libraries/jquery/'  ) === false
 				&& strpos( $path, 'skins/common/'  ) === false
 				&& strpos( $path, 'mwEmbed.js' ) === false
-				&& strpos( $path, 'languages/') === false ) {
+				&& strpos( $path, 'languages/') === false
+				&& strpos( $path, 'components/') === false) {
 			//Skip the module not in module list nor is it a jquery asset
 			continue;
 		}
-		if( $ext == 'swf' || $ext == 'js' || $ext == 'gif' || $ext == 'css' ||
+		if( $ext == 'swf' || $ext == 'js' || $ext == 'gif' || $ext == 'css' || $ext == 'xml' ||
 			$ext == 'jpeg' || $ext == 'jpg' || $ext == 'png' || $ext == 'txt'){
 			$targetZipPath = str_replace( '../mwEmbed', '', $path);
 			$zip->addFile( $path, $rootFileFolder . $targetZipPath );

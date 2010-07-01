@@ -149,16 +149,22 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 
 	$_GET['class'] = implode(',', $html5PlayerStyleList);
 	$_GET['format'] = 'css';
+	$_GET['debug'] = true;
+	
 	ob_start();
 	// Run ResourceLoader action:
 	if( !$myResourceLoader->outputFromCache() ){
 		$myResourceLoader->doResourceLoader();
 	}
+
 	$scriptOutput = ob_get_clean();
+	unset( $_GET['debug'] );
+	$scriptOutput = preg_replace( 
+		array( "/\{/", "/\}/", "/;/" ), 
+		array( " {\n", "\n}\n", ";\n" ), 
+		$scriptOutput );
 
 	//Output combined css
-	//file_put_contents( '../mwEmbed/mwEmbed-player-static.css', $scriptOutput );
-
 	$zip->addFromString( $rootFileFolder. "/mwEmbed-player-static.css", $scriptOutput);
 
 	/*******************
@@ -241,7 +247,9 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 		if( $ext == 'swf' || $ext == 'js' || $ext == 'gif' || $ext == 'css' || $ext == 'xml' ||
 			$ext == 'jpeg' || $ext == 'jpg' || $ext == 'png' || $ext == 'txt'){
 			$targetZipPath = str_replace( '../mwEmbed', '', $path);
-			$zip->addFile( $path, $rootFileFolder . $targetZipPath );
+			if( is_file( $path ) ){
+				$zip->addFile( $path, $rootFileFolder . $targetZipPath );
+			}
 		}
 	}
 	$zip->close();

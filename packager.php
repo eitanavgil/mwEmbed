@@ -65,11 +65,11 @@ $html5PlayerClassList = array(
 	'mw.TimedText',
 	'j.fn.menu',
 );
+
 $html5PlayerStyleList = array(
 	// Separate all the style sheets for path preservation
 	// ( normally the script-loader serves absolute or relative paths
 	//  based on the scriptLoader location )
-	'mw.style.jqueryUiRedmond',
 	'mw.style.mwCommon',
 	'mw.style.EmbedPlayer',
 	'mw.style.PlayerSkinMvpcf',
@@ -150,7 +150,7 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 	$_GET['class'] = implode(',', $html5PlayerStyleList);
 	$_GET['format'] = 'css';
 	$_GET['debug'] = true;
-	
+
 	ob_start();
 	// Run ResourceLoader action:
 	if( !$myResourceLoader->outputFromCache() ){
@@ -159,9 +159,10 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 
 	$scriptOutput = ob_get_clean();
 	unset( $_GET['debug'] );
-	$scriptOutput = preg_replace( 
-		array( "/\{/", "/\}/", "/;/" ), 
-		array( " {\n", "\n}\n", ";\n" ), 
+
+	$scriptOutput = preg_replace(
+		array( "/\{/", "/\}/", "/;/" ),
+		array( " {\n", "\n}\n", ";\n" ),
 		$scriptOutput );
 
 	//Output combined css
@@ -237,7 +238,7 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 		//if( strpos( $path )=== 'loader.js' );
 		if( !	$isValidModule
 				&& strpos( $path, 'libraries/jquery/'  ) === false
-				&& strpos( $path, 'skins/common/'  ) === false
+				&& strpos( $path, 'skins/'  ) === false
 				&& strpos( $path, 'mwEmbed.js' ) === false
 				&& strpos( $path, 'languages/') === false
 				&& strpos( $path, 'components/') === false) {

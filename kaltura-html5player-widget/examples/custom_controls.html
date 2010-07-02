@@ -1,8 +1,8 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Custom controls sample</title>
-	
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<!-- Debug version: If using the debug version you can remove all the below js / css references --> 
     <!--  <script type="text/javascript" src="../mwEmbed.js" ></script>  -->   	 	
 	
@@ -11,21 +11,21 @@
  	<script type="text/javascript" src="../jquery-1.4.2.min.js" ></script>
 
 	<!-- Include the css and javascript  -->
-	<link rel="stylesheet" href="../mwEmbed-player-static.css"></link> 
+	<link rel="stylesheet" href="../skins/jquery.ui.themes/redmond/jquery-ui-1.7.2.css"></link>  
+	<link rel="stylesheet" href="../mwEmbed-player-static.css"></link>	
 	<script type="text/javascript" src="../mwEmbed-player-static.js" ></script>
 	
 </head>
 <body>
 <h3>Custom controls sample</h3>
-
  
 <video id="vp" style="width:544px;height:304px" 
- 		poster="http://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Elephants_Dream.ogg/seek%3D13-Elephants_Dream.ogg.jpg"
- 		duration="10:53" 
- 		linkback="http://www.elephantsdream.org/" > 		
-	<source type="video/ogg" src="http://upload.wikimedia.org/wikipedia/commons/b/bd/Elephants_Dream.ogg" ></source>
-	<source type="video/h264" src="http://www.archive.org/download/ElephantsDream/ed_1024_512kb.mp4"></source>
-			 	
+		poster="http://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Elephants_Dream.ogg/seek%3D13-Elephants_Dream.ogg.jpg"
+		duration="10:53" 
+		linkback="http://www.elephantsdream.org/" > 	
+	<source type="video/webm" src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/elephants-dream_400p.webm" />	
+	<source type="video/ogg" src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/elephants-dream_400p.ogv" />
+	<source type="video/h264" src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/elephants-dream_iphone.m4v" />			 	
 </video>
  	 		
 <script>
@@ -62,7 +62,7 @@ function seekPercentChanged() {
 		<input type="button" id="btnStop" onclick="playerStop();" value="Stop" />
 
 		<input type="button" id="btnSeek" onclick="playerSeek()" value="Seek to 77%" /><input id="seekPercent" onchange="seekPercentChanged()" type="range" min="0" max="100" step="1" value="77"/>%
-	</p>
+
 
 
 </body>

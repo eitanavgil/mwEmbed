@@ -10,6 +10,7 @@ In the head of your page you will need jQuery and the mwEmbed-player package:
 <script type="text/javascript" src="kaltura-html5player-widget/jquery-1.4.2.min.js" ></scirpt>
 
 <!-- Include the css and javascript  -->
+<link rel="stylesheet" href="kaltura-html5player-widget/skins/jquery.ui.themes/jquery-ui-1.7.1.custom.css"></link> 
 <link rel="stylesheet" href="kaltura-html5player-widget/mwEmbed-player-static.css"></link> 
 <script type="text/javascript" src="kaltura-html5player-widget/mwEmbed-player-static.js" ></scirpt>
 
@@ -22,12 +23,15 @@ Now in your HTML you can use the video tag and it will be given a user interface
 </video>
 
 == Skinning ==
-You can remove the kaltura attribution for the player by adding the following javascript: 
-<script type="text/javascript">mw.setConfig('EmbedPlayer.kalturaAttribution', false );</script>
 
 You can add a custom jquery ui theme by using the theme wizard: 
 http://www.kaltura.org/apis/html5lib/kplayer-examples/Player_Themable.html
 Downloading that theme and adding a reference to jquery-ui-.custom.css after the mwEmbed-player-static.css file.
+
+
+You can remove the kaltura attribution for the player by adding the following javascript: 
+<script type="text/javascript">mw.setConfig('EmbedPlayer.kalturaAttribution', false );</script>
+
 
 More documentation at: 
 http://www.kaltura.org/project/HTML5_Video_Media_JavaScript_Library

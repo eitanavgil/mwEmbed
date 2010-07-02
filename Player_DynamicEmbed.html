@@ -17,6 +17,7 @@
 	<script type="text/javascript">	
 	mw.setConfig( 'EmbedPlayer.OverlayControls', false );
 	mw.ready( function(){
+		$j('#videoContainer').loadingSpinner();
 		mw.load('EmbedPlayer', function(){
 			$j('#videoContainer').embedPlayer({			
 				'poster' : "http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb480.jpg",

@@ -3,28 +3,28 @@
 <head>
         <title>Player with native controls</title>
         <script type="text/javascript" src="http://html5.kaltura.org/js"></script> 
-        <!-- <script type="text/javascript" src="../mwEmbed/mwEmbed.js?debug=true"></script>  --> 
+        <!--<script type="text/javascript" src="../mwEmbed/mwEmbed.js?debug=true"></script>  --> 
 <script type="text/javascript">
 
 mw.ready( function(){
 	mw.setConfig( 'EmbedPlayer.OverlayControls', false );	
-	$j('#showVideo').click( function(){
-		// Set the partner id and kAdmin secret
-		mw.setConfig('kPartnerId', $j('#kPartnerId').val() );
-		mw.setConfig('kAdminSecret', $j('#kAdminSecret').val() );
-		
+	$j('#showVideo').click( function(){		
 		$j( '#videoContainer' ).loadingSpinner();				
 		mw.load( 'EmbedPlayer', function(){
 			$j( '#videoContainer' ).html(
-				'<video id="vid" width="400" height="300" '+ 
-					'kentryid="' + $j( '#kentryid' ).val()  + '">' +
-				'</video>'
+				$j('<video />')
+				.css({
+					'width' : 400,
+					'height' : 300
+				})
+				.attr({
+					'kentryid' : $j( '#kentryid' ).val(),
+					'kwidgetid' : $j( '#kwidgetid' ).val()
+				})			
 			);			
 			
 			// Rewrite all the players on the page
-			$j('#vid').embedPlayer( {
-				'kentryid' : $j('#kentryid').val()				
-			} );
+			$j.embedPlayers();
 		});
 	});
 } );
@@ -33,22 +33,12 @@ mw.ready( function(){
 <body>
 	<h3> Kaltura Player </h3>
 	<span style="width:300px;float:left">
-		Partner id: <input id="kPartnerId" size="15" value="243342"><br />
-		Admin Secret <input id="kAdminSecret" size="15" value="075a32aa066775c1b96713cb71541ae9"><br />
+		Widget id: <input id="kwidgetid" size="15" value="_243342"><br />
 		Entry id: <input id="kentryid" size="15" value="0_swup5zao"> <br />
 	</span>
 	
-	<textarea style="width:300px;height:120px;float:left">
-Analytic Events:
-	</textarea>
-	<!-- <span style="width:300px;float:left">
-		VAST Add URL:  <input id="VASTURL" size="15" value="http://demo.scanscout.com/product/vastExamples/vast1RegularLinear.xml"> <br />
-		Insert Strategy: at 3s 
-	</span>
-	 -->
-	
 	<div style="clear:both" ></div>
 	<input id="showVideo" type="button" value="Show Video">
-	<div id="videoContainer" > </div>
+	<div id="videoContainer" style="width:400px"> </div>
 </body>
 </html>

@@ -21,19 +21,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 For information and updates about the project see: 
-http://kaltura.org/project/HTML5_Media_JavaScript_Library
+http://www.kaltura.org/project/HTML5_Video_Player
 
-The Kaltura HTML5 Video Library is licensed under MIT license: 
+The Kaltura HTML5 Video Player Library is licensed under MIT license: 
 http://www.opensource.org/licenses/mit-license.php
 
-The Kaltura HTML5 Video Library uses KDP (Flash & OSMF based media player widget)
+The Kaltura HTML5 Video Player Library uses KDP (Flash & OSMF based media player widget)
 Located under modules\EmbedPlayer\binPlayers\kaltura-player 
 The KDP is licensed under AGPL. For more details see: 
 http://www.kaltura.org/project/kdp
 
-The Kaltura HTML5 Video Library for Dreamweaver distrabution is limited to MIT 
-license components. Outside of this Kaltura HTML5 Video Library is packaged with 
-GPL2 modules and compoents. For more information on the complete GPL2 distrabution visit:
+The Kaltura HTML5 Video Player Library is a distrabution package forked from the 
+Kaltura HTML5 Video Library that is a part of MediaWiki project. 
+The Kaltura HTML5 Video Library is packaged with GPL2 modules and compoents. 
+For more information on the complete GPL2 distrabution visit:
 http://kaltura.org/project/HTML5_Media_JavaScript_Library
 
 For Contacts and Support - Kaltura inc.

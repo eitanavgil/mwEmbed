@@ -141,6 +141,9 @@ div.thumbnail.selected{
 }
 </style>
 <script type="text/javascript">
+  <?php foreach($videos as $video){?>
+    <?php echo( $video['entry_id'] );?>',<?php }?>
+  ]
 video_h264_files = [
   <?php foreach($videos as $video){?>'<?php echo( $video['video_m4v_360'] );?>',<?php }?>
 ]

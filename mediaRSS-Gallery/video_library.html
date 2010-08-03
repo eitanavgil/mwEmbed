@@ -3,6 +3,9 @@
 <head>
     <title>OVC</title>
 <style type="text/css">
+html{
+  background-color: red
+}
 #nav li ul{
   z-index:100;
 }
@@ -24,7 +27,7 @@
 .video-highlight img,
 #video-player{
   position:absolute;
-  opacity:0;
+  opacity:100;
 }
 #video-player{
   z-index:2;
@@ -285,15 +288,47 @@ var galleryClips = [
   }
 ];
 
+var kWidgetId = "_22646",
+    kPartnerId = 22646,
+    thumbHeight = 135,
+    thumbWidth = 240,
+    posterHeight = 270,
+    posterWidth = 480;
+
+function loadVideo(videoId){
+  mw.ready( function(){
+      $j( '#video-player' ).loadingSpinner();       
+      mw.load( 'EmbedPlayer', function(){
+        $j( '#video-player' ).html(
+          $j('<video id="active-video" />')
+            .css({
+              'width' : 480,
+              'height' : 270
+            })
+            .attr({
+              'kentryid' : galleryClips[videoId].entryId,
+              'kwidgetid' : kWidgetId,
+              'kpartnerid' : kPartnerId
+              //'kentryid' : "0_swup5zao",
+              //'kwidgetid' : "_243342",
+              //'kpartnerid' : 243342
+            })      
+        );      
+        // Rewrite all the players on the page
+        $j.embedPlayers();
+      });
+  });
+}
+
+function previewVideo(videoId){
+  var description = galleryClips[videoId].description;
+  $( '#video-description' ).html(description);
+}
+
+
 $(function(){
     
-    var kWidgetId = "_243342",
-        kPartnerId = 22646,
-        thumbHeight = 135,
-        thumbWidth = 240,
-        posterHeight = 270,
-        posterWidth = 480;
-
+   
     // Insert Thumbnails into paging divs
     $.each( galleryClips, function( index, video ) {
         
@@ -318,45 +353,23 @@ $(function(){
     });
 
     //Make thumbnail divs hoverable
+    $('.thumbnail').bind('mouseover', function(){
+        previewVideo(this.id)
+    })
 });
-
-function loadVideo(video){
-    mw.ready(
-		    mw.load( 'EmbedPlayer', function(){
-			      $( '#video-player' ).html(
-				        $('<video />')
-			    	    .css({
-				          'width' : 480,
-					        'height' : 270
-				        })
-				        .attr({
-					        'kentryid' : galleryClips[video].entryId,
-					        'kwidgetid' : kWidgetId
-				        })			
-			      );			
-        })
-			  // Rewrite all the players on the page
-			  //$.embedPlayers();
-    );
-}
-
-function previewVideo(video){
-  console.log(video);
-}
-
 
 </script>
 </head>
 <body>
 
     <div class="video-highlight box270">
-        <div id="video-player">video-player</div>
+        <div id="video-player"></div>
     </div>
     <div class="infobox box270">
-        <div class="video-description"><p>infobox</p></div>
+        <div id="video-description"></div>
         <p class="toolbar">
             <a href="#" id="play-button" class="left-button">PLAY</a>
-            <a id="download-button" href="">DOWNLOAD</a>
+            <a id="download-button" href="#">DOWNLOAD</a>
         </p>
     </div>
     <div id="thumbs-viewport">

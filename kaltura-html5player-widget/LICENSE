@@ -26,7 +26,7 @@ http://www.kaltura.org/project/HTML5_Video_Player
 The Kaltura HTML5 Video Player Library is licensed under MIT license: 
 http://www.opensource.org/licenses/mit-license.php
 
-The Kaltura HTML5 Video Player Library uses KDP (Flash & OSMF based media player widget)
+The Kaltura HTML5 Video Player Library uses KDP (Media Player Widget based on Adobe Flash and OSMF)
 Located under modules\EmbedPlayer\binPlayers\kaltura-player 
 The KDP is licensed under AGPL. For more details see: 
 http://www.kaltura.org/project/kdp

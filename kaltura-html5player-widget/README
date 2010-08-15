@@ -1,4 +1,4 @@
-# Kaltura HTML5 Video Player, MIT licensed.
+
 
 ## Library Overview
 
@@ -108,7 +108,7 @@ For full un-minified source see [HTML5 Video Player][]
 In the `<head>` of your page you will need jQuery and the mwEmbed-player package:
 
     <!-- If your page already includes jQuery you can skip this step -->
-    <script type="text/javascript" src="kaltura-html5player-widget/jquery-1.4.2.min.js" ></scirpt>
+    <script type="text/javascript" src="kaltura-html5player-widget/jquery-1.4.2.min.js" ></script>
 
     <!-- Include the css and javascript  -->
     <link rel="stylesheet" href="kaltura-html5player-widget/skins/jquery.ui.themes/jquery-ui-1.7.2.custom.css"></link> 

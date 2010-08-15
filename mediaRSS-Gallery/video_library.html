@@ -7,7 +7,7 @@ html{
   background-color: red
 }
 #nav li ul{
-  z-index:100;
+  z-index:-1;
 }
 #content {
   width:970px;
@@ -30,7 +30,10 @@ html{
   opacity:100;
 }
 #video-player{
-  z-index:2;
+  z-index:1;
+}
+video {
+  z-index:1;
 }
 .infobox {
   border:1px solid #F8FCC1;
@@ -361,6 +364,9 @@ $(function(){
     })
     
     // Make currently playing video description show by default
+
+    // Load up the first video
+    loadVideo(0);
 
 
 });

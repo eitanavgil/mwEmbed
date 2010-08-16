@@ -38,44 +38,14 @@ video {
 .infobox {
   border:1px solid #F8FCC1;
 }
-.infobox .video-description{
-  position:absolute;
-  overflow:scrolling;
+.infobox{
+  position:relative;
   width:480px;
-  height:220px;
-  opacity:0;
+  height:270px;
+  overflow: scrolling;
 }
-.infobox .video-description p{
-  margin:1em;
-}
-.infobox .toolbar{
-  height:50px;
+#video-description {
   position:absolute;
-  top:207px;
-  margin-top:1em;
-  overflow:hidden;
-  width:100%;
-}
-.infobox .toolbar a{
-  text-decoration:none;
-  color:#DB6E5C;
-  width:238px;
-}
-.infobox .toolbar a {
-  background-color:#F8FCC1;
-  color:#DB6E5C;
-  display:inline-block;
-  font-size:24px;
-  font-weight:bold;
-  height:50px;
-  line-height:50px;
-  text-align:center;
-  text-decoration:none;
-  vertical-align:middle;
-  width:238px;
-}
-.infobox .toolbar .left-button{
-  margin-right:4px;
 }
 #thumbs-viewport{
   width:964px;
@@ -88,14 +58,6 @@ video {
   position:relative;
   left:0px;
 }
-.thumbs-page{
-  position:absolute;
-  width:964px;
-}
-.thumbs-page.page-1{left:0px;}
-.thumbs-page.page-2{left:964px;}
-#thumbs-container.page-1{left:0px;}
-#thumbs-container.page-2{left:-964px;}
 .thumbnail {
   display:inline-block;
   border:1px solid #DB6E5C;
@@ -189,7 +151,7 @@ var galleryClips = [
     'description' : 'Earth-Touch\n\nEarth-Touch is a new type of wildlife filmmaking company. Earth-Touch’s mission is to celebrate the beauty of nature and to reflect what happens in the natural world truthfully and instantaneously to a global audience. Earth-Touch is different to other mainstream wildlife production companies because it is making high quality wildlife media free, accessible and available to the online video watching community.\n\n  Critical Commons\n\n  Critical Commons is a non-profit advocacy coalition that supports fair use of media for learning and creativity, providing resources, information and tools for scholars, students and creators. Our aim is to build open, informed communities around media-based teaching, learning and creativity, both inside and outside of formal educational environments.This presentation highlights some key features of Critical Commons including the ability to upload and share media, tagging, annotating and commenting on video clips, and the creation of playlists to share with students, members of your community and the public at large.\n\n  presented by Steve Anderson — Assistant Professor, USC School of Cinematic Arts\n\n  Blender\n\n  A brief showcase and demo of Blender, a powerful free and open source 3d model- ing, rendering, and video composting software.presented by Bassam Kurdali — Director and Animator, Elephant’s Dream (2006)\n\n  Reframe (Tribeca Film Institute)\n\n  Brian Newman is the president & CEO of theTribeca Film Institute (TFI) where he leads the Institute’s innovative programs in support of filmmakers, youth and the public. Brian conceived and launched the Reframe project of TFI, a unique initiative that is digitizing and make available thousands of films for DVD, streaming and video on demand.\n\n  Uncensored Interview\n\n  Uncensored	Interview	creates	high quality	open	licensed	interviews	with	musicians, connecting fans and artists.They are pioneers in the industry,and have recently been transcoding their videos into the Ogg Theora format.'
   },
   {
-    'entryId' : 'w1ozbqsylc',
+    'entryId' : 'fwr4lj0f00',
     'title' : 'Lizz Winstead',
     'description' : 'Online video can be a powerful tool for satire and commentary, enabling independent voices to challenge the way the news is presented. Lizz Winstead, co-creator of The Daily Show and co-founder of Air America Radio, will share her vision for a world where connected citizens keep an eye on those who are supposed to be keeping an eye on elected officials. Winstead is currently involved with Shoot The Messenger Productions, an independent comedy group that performs a weekly satirical news summary in the form of the Off-Broadway show, Wake Up World.'
   },
@@ -281,7 +243,7 @@ var galleryClips = [
   {
     'entryId' : '2mf8xqegqz',
     'title' : 'Purefold an Open Media Franchise by Ridley Scott: Featured Talk',
-    'description' : 'Ridley Scott is involved a new production called Purefold, which will be done in five separate 10-minute installments. The story is set shortly before 2019 (right ahead of the Blade Runner story). “It’s actually based on the same themes as Blade Runner,” series co-producer David Bausola told The New York Times. \n\n"It’s the search for what it means to be human and understanding the notion of empathy.” The series will be licensed with Creative Commons. \n\n  speaker: David Bausola — Co-Producer, Purefold '
+    'description' : 'Ridley Scott is involved a new production called Purefold, which will be done in five separate 10-minute installments. The story is set shortly before 2019 (right ahead of the Blade Runner story). “It’s actually based on the same themes as Blade Runner,” series co-producer David Bausola told The New York Times. \n\n"It’s the search for what it means to be human and understanding the notion of empathy.” The series will be licensed with Creative Commons. \n\n  speaker: David Bausola — Co-Producer, Purefold'
 /*  },
   {
     'entryId' : '',
@@ -297,9 +259,17 @@ var kWidgetId = "_22646",
     thumbHeight = 135,
     thumbWidth = 240,
     posterHeight = 270,
-    posterWidth = 480;
+    posterWidth = 480,
+    previousDescription = undefined,
+    thumbnailTop = undefined,
+    page = 1;
 
 function loadVideo(videoId){
+  var converter = new Showdown.converter();
+  var description = '## ' + galleryClips[videoId].title + '\n\n' + galleryClips[videoId].description;
+  var text = converter.makeHtml(description);
+  $('#video-description').html(text);
+  previousDescription = text;
   mw.ready( function(){
       $j( '#video-player' ).loadingSpinner();       
       mw.load( 'EmbedPlayer', function(){
@@ -324,18 +294,57 @@ function loadVideo(videoId){
   });
 }
 
+
 function previewVideo(videoId){
   var converter = new Showdown.converter();
   var description = '## ' + galleryClips[videoId].title + '\n\n' + galleryClips[videoId].description;
   var text = converter.makeHtml(description);
-  $( '#video-description' ).html(text);
+  $('#video-description').html(text);
 }
 
+function checkArrows(page) {
+  console.log('checking arrows for page: '+ page);
+  if (page == 1) {
+    $('.left-arrow').hide();
+  }
+  if (page == 2) {
+    $('.left-arrow').show();
+  }
+  if (page == 3) {
+    $('.right-arrow').show();
+  }
+  if (page == 4) {
+    $('.right-arrow').hide();
+  }
+}
+
+function scrollUp () {
+  if (thumbnailTop== undefined) {
+    thumbnailTop = 283;
+  } else {
+    thumbnailTop = thumbnailTop+283;
+  }
+  $('#thumbs-container').animate({
+    top: (thumbnailTop)+"px",
+  }, 750);
+  page = page - 1;
+  checkArrows(page);
+}
+
+function scrollDown () {
+  if (thumbnailTop== undefined) {
+    thumbnailTop = -283;
+  } else {
+    thumbnailTop = thumbnailTop-283;
+  }
+  $('#thumbs-container').animate({
+    top: (thumbnailTop)+"px",
+  }, 750);
+  page = page + 1;
+  checkArrows(page);
+}
 
 $(function(){
-    
-   
-    // Insert Thumbnails into paging divs
     $.each( galleryClips, function( index, video ) {
         
         // Get the url of the thumbnail from Kaltura
@@ -353,22 +362,31 @@ $(function(){
         $('#thumbs-container').append(divText);
     });
      
-    // Make thumbnail divs clickable
-    $('.thumbnail').bind('click', function(){
-        loadVideo(this.id)
-    });
-
-    //Make thumbnail divs hoverable
-    $('.thumbnail').bind('mouseover', function(){
-        previewVideo(this.id)
-    })
-    
-    // Make currently playing video description show by default
-
     // Load up the first video
     loadVideo(0);
 
+    checkArrows(page);
 
+    //Make thumbnail divs hoverable
+    $('.thumbnail').mouseenter( function(){
+        previewVideo(this.id);
+    }); 
+    $('.thumbnail').mouseleave( function(){
+       $('#video-description').html(previousDescription);
+    });
+
+    // Make thumbnail divs clickable
+    $('.thumbnail').click( function(){
+        loadVideo(this.id);
+    });
+
+    // Bind the Scroll Buttons
+    $('.left-arrow').click( function() {
+        scrollUp();
+    });
+    $('.right-arrow').click( function() {
+        scrollDown();
+    });
 });
 
 </script>
@@ -382,18 +400,12 @@ $(function(){
         <div id="video-description"></div>
     </div>
     <div id="thumbs-viewport">
-        <div id="thumbs-container">
-          <!--  <div class="thumbs-page page-1">
-                <div class="thumbnail" id="thumbnail-" onclick="return thumbnailClick(this);">
-                    <img src="#" />
-                </div>
-            </div> -->
-        </div>
+        <div id="thumbs-container"></div>
     </div>
 
     <div class="navbar">
-        <a class="left-arrow" id="nav-link-previous" href="javascript:void(0)" onclick="return previousPage();">⇦</a>
-        <a class="right-arrow" id="nav-link-next" href="javascript:void(0)" onclick="return nextPage();">⇨</a>
+        <span class="left-arrow" id="nav-link-previous">⇦</span>
+        <span class="right-arrow" id="nav-link-next">⇨</span>
     </div>
 </body>
 </html>

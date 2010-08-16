@@ -22,7 +22,7 @@ html{
   color:#F8FCC1;
   background:url("http://openvideoalliance.org/i/side_bg.png") repeat scroll 0 0 transparent;
   z-index:4;
-overflow:hidden;
+  overflow:hidden;
 }
 .video-highlight img,
 #video-player{
@@ -37,7 +37,7 @@ video {
 }
 .infobox {
   border:1px solid #F8FCC1;
-         z-index:0;
+  z-index:0;
 }
 .infobox{
   position:relative;
@@ -48,7 +48,7 @@ video {
   height:270px;
   position:absolute;
   overflow-x: auto;
-         z-index:0;
+  z-index:0;
 }
 #thumbs-viewport{
   width:964px;
@@ -286,10 +286,7 @@ function loadVideo(videoId){
               'kentryid' : galleryClips[videoId].entryId,
               'kwidgetid' : kWidgetId,
               'kpartnerid' : kPartnerId
-              //'kentryid' : "0_swup5zao",
-              //'kwidgetid' : "_243342",
-              //'kpartnerid' : 243342
-            })      
+            })
         );      
         // Rewrite all the players on the page
         $j.embedPlayers();

@@ -111,6 +111,9 @@ div.thumbnail.selected{
   display:none;
 }
 </style>
+<!--[if IE]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script type="text/javascript" src="http://html5.kaltura.org/js"></script>
 <script type="text/javascript" src="libs/showdown.js"></script>
@@ -273,11 +276,12 @@ function loadVideo(videoId){
   var text = converter.makeHtml(description);
   $('#video-description').html(text);
   previousDescription = text;
+	mw.setConfig( 'EmbedPlayer.OverlayControls', false );	
   mw.ready( function(){
-      $j( '#video-player' ).loadingSpinner();       
+      $j( '#video-player' ).loadingSpinner();
       mw.load( 'EmbedPlayer', function(){
         $j( '#video-player' ).html(
-          $j('<video id="active-video" />')
+          $j('<video />')
             .css({
               'width' : 480,
               'height' : 270
@@ -389,6 +393,7 @@ $(function(){
 });
 
 </script>
+
 </head>
 <body>
 

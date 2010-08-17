@@ -276,7 +276,6 @@ function loadVideo(videoId){
   var text = converter.makeHtml(description);
   $('#video-description').html(text);
   previousDescription = text;
-	mw.setConfig( 'EmbedPlayer.OverlayControls', false );	
   mw.ready( function(){
       $j( '#video-player' ).loadingSpinner();
       mw.load( 'EmbedPlayer', function(){

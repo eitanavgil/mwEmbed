@@ -4,36 +4,11 @@
 	<title> Sample Fallback Player </title>		     
 	
 	<script type="text/javascript" src="http://html5.kaltura.org/js"></script>
-	<script type="text/javascript">	
-	mw.setConfig( 'EmbedPlayer.OverlayControls', false );
-	mw.ready( function(){
-		//update the player and selected src
-		function updateTypeLoop(){
-			var vid =  $j('#vid1').get(0);
-			if( vid.mediaElement && vid.mediaElement.selectedSource ){
-				$j( '#format' ).text( vid.mediaElement.selectedSource.getTitle() );
-			}
-			if( vid.selectedPlayer ) {
-				$j( '#playertitle' ).text( vid.selectedPlayer.getName() );
-			}
-			setTimeout(updateTypeLoop, 1000);
-		}
-		setTimeout(updateTypeLoop, 1000);
-		$j( '#chooseplayer' ).click( function(){
-			var vid =  $j('#vid1').get(0);
-			if( vid ){
-				vid.controlBuilder.displayOverlay(  
-					vid.controlBuilder.getPlayerSelect()
-				);						
-			}
-		});
-	});
-</script>
 </head>
 
 <body>
 <h3> Sample Fallback Player:</h3>
-Format:<span id="format" style="font-style:italic"> </span>, Player: <span id="playertitle" style="font-style:italic"></span> <a href="#" id="chooseplayer">Choose other</a><br><br>
+
 <div id="videoContainer" style="width:500px;height:300px;">
 	<video id="vid1" width="480" height="267" 
 	 poster="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb480.jpg"
@@ -44,15 +19,6 @@ Format:<span id="format" style="font-style:italic"> </span>, Player: <span id="p
 		<source src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb_trailer_400p.ogv" />
 	</video>
 </div>
-	
-	<b>Source Code used:</b><br>
-	<textarea cols="60" rows="7">
-<video style="width:480px;height:270px" poster="media/bbb480.jpg" durationHint="4:44">
-<source	src="media/bbb.flv">	
-<source src="media/bbb.ogv"/>
-</video>
-</textarea>
-
 </body>
 </html>
 

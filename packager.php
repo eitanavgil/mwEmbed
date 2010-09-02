@@ -43,6 +43,7 @@ $html5PlayerClassList = array(
 
 	// jquery ui and ui-slider
 	'j.ui',
+	'j.ui.widget',
 	'j.ui.slider',
 
 	// Player Skins

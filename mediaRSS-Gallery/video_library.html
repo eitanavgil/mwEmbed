@@ -347,6 +347,8 @@ function scrollDown () {
 }
 
 $(function(){
+    mw.setConfig('EmbedPlayer.KalturaAttribution', false );
+    mw.setConfig('EmbedPlayer.PlayerSelector', false );
     $.each( galleryClips, function( index, video ) {
         
         // Get the url of the thumbnail from Kaltura

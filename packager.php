@@ -27,6 +27,8 @@ $licenseHeader = '/**
 $packageName = $_GET['name'];
 
 $html5PlayerConfig = array(
+	'LoadLocalSettings' => 0,
+	'LoadModuleMessagesInDebug' => 0,
 	'relativeCortadoAppletPath' => 0,
 	'TimedText.showAddTextLink' =>  0
 );
@@ -125,8 +127,10 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 
 	// Override some values from no-mediawikiConfig
 	global $wgUseMwEmbedLoaderModuleList, $wgUseGzip,
-	$wgExtensionJavascriptModules, $IP, $wgScriptLoaderRelativeCss;
-
+	$wgExtensionJavascriptModules, $IP, $wgScriptLoaderRelativeCss, $wgEnableScriptLocalization ;
+	
+	$wgEnableScriptLocalization  = true;
+	
 	// Use relative css for the package
 	$wgScriptLoaderRelativeCss = true;
 
@@ -182,8 +186,7 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 	// Run ResourceLoader action:
 	if( !$myResourceLoader->outputFromCache() ){
 		$myResourceLoader->doResourceLoader();
-	}
-
+	}	
 	$scriptOutput = ob_get_clean();
 
 	// Add the license header:
@@ -192,9 +195,9 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 	// Register the css classes ( static builds include the css explicitly  )
 	$scriptOutput.= "\n" . implode('=1;', $html5PlayerStyleList) . "=1;\n";
 
-	// Disable local usage of cortado ( GPL package in MIT set)
+	// Add local package config to the static package
 	$scriptOutput.= "\nmw.setConfig( " . json_encode( $html5PlayerConfig ) . ");\n";
-
+	
 	// Output the static package to zip file
 	//file_put_contents( '../mwEmbed/mwEmbed-player-static.js', $scriptOutput );
 	$zip->addFromString( $rootFileFolder. "/mwEmbed-player-static.js", $scriptOutput);
@@ -228,13 +231,31 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 				$isValidModule = true;
 			}
 		}
+		
 		// Special case of core loader.js file
 		if( $path == '../mwEmbed/loader.js' ){
 			$loaderText = file_get_contents( $path );
 			$loaderText = preg_replace( '/mwEnabledModuleList\s*\=\s*\[(.*)\]/siU',
 				'mwEnabledModuleList=[\'' . implode( "','", array_keys( $wgExtensionJavascriptModules ) ) . '\']',
 			 	$loaderText);
+			 	
+			// Add local package config to the static loader.js
+			$loaderText.= "\nmw.setConfig( " . trim( json_encode( $html5PlayerConfig ) ) . ");\n";					
+			
 			$zip->addFromString( $rootFileFolder . '/loader.js',  $loaderText);
+			continue;
+		}
+		
+		// Add message language component
+		if( $path == '../mwEmbed/components/mw.Language.js' ) {
+			$langText = file_get_contents( $path );
+			foreach( $wgExtensionJavascriptModules as $moduleName => $modulePath ){
+				$messages = array();
+				include( '../mwEmbed/' . $modulePath . '/' . $moduleName . '.i18n.php' );
+				$langText.= "\n" . 'mw.addMessages(' . FormatJson::encode( $messages['en'] ) . ');' . "\n";			
+			}
+			$zip->addFromString( $rootFileFolder . '/components/mw.Language.js',  $langText);
+			continue;
 		}
 		// Special loader case:
 		//if( strpos( $path )=== 'loader.js' );
@@ -242,14 +263,15 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 				&& strpos( $path, 'libraries/jquery/'  ) === false
 				&& strpos( $path, 'skins/'  ) === false
 				&& strpos( $path, 'mwEmbed.js' ) === false
-				&& strpos( $path, 'languages/') === false
+				/* DONT load all the language files for now
+				 * && strpos( $path, 'languages/') === false */
 				&& strpos( $path, 'components/') === false) {
 			//Skip the module not in module list nor is it a jquery asset
 			continue;
 		}
 		if( $ext == 'swf' || $ext == 'js' || $ext == 'gif' || $ext == 'css' || $ext == 'xml' ||
 			$ext == 'jpeg' || $ext == 'jpg' || $ext == 'png' || $ext == 'txt'){
-			$targetZipPath = str_replace( '../mwEmbed', '', $path);
+			$targetZipPath = str_replace( '../mwEmbed', '', $path);			
 			if( is_file( $path ) ){
 				$zip->addFile( $path, $rootFileFolder . $targetZipPath );
 			}

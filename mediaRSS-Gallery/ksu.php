@@ -6,8 +6,8 @@
 	require_once("kaltura_client_v3/KalturaClient.php"); 
 	
 	//define constants
-	define("KALTURA_PARTNER_ID", 22646);
-	define("KALTURA_PARTNER_WEB_SERVICE_SECRET", "a9a243ae37ab91e876e76c79c0e10de4");
+	define("KALTURA_PARTNER_ID", ENTER YOUR PARTNER ID HERE);
+	define("KALTURA_PARTNER_WEB_SERVICE_SECRET", "ENTER YOUR PARTNER SECRET HERE");
 
 	//define session variables
 	$partnerUserID          = 'ANONYMOUS';
@@ -142,7 +142,6 @@
 		var startIndex = parseInt(tagsStartIndex.value);
 		var endIndex = parseInt(tagsEndIndex.value);
 		addTags(tags, startIndex, endIndex);
-    addTags("openvideoconference.tv");
 	}
 
 	function setTagsFromForm()
@@ -155,9 +154,9 @@
 
 	function setTitleFromForm()
 	{
-		//var startIndex = parseInt(titleStartIndex.value);
-		//var endIndex = parseInt(titleEndIndex.value);
-		setTitle(titleInput.value);
+		var startIndex = parseInt(titleStartIndex.value);
+		var endIndex = parseInt(titleEndIndex.value);
+		setTitle(titleInput.value, startIndex, endIndex);
 	}
 
 	function removeFilesFromForm()
@@ -187,15 +186,6 @@
 	{
 		flashObj.setScreenName(value);
 	}
-
-  function doUpload()
-  {
-    flashObj.upload();
-    flashObj.setTitleFromForm();
-    flashObj.setTagsFromForm();
-    flashObj.addEntries();
-  }
-
 
 	//set parameters to be taken from user input field
 	var tagsInput;
@@ -270,12 +260,58 @@
 	<br/>
 	<div id="userInput">
 		<form>
-			<input type="text" value="enter title here" id="titleInput" />
-			<input type="text" value="tags, comma separated" id="tagsInput" />
-			<input type="button" value="Upload" 		onclick="doUpload();">
+			<input type="button" value="Step 2 - Upload" 		onclick="upload()">
+			<input type="button" value="Step 3 - Add entries" 	onclick="addEntries()">
 			<input type="button" value="Cancel" 		        onclick="stopUploads()">
 		</form>
 
+		<form>
+			<input type="text" id="mediaTypeInput" />
+			<input type="button" value="Set media type" onclick="setMediaType()">
+		</form>
+
+		<form>
+			<input type="button" value="Get Files " onclick="getFiles()">
+		</form>
+
+		<form>
+			<input type="text" value="enter tags here" id="tagsInput" />
+			<input type="text" value="0" id="tagsStartIndex" />
+			<input type="text" value="1" id="tagsEndIndex" />
+			<input type="button" value="Add tags" onclick="addTagsFromForm()">
+			<input type="button" value="Set tags" onclick="setTagsFromForm()">
+		</form>
+
+		<form>
+			<input type="text" value="enter title here" id="titleInput" />
+			<input type="text" value="0" id="titleStartIndex" />
+			<input type="text" value="1" id="titleEndIndex" />
+			<input type="button" value="Set title" onclick="setTitleFromForm()">
+		</form>
+
+		<form>
+			<input type="text" value="0" id="removeStartIndex" />
+			<input type="text" value="0" id="removeEndIndex" />
+			<input type="button" value="Remove Files" onclick="removeFilesFromForm()">
+		</form>
+
+		<form>
+			<input type="text" value="0" id="maxUploadsInput" />
+			<input type="button" value="Set max uploads" onclick="setMaxUploads(parseInt(maxUploadsInput.value))">
+		</form>
+
+		<form>
+			<input type="text" value="partner data goes here" id="partnerDataInput" />
+			<input type="button" value="Set partner data" onclick="setPartnerData(partnerDataInput.value)">
+			<input id="groupId" />
+			<input type="button" value="set group id " onClick="setGroupId(groupId.value)">
+			<input id="permissions" />
+			<input type="button" value="set permissions" onClick="setPermissions(permissions.value)">
+			<input id="screenName" />
+			<input type="button" value="Set screen name" onClick="setScreenName(screenName.value)">
+			<input id="siteUrl" />
+			<input type="button" value="set site url" onClick="setSiteUrl(siteUrl.value)">
+		</form>
 	</div>
 </body>
 </html>

@@ -5,9 +5,8 @@
 <?php 
 	require_once("kaltura_client_v3/KalturaClient.php"); 
 	
-	//define constants
-	define("KALTURA_PARTNER_ID", ENTER YOUR PARTNER ID HERE);
-	define("KALTURA_PARTNER_WEB_SERVICE_SECRET", "ENTER YOUR PARTNER SECRET HERE");
+	//define constants in ksu-settings.php
+  include "./ksu-settings.php";
 
 	//define session variables
 	$partnerUserID          = 'ANONYMOUS';

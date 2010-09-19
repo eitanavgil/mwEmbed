@@ -34,7 +34,7 @@
 
 	delegate.allUploadsCompleteHandler = function()
 	{
-		alert("allUploadsCompleteHandler");
+		console.log("allUploadsCompleteHandler");
 	}
 
 	delegate.entriesAddedHandler = function(entries)
@@ -116,24 +116,24 @@
 	function addTagsFromForm()
 	{
 		var tags = document.getElementById("tagsInput").value.split(",");
-		var startIndex = parseInt(tagsStartIndex.value);
-		var endIndex = parseInt(tagsEndIndex.value);
+		var startIndex //= parseInt(tagsStartIndex.value);
+		var endIndex //= parseInt(tagsEndIndex.value);
 		addTags(tags, startIndex, endIndex);
 	}
 
 	function setTagsFromForm()
 	{
 		var tags = document.getElementById("tagsInput").value.split(",");
-		var startIndex = parseInt(tagsStartIndex.value);
-		var endIndex = parseInt(tagsEndIndex.value);
-		setTags(tags, startIndex, endIndex);
+		//var startIndex = parseInt(tagsStartIndex.value);
+		//var endIndex = parseInt(tagsEndIndex.value);
+		setTags(tags, 0, 0);
 	}
 
 	function setTitleFromForm()
 	{
-		var startIndex = parseInt(titleStartIndex.value);
-		var endIndex = parseInt(titleEndIndex.value);
-		setTitle(titleInput.value, startIndex, endIndex);
+		//var startIndex //= parseInt(titleStartIndex.value);
+		//var endIndex //= parseInt(titleEndIndex.value);
+		setTitle(titleInput.value, 0, 0);
 	}
 
 	function removeFilesFromForm()
@@ -188,12 +188,12 @@
 	function onLoadHandler()
 	{
 		tagsInput = document.getElementById("tagsInput");
-		tagsStartIndex = document.getElementById("tagsStartIndex");
-		tagsEndIndex = document.getElementById("tagsEndIndex");
+//		tagsStartIndex = document.getElementById("tagsStartIndex");
+//		tagsEndIndex = document.getElementById("tagsEndIndex");
 
 		titleInput = document.getElementById("titleInput");
-		titleStartIndex = document.getElementById("titleStartIndex");
-		titleEndIndex = document.getElementById("titleEndIndex");
+//		titleStartIndex = document.getElementById("titleStartIndex");
+//		titleEndIndex = document.getElementById("titleEndIndex");
 
 		removeStartIndex = document.getElementById("removeStartIndex");;
 		removeEndIndex = document.getElementById("removeEndIndex");
@@ -214,7 +214,7 @@ function uploaderIsReady() {
   }
 
 function saveEntry() {
-  addEntries();
   setTitleFromForm();
   setTagsFromForm();
+  addEntries();
   }

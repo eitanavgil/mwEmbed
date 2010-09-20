@@ -136,15 +136,18 @@
 
 	function addTagsFromForm()
 	{
-		var tags = document.getElementById("tagsInput").value.split(",");
-		var startIndex //= parseInt(tagsStartIndex.value);
-		var endIndex //= parseInt(tagsEndIndex.value);
+		//var tags = document.getElementById("tagsInput").value.split(",");
+	  var tags = "ovctvugc, 2010, " + document.getElementById("tagsInput").value
+    tags = tags.split(",");	
+    //var startIndex //= parseInt(tagsStartIndex.value);
+		//var endIndex //= parseInt(tagsEndIndex.value);
 		addTags(tags, startIndex, endIndex);
 	}
 
 	function setTagsFromForm()
 	{
-		var tags = document.getElementById("tagsInput").value.split(",");
+		var tags = "ovctvugc, 2010, " + document.getElementById("tagsInput").value
+    tags = tags.split(",");
 		//var startIndex = parseInt(tagsStartIndex.value);
 		//var endIndex = parseInt(tagsEndIndex.value);
 		setTags(tags, 0, 0);

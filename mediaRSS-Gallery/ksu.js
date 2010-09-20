@@ -12,6 +12,8 @@
 
 	var app;
 	var delegate = {};
+  var title;
+  var tags;
 
 	//KUploader callbacks
 	delegate.readyHandler = function()
@@ -26,6 +28,7 @@
 		console.log(app.getTotalSize());
     upload();
     $('#progress-bar').progressbar({ value: 0 });
+    $('#browse-button').hide();
 	}
 
 	delegate.singleUploadCompleteHandler = function(args)
@@ -35,14 +38,27 @@
 
 	delegate.allUploadsCompleteHandler = function()
 	{
-		console.log("allUploadsCompleteHandler");
-    $("#save-button").show();
+		console.log("title: " + title + " & tags: " + tags);
+    console
+    if (title && tags) {
+      console.log("we have title");
+      setTitle(title);
+      console.log("we have tags");
+      setTagsFromForm();
+      console.log("we will save");
+      addEntries();
+      }
+    else {
+      flashAdvice("please title and tag your video");
+      $("#save-button").hide();
+      $("#add-button").show();
+      }
 	}
 
 	delegate.entriesAddedHandler = function(entries)
 	{
 		alert("thank you for your upload\n this is a good time to close this page");
-    console.log(entries[0].entryId)
+    console.log(entries[0].entryId);
 	}
 
 	delegate.progressHandler = function(args)
@@ -76,7 +92,7 @@
 	function setTitle(title, startIndex, endIndex)
 	{
 		app.setTitle(title, startIndex, endIndex);
-	}
+	} 
 
 	function getFiles()
 	{
@@ -141,6 +157,24 @@
 		setTitle(titleInput.value, 0, 0);
 	}
 
+  function saveTags(tags)
+	{
+    console.log(tags);
+		var tagsArray = tags.split(",");
+		//var startIndex = parseInt(tagsStartIndex.value);
+		//var endIndex = parseInt(tagsEndIndex.value);
+		setTags(tagsArray, 0, 0);
+	}
+
+
+  function saveTitle(title)
+	{
+		//var startIndex //= parseInt(titleStartIndex.value);
+		//var endIndex //= parseInt(titleEndIndex.value);
+		setTitle(title, 0, 0);
+	}
+
+
 	function removeFilesFromForm()
 	{
 		var startIndex = parseInt(removeStartIndex.value);
@@ -193,25 +227,26 @@
 	function onLoadHandler()
 	{
 
-    $("#save-button").hide();
-		tagsInput = document.getElementById("tagsInput");
-//		tagsStartIndex = document.getElementById("tagsStartIndex");
-//		tagsEndIndex = document.getElementById("tagsEndIndex");
+      $("#add-button").hide();
+		  
+    tagsInput = document.getElementById("tagsInput");
+		tagsStartIndex = 0; //document.getElementById("tagsStartIndex");
+		tagsEndIndex = 0; //document.getElementById("tagsEndIndex");
 
 		titleInput = document.getElementById("titleInput");
-//		titleStartIndex = document.getElementById("titleStartIndex");
-//		titleEndIndex = document.getElementById("titleEndIndex");
+		titleStartIndex = 0; //document.getElementById("titleStartIndex");
+		titleEndIndex = 0; //document.getElementById("titleEndIndex");
 
-		removeStartIndex = document.getElementById("removeStartIndex");;
-		removeEndIndex = document.getElementById("removeEndIndex");
+//		removeStartIndex = document.getElementById("removeStartIndex");;
+//		removeEndIndex = document.getElementById("removeEndIndex");
 
-		maxUploadsInput = document.getElementById("maxUploadsInput");
-		partnerDataInput = document.getElementById("partnerDataInput");
+//		maxUploadsInput = document.getElementById("maxUploadsInput");
+//		partnerDataInput = document.getElementById("partnerDataInput");
 
-		groupId = document.getElementById("groupId");
-		permissions = document.getElementById("permissions");
-		screenName = document.getElementById("screenName");
-		siteUrl = document.getElementById("siteUrl");
+//		groupId = document.getElementById("groupId");
+//		permissions = document.getElementById("permissions");
+//		screenName = document.getElementById("screenName");
+//		siteUrl = document.getElementById("siteUrl");
 	}
 
 
@@ -221,7 +256,24 @@ function uploaderIsReady() {
   }
 
 function saveEntry() {
-  setTitleFromForm();
-  setTagsFromForm();
+  title = titleInput.value;
+  tags = tagsInput.value;
+  console.log(tags);
+  saveTitle(title);
+  saveTags(tags);
+  console.log("titled: " + title + " & tagged: + tags");
+  $('#save-button').attr("disabled", "true");
+  }
+
+function titleAndSaveEntry() {
+  saveEntry();
   addEntries();
   }
+
+function flashAdvice( advice ) {
+  $("#flash").hide();
+  $("#flash").html("<p>" + advice + "</p>");
+  $("#flash").show('slow');
+  }
+
+

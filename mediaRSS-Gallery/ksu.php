@@ -54,7 +54,7 @@
 <body onload=onLoadHandler();>
 	<div id="flashContainer">
 		<form>
-			<input type="button" value="Select a File">
+			<input id="browse-button" type="button" value="Select a File">
 		</form>
 		<div id="uploader"> 
 		</div>
@@ -80,12 +80,13 @@
 	<br/>
 	<div id="userInput">
 	  <form>
-			<input type="button" value="Cancel" 		        onclick="stopUploads()"><br />
 			<input type="text" value="title here" id="titleInput" /><br />
 			<input type="text" value="tags here, comma separated" id="tagsInput" />
       <input id="save-button" type="button" value="Save" 	onclick="saveEntry()">
+      <input id="add-button" type="button" value="Complete Upload" 	onclick="titleAndSaveEntry()">
 		</form>
-
+    <div id="flash">
+    </div>
 	<!--
 	<form>
 			<input type="button" value="Step 2 - Upload" 		onclick="upload()">
@@ -94,6 +95,7 @@
 		</form>
 
 		<form
+			<input type="button" value="Cancel" 		        onclick="stopUploads()"><br />
 		</form>
 
 		<form>

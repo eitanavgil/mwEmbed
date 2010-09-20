@@ -22,9 +22,10 @@
 
 	delegate.selectHandler = function()
 	{
-		alert("selectHandler()");
+		console.log("selectHandler()");
 		console.log(app.getTotalSize());
     upload();
+    $('#progress-bar').progressbar({ value: 0 });
 	}
 
 	delegate.singleUploadCompleteHandler = function(args)
@@ -35,21 +36,25 @@
 	delegate.allUploadsCompleteHandler = function()
 	{
 		console.log("allUploadsCompleteHandler");
+    $("#save-button").show();
 	}
 
 	delegate.entriesAddedHandler = function(entries)
 	{
-		alert(entries[0].entryId)
+		alert("thank you for your upload\n this is a good time to close this page");
+    console.log(entries[0].entryId)
 	}
 
 	delegate.progressHandler = function(args)
-	{
-		console.log(args[2].title + ": " + args[0] + " / " + args[1]);
+	{ 
+    var uploadProgress = ( args[0] / args[1] ) * 100;
+    $("#progress-bar").progressbar( "option", "value", uploadProgress );
+//		console.log(args[2].title + ": " + args[0] + " / " + args[1]);
 	}
 
 	delegate.uiConfErrorHandler = function()
 	{
-		alert("ui conf loading error");
+		console.log("ui conf loading error");
 	}
 
 	//KUplaoder API calls
@@ -187,6 +192,8 @@
 
 	function onLoadHandler()
 	{
+
+    $("#save-button").hide();
 		tagsInput = document.getElementById("tagsInput");
 //		tagsStartIndex = document.getElementById("tagsStartIndex");
 //		tagsEndIndex = document.getElementById("tagsEndIndex");

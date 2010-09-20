@@ -74,7 +74,7 @@
 			 <!--embed flash object-->
 			swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/11500", "uploader", "200", "30", "9.0.0", "expressInstall.swf", flashVars, params,attributes);
 		</script>
-    <div id="upload-progress">
+    <div id="progress-bar">
     </div>
 	</div>
 	<br/>
@@ -83,7 +83,7 @@
 			<input type="button" value="Cancel" 		        onclick="stopUploads()"><br />
 			<input type="text" value="title here" id="titleInput" /><br />
 			<input type="text" value="tags here, comma separated" id="tagsInput" />
-      <input type="button" value="Save" 	onclick="saveEntry()">
+      <input id="save-button" type="button" value="Save" 	onclick="saveEntry()">
 		</form>
 
 	<!--
@@ -93,7 +93,7 @@
 			<input type="button" value="Cancel" 		        onclick="stopUploads()">
 		</form>
 
-		<form>
+		<form
 		</form>
 
 		<form>

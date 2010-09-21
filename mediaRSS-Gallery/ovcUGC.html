@@ -111,31 +111,16 @@ div.thumbnail.selected{
   display:none;
 }
 </style>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <!--[if IE]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript" src="http://html5.kaltura.org/js"></script>  
 <script type="text/javascript" src="libs/showdown.js"></script>
 
-<!--
-The Flash playlist embed code:
-
-<object id="kaltura_player" name="kaltura_player" type="application/x-shockwave-flash" allowFullScreen="true" allowNetworking="all" allowScriptAccess="always" height="333" width="680" xmlns:dc="http://purl.org/dc/terms/" xmlns:media="http://search.yahoo.com/searchmonkey/media/" rel="media:video" resource="http://lthree.kaltura.com/index.php/kwidget/cache_st/1285079625/wid/_22646/uiconf_id/1913612" data="http://lthree.kaltura.com/index.php/kwidget/cache_st/1285079625/wid/_22646/uiconf_id/1913612"><param name="allowFullScreen" value="true" /><param name="allowNetworking" value="all" /><param name="allowScriptAccess" value="always" /><param name="bgcolor" value="#000000" /><param name="flashVars" value="playlistAPI.autoContinue=true&playlistAPI.autoInsert=true&playlistAPI.kpl0Name=OVC UGC 2010&playlistAPI.kpl0Url=http%3A%2F%2Flthree.kaltura.com%2Findex.php%2Fpartnerservices2%2Fexecuteplaylist%3Fuid%3D%26partner_id%3D22646%26subp_id%3D2264600%26format%3D8%26ks%3D%7Bks%7D%26playlist_id%3D1_i1ax3az7&" /><param name="movie" value="http://lthree.kaltura.com/index.php/kwidget/cache_st/1285079625/wid/_22646/uiconf_id/1913612" /><a href="http://corp.kaltura.com">video platform</a> <a href="http://corp.kaltura.com/video_platform/video_management">video management</a> <a href="http://corp.kaltura.com/solutions/video_solution">video solutions</a> <a href="http://corp.kaltura.com/video_platform/video_publishing">video player</a> {SEO} </object>
-
-the mediaRSS address:
-http://lthree.kaltura.com/index.php/partnerservices2/executeplaylist?uid=&partner_id=22646&subp_id=2264600&format=8&ks={ks}&playlist_id=1_i1ax3az7&
-
--->
-
 <script type="text/javascript">
-
-
-/*$("#mediaRSS").jParse({ajaxOpts: {
-    url: 'http://lthree.kaltura.com/index.php/partnerservices2/executeplaylist?uid=&partner_id=22646&subp_id=2264600&format=8&ks={ks}&playlist_id=1_i1ax3az7&',
-    elementTag: ['title', 'description', 'link']
-    }}); */
-
 
 var kWidgetId = "_22646",
     kPartnerId = 22646,
@@ -288,27 +273,28 @@ function scrollDown () {
   checkArrows(page);
 }
 
+function showUpload() {
+  $('<iframe src="./ksu.php"/>').dialog({
+              title: "Upload a Video", 
+              autoOpen: true,
+              width: 400,
+              height: 250,});
+}
+
 $(function(){
     mw.setConfig('EmbedPlayer.KalturaAttribution', false );
     mw.setConfig('EmbedPlayer.PlayerSelector', false );
-
-
-
-/*    galleryClips = [
-  {
-    'entryId' : 'njbqgmfi1k',
-    'title' : 'Xeni Jardin',
-    'description' : 'She’s the co-editor of Boing Boing and host/executive producer of the daily internet video program Boing Boing tv—she’s Xeni Jardin! In addition to her work at Boing Boing, Xeni also contributes to WIRED, National Public Radio’s “Day to Day,” and hosts NPR’s “Xeni Tech” podcast. She has been published in online and print versions of publications including the Los Angeles Times, MSNBC, WIRED News, Playboy, Popular Science, Gotham, Nerve, Grammy Magazine, Make, and more. \n\nXeni is a very unique mix of journalist, unpop-cultural commentator, geek, and video producer. Xeni will relate her recent experiences in Guatemala, where serious political and social unrest has been spreading through social networks and other citizen driven media.'
-  }
-]; */
-
 });
 
 </script>
 
 </head>
 <body>
-
+		<div id="upload-now">
+      <p align="right">
+			  <a href="#" id="start-upload" onclick="showUpload()">Upload a Video</a>
+      </p>
+		</div>
     <div class="video-highlight box270">
         <div id="video-player"></div>
     </div>
@@ -325,6 +311,9 @@ $(function(){
     </div>
 
     <div id="mediaRSS" style="display:none">
+    </div>
+    
+    <div id="upload-dialog">
     </div>
 
 </body>

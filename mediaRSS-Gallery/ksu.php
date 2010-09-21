@@ -56,7 +56,7 @@
 		<form>
 			<input id="browse-button" type="button" value="Select a File">
 		</form>
-		<div id="uploader"> 
+		<div id="uploader" style="display:none"> 
 		</div>
 		<script language="JavaScript" type="text/javascript">
 			var params = {
@@ -75,10 +75,9 @@
 			swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/11500", "uploader", "200", "30", "9.0.0", "expressInstall.swf", flashVars, params,attributes);
 			//swfobject.embedSWF("./KSU.swf", "uploader", "200", "30", "9.0.0", "expressInstall.swf", flashVars, params,attributes);
 		</script>
-    <div id="progress-bar">
-    </div>
 	</div>
 	<br/>
+    <div id="progress-bar"></div>
 	<div id="userInput">
 	  <form>
 			<input type="text" value="title here" id="titleInput" /><br />

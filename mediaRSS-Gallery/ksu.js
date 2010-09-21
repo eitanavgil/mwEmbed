@@ -27,8 +27,8 @@
 		console.log("selectHandler()");
 		console.log(app.getTotalSize());
     upload();
+    $('#browse-button').attr("disabled", "true");
     $('#progress-bar').progressbar({ value: 0 });
-    $('#browse-button').hide();
 	}
 
 	delegate.singleUploadCompleteHandler = function(args)
@@ -57,7 +57,7 @@
 
 	delegate.entriesAddedHandler = function(entries)
 	{
-		alert("thank you for your upload\n this is a good time to close this page");
+		flashAdvice("Thank you for your upload.\n You may now close this dialog.");
     console.log(entries[0].entryId);
 	}
 

@@ -73,6 +73,7 @@
 			var flashVars = <?php echo json_encode($flashVars); ?>;
 			 <!--embed flash object-->
 			swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/11500", "uploader", "200", "30", "9.0.0", "expressInstall.swf", flashVars, params,attributes);
+			//swfobject.embedSWF("./KSU.swf", "uploader", "200", "30", "9.0.0", "expressInstall.swf", flashVars, params,attributes);
 		</script>
     <div id="progress-bar">
     </div>

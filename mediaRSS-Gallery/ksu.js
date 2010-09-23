@@ -137,7 +137,7 @@
 	function addTagsFromForm()
 	{
 		//var tags = document.getElementById("tagsInput").value.split(",");
-	  var tags = "_ovctvugc, _2010, " + document.getElementById("tagsInput").value
+	  var tags = "ovctvugc, 2010, " + document.getElementById("tagsInput").value
     tags = tags.split(",");	
     //var startIndex //= parseInt(tagsStartIndex.value);
 		//var endIndex //= parseInt(tagsEndIndex.value);
@@ -146,7 +146,7 @@
 
 	function setTagsFromForm()
 	{
-		var tags = "_ovctvugc, _2010, " + document.getElementById("tagsInput").value
+		var tags = "ovctvugc, 2010, " + document.getElementById("tagsInput").value
     tags = tags.split(",");
 		//var startIndex = parseInt(tagsStartIndex.value);
 		//var endIndex = parseInt(tagsEndIndex.value);

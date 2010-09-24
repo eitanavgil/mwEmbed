@@ -12,6 +12,21 @@
 	$config           = new KalturaConfiguration(KALTURA_PARTNER_ID);
 	$client           = new KalturaClient($config);
 	$ks               = $client->session->start(KALTURA_PARTNER_WEB_SERVICE_SECRET, $partnerUserID, KalturaSessionType::USER);
+	//$ks               = $client->session->start(KALTURA_PARTNER_WEB_SERVICE_ADMIN_SECRET, $partnerUserID, KalturaSessionType::ADMIN);
+
+
+  // setup our upload processor
+  // this processor is based on: http://www.webdeveloper.com/forum/showthread.php?t=101466
+  // first let's set some variables 
+
+  // make a note of the current working directory relative to root. 
+  $directory_self = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']); 
+
+  // make a note of the location of the upload handler script 
+  $uploadHandler = 'http://' . $_SERVER['HTTP_HOST'] . $directory_self . 'upload.php';
+
+  // set a max file size for the html upload form 
+  $max_file_size = 300000000000000000000000000; // size in bytes hehe
 
 ?>
 

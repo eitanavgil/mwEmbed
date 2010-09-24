@@ -1,19 +1,23 @@
-<!--
-// -----------------------------------------------------------------------------
-// Globals
-// Major version of Flash required
-//var requiredMajorVersion = ${version_major};
-// Minor version of Flash required
-//var requiredMinorVersion = ${version_minor};
-// Minor version of Flash required
-//var requiredRevision = ${version_revision};
-// -----------------------------------------------------------------------------
-// -->
+// setup kaltura javascript client 
 
-	var app;
+var kUploadConfiguration,
+    kClient,
+    kAddEntryId;
+kUploadConfiguration = new KalturaConfiguration(kPartnerId), // set in the php file
+kClient = new KalturaClient(kUploadConfiguration);
+kClient.setKs(ks); //set in the php file
+
+function saveDescription(description) {
+    alert(description)
+		flashAdvice("Thank you for your upload.\n You may now close this dialog.");
+}
+
+  var app;
 	var delegate = {};
   var title;
   var tags;
+  var description;
+
 
 	//KUploader callbacks
 	delegate.readyHandler = function()
@@ -40,10 +44,10 @@
 	{
 		console.log("title: " + title + " & tags: " + tags);
     console
-    if (title && tags) {
-      console.log("we have title");
+
+   if (title && tags && description) {
+      console.log("we have the metadata");
       setTitle(title);
-      console.log("we have tags");
       setTagsFromForm();
       console.log("we will save");
       addEntries();
@@ -57,8 +61,9 @@
 
 	delegate.entriesAddedHandler = function(entries)
 	{
-		flashAdvice("Thank you for your upload.\n You may now close this dialog.");
     console.log(entries[0].entryId);
+    kAddEntryId = (entries[0].entryId);
+    saveDescription(description);
 	}
 
 	delegate.progressHandler = function(args)
@@ -253,6 +258,8 @@
 	}
 
 
+
+
 function uploaderIsReady() {
   console.log(app);
 	setMediaType("video");
@@ -261,6 +268,7 @@ function uploaderIsReady() {
 function saveEntry() {
   title = titleInput.value;
   tags = tagsInput.value;
+  description = $('#descriptionInput')[0].value;
   console.log(tags);
   saveTitle(title);
   saveTags(tags);
@@ -269,6 +277,7 @@ function saveEntry() {
   }
 
 function titleAndSaveEntry() {
+  
   saveEntry();
   addEntries();
   }

@@ -34,8 +34,18 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="http://apis.kaltura.org/kalturaJsClient/kaltura.min.js.php" language="javascript"></script>
 <script src="AC_OETags.js" language="javascript"></script>
 <script src="history/history.js" language="javascript"></script>
+<!---	Kaltura Javascript Client Setup -->
+<script language="javascript">
+
+// Kaltura Session Key and Partner ID are provided by PHP Kaltura Client on the Server
+var ks = "<?php echo $ks;?>";
+var kPartnerId = <?php echo KALTURA_PARTNER_ID ?>;
+
+</script>
+
 <!---set style to enable widget overlap -->
 <style>
 	body { margin: 0px; overflow:hidden }
@@ -81,7 +91,12 @@
 	<div id="userInput">
 	  <form>
 			<input type="text" value="title here" id="titleInput" /><br />
-			<input type="text" value="tags here, comma separated" id="tagsInput" />
+			<input type="text" value="tags here, comma separated" id="tagsInput" /><br />
+      <textarea id="descriptionInput">Please enter a description here.
+
+we recommend using Markdown and writing the credits for your video like this:
+
+[Your Name](http://yourwebsite.com "HoverText!")</textarea><br />
       <input id="save-button" type="button" value="Save" 	onclick="saveEntry()">
       <input id="add-button" type="button" value="Complete Upload" 	onclick="titleAndSaveEntry()">
 		</form>

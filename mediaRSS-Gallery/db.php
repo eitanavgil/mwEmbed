@@ -1,6 +1,5 @@
 <?php
 // setup db
-trigger_error("db.php is running", E_USER_WARNING);
 include('db-utils.php');
 $dh = sqlite_open($db, 0666, $err) or die ($err);
 
@@ -38,12 +37,12 @@ if (isset($_GET['pull']))
       $sql = "SELECT * FROM users" ;
       $result = sqlite_query($dh, $sql);
 
-        echo "descriptions = '[{".
-        while($result->valid()) //{($row=$result->fetch(SQLITE_NUM))
+      if (sqlite_num_rows($result) > 0)
+      {
+        echo "descriptions = '[{";
+        while($result->valid()) //{($row=$result->fetch(SQLITE_ASSOC))
         {
-          $row=$result->current();
           echo "'kEntryId':'".$row['kEntryId']."','description':'".$row['description']."'},";
-          $result->next();
           }
         echo "]";
         }
@@ -53,12 +52,7 @@ if (isset($_GET['pull']))
         echo 'Create DB first!<br />';
         }
     }
+  }
 
-
-?>
-
-
-
-<?php
 sqlite_close($dh);
 ?>

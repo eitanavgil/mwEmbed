@@ -44,7 +44,7 @@ if (!extension_loaded("sqlite"))
 
 // databse handle
 $dh = sqlite_open($db, 0666, $err) or die ($err); // open if exists, create if not
-echo sqlite_table_list($dh).'<br />';
+//echo sqlite_table_list($dh).'<br />';
 
 // entries table migration
 if (!sqlite_table_exists($dh,$et)) // 'entries' does not exists, creating
@@ -59,7 +59,7 @@ else
     $sql = "SELECT id FROM $et";
     $result = sqlite_query($dh, $sql);
     $num = sqlite_num_rows($result);
-    echo " Table $et has $num records<br>";
+    //echo " Table $et has $num records<br>";
 }
 
 ?>

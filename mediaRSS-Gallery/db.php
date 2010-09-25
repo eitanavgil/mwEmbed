@@ -40,19 +40,18 @@ if (isset($_GET['pull']))
       if (sqlite_num_rows($result) > 0)
       {
         echo "descriptions = '[{";
-        while($result->valid()) //{($row=$result->fetch(SQLITE_ASSOC))
+        while($row=$result->fetch(SQLITE_ASSOC))
         {
           echo "'kEntryId':'".$row['kEntryId']."','description':'".$row['description']."'},";
           }
-        echo "]";
-        }
-        
-      else
-      {
-        echo 'Create DB first!<br />';
+          echo "]";
+          }
+        else
+        {
+          echo 'Create DB first!<br />';
+          }
         }
     }
-  }
 
 sqlite_close($dh);
 ?>

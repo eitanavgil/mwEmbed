@@ -1,4 +1,5 @@
 <?php
+//echo $_SERVER['REQUEST_METHOD'];
 // setup db
 include('db-utils.php');
 $dh = sqlite_open($db, 0666, $err) or die ($err);
@@ -21,7 +22,7 @@ if (isset($_POST['description']))
             VALUES (NULL,'$kEntryId','$description',NULL,NULL);";
     //     echo "sql = $sql<br />"; // un-comment for debugging
     $result = sqlite_query($dh, $sql) or die("Error in query: ".sqlite_error_string(sqlite_last_error($dh)));
-    echo "<p><i>Record successfully inserted!</i></p>";
+    //echo "<p><i>Record successfully inserted!</i></p>";
     }
   else
   {
@@ -30,28 +31,32 @@ if (isset($_POST['description']))
   }
 
 //if this is a GET, retreive all records and output a javascript object
-if (isset($_GET['pull']))
+if (isset($_GET))
 {
   if (!sqlite_is_empty($dh))
   {
-      $sql = "SELECT * FROM users" ;
+      $sql = "SELECT * FROM ".$et ;
       $result = sqlite_query($dh, $sql);
-
       if (sqlite_num_rows($result) > 0)
       {
-        echo "descriptions = '[{";
-        while($row=$result->fetch(SQLITE_ASSOC))
+        echo "description = [";
+
+        while (sqlite_has_more($result)) 
         {
-          echo "'kEntryId':'".$row['kEntryId']."','description':'".$row['description']."'},";
+          $row = sqlite_fetch_single($result);
+          echo "{'kEntryId':'"
+            .$row['kEntryId']
+            ."','description':'"
+            .$row['description']."'},";
           }
-          echo "]";
-          }
-        else
-        {
-          echo 'Create DB first!<br />';
-          }
+        echo "]";
         }
-    }
+      else
+      {
+        echo 'Create DB first!<br />';
+        }
+      }
+  }
 
 sqlite_close($dh);
 ?>

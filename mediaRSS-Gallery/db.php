@@ -1,7 +1,7 @@
 <?php
+trigger_error("db.php is running", E_USER_WARNING);
 include('db-utils.php');
 $dh = sqlite_open($db, 0666, $err) or die ($err);
-
 if (isset($_POST['description']))
 {
   if (!empty($_POST['kEntryId']) && !empty($_POST['description']) )
@@ -26,10 +26,5 @@ if (isset($_POST['description']))
      echo "<p><i>Incomplete form input. Record not inserted! Go Back</i></p>";
      }
   }
-}
-else
-{
-    echo 'Create DB first:<br />';
-}
-  sqlite_close($dh);
+sqlite_close($dh);
 ?>

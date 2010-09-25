@@ -1,15 +1,19 @@
 // setup kaltura javascript client 
 
-var kUploadConfiguration,
-    kClient,
-    kAddEntryId;
-kUploadConfiguration = new KalturaConfiguration(kPartnerId), // set in the php file
-kClient = new KalturaClient(kUploadConfiguration);
-kClient.setKs(ks); //set in the php file
+//var kUploadConfiguration,
+//    kClient,
+//    kAddEntryId;
+//kUploadConfiguration = new KalturaConfiguration(kPartnerId), // set in the php file
+//kClient = new KalturaClient(kUploadConfiguration);
+//kClient.setKs(ks); //set in the php file
 
-function saveDescription(description) {
+function saveDescription(kEntryId,description) {
     //alert(description)
-  $.ajax({type:"POST", url:"email_drew.php",data: "message="+description, success: function(){console.log("sent drew an email")}})
+  $.ajax({type:"POST", 
+          url:"db.php",
+          async:false,
+          data: "save=true&kEntryId="+kEntryId+"&description="+description, 
+          success: function(msg){console.log("saved description to entryID: "+msg)}})
 		flashAdvice("Thank you for your upload.\n You may now close this dialog.");
 }
 
@@ -18,6 +22,7 @@ function saveDescription(description) {
   var title;
   var tags;
   var description;
+  var kAddEntryId;
 
 
 	//KUploader callbacks
@@ -65,7 +70,8 @@ function saveDescription(description) {
 	{
     console.log(entries[0].entryId);
     kAddEntryId = (entries[0].entryId);
-    saveDescription(description);
+    //while kAdd
+    saveDescription(description,kAddEntryID);
 	}
 
 	delegate.progressHandler = function(args)

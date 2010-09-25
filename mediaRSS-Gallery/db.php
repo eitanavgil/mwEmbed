@@ -2,7 +2,7 @@
 include('db-utils.php');
 $dh = sqlite_open($db, 0666, $err) or die ($err);
 
-if (isset($_POST['save']))
+if (isset($_POST['description']))
 {
   if (!empty($_POST['kEntryId']) && !empty($_POST['description']) )
   {

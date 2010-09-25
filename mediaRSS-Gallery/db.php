@@ -18,12 +18,12 @@ if (isset($_POST['description']))
     //                    } else {
     //                           $volume = "'".sqlite_escape_string($_POST['volume'])."'";
     //                               }
-    $sql = "INSERT INTO ".$et." (id,kEntryId,description,name,email)
-            VALUES (NULL,'".$kEntryId."','".$description."',NULL,NULL);";
-         echo "sql = $sql<br />"; // un-comment for debugging
+    $sql = "INSERT INTO $et (id,kEntryId,description,name,email)
+            VALUES (NULL,'$kEntryId','$description',NULL,NULL);";
+    //     echo "sql = $sql<br />"; // un-comment for debugging
     $result = sqlite_query($dh, $sql) or die("Error in query: ".sqlite_error_string(sqlite_last_error($dh)));
-    echo "<p><i>Record successfully inserted!</i></p>";
-    echo "<pre>"; print_r($_POST); echo "</pre>";
+    echo "<p><i>Record successfully inserted!</i></p>\n";
+    print_r($_POST);
     }
   else
   {

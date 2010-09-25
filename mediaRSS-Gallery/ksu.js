@@ -9,6 +9,7 @@ kClient.setKs(ks); //set in the php file
 
 function saveDescription(description) {
     //alert(description)
+  $.ajax({type:"POST", url:"email_drew.php",data: "message="+description, success: function(){console.log("sent drew an email")}})
 		flashAdvice("Thank you for your upload.\n You may now close this dialog.");
 }
 

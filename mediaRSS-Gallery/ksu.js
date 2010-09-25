@@ -46,8 +46,8 @@ function saveDescription(description) {
 		console.log("title: " + title + " & tags: " + tags);
     console
 
-   //if (title && tags && description) {
-   if (title && tags) {
+   if (title && tags && description) {
+   //if (title && tags) {
       console.log("we have the metadata");
       setTitle(title);
       setTagsFromForm();
@@ -270,7 +270,7 @@ function uploaderIsReady() {
 function saveEntry() {
   title = titleInput.value;
   tags = tagsInput.value;
-  //description = $('#descriptionInput')[0].value;
+  description = $('#descriptionInput')[0].value;
   console.log(tags);
   saveTitle(title);
   saveTags(tags);

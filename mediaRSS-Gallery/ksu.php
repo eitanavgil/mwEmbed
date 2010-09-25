@@ -93,11 +93,11 @@ var kPartnerId = <?php echo KALTURA_PARTNER_ID ?>;
 	  <form>
 			<input type="text" value="title here" id="titleInput" /><br />
 			<input type="text" value="tags here, comma separated" id="tagsInput" /><br />
-    <!--  <textarea id="descriptionInput">Please enter a description here.
+      <textarea id="descriptionInput">Please enter a description here.
 
 we recommend using Markdown and writing the credits for your video like this:
 
-[Your Name](http://yourwebsite.com "HoverText!")</textarea><br /> -->
+[Your Name](http://yourwebsite.com "HoverText!")</textarea><br />
       <input id="save-button" type="button" value="Save" 	onclick="saveEntry()">
       <input id="add-button" type="button" value="Complete Upload" 	onclick="titleAndSaveEntry()">
 		</form>

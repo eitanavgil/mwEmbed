@@ -33,6 +33,7 @@ if (isset($_POST['description']))
 
 //if this is a GET, retreive all records and output a javascript object
 if (isset($_GET))
+echo "descriptions = ";
 {
   if (!sqlite_is_empty($dh))
   {
@@ -40,18 +41,13 @@ if (isset($_GET))
       $result = sqlite_query($dh, $sql);
       if (sqlite_num_rows($result) > 0)
       {
-        echo "descriptions = [";
-
+        $descriptions = array();
         while (sqlite_has_more($result)) 
         {
           $row = sqlite_fetch_array($result);
-          //echo "<pre>"; print_r($row['description']); echo "</pre>";
-          echo "{'kEntryId':'"
-            .$row['kEntryId']
-            ."','description':'"
-            .$row['description']."'},";
+          $descriptions[] = array($row['kEntryId'] => $row['description']);
           }
-        echo "]";
+        echo json_encode($descriptions, JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP);
         }
       else
       {

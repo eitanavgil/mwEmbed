@@ -73,7 +73,7 @@ function saveDescription(kEntryId,description) {
     console.log(entries[0].entryId);
     kAddEntryId = (entries[0].entryId);
     //while kAdd
-    saveDescription(kAddEntryId, description);
+    setTimeout("saveDescription(kAddEntryId, description)",5000);
 	}
 
 	delegate.progressHandler = function(args)

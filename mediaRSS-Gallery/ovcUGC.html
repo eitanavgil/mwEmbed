@@ -118,6 +118,9 @@ div.thumbnail.selected{
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript" src="http://html5.kaltura.org/js"></script>  
+<script type="text/javascript" src="libs/lawnchair/src/Lawnchair.js"></script>
+<script type="text/javascript" src="libs/lawnchair/src/adaptors/LawnchairAdaptorHelpers.js"></script>
+<script type="text/javascript" src="libs/lawnchair/src/adaptors/DOMStorageAdaptor.js"></script>
 <script type="text/javascript" src="libs/showdown.js"></script>
 
 <script type="text/javascript">
@@ -132,12 +135,14 @@ var kWidgetId = "_22646",
     thumbnailTop = undefined,
     page = 1,
     mediaRSS,
-    descriptions,
+    descriptionsDB,
+    descriptionsArray,
     galleryClips = new Array();
 
 mediaRSS = $.ajax({
             type: "GET",
             url: "proxy.php",
+            async:false,
             dataType: "xml",
             success: function(xml) { 
               $(xml).find("item").each(function() {
@@ -149,11 +154,12 @@ mediaRSS = $.ajax({
                 galleryClips.push({ 'entryId' : entryId,  'title' : title,  'description' :  description }); 
                 console.log( title + " " + entryId + " " + description );
                 });
-              loadGallery();
+//              loadGallery();
               }
             });
 
-$.getJSON('db.php', function(json){ descriptions=json; });
+//load descriptions
+$.getJSON('db.php', function(json){ descriptionsArray=json; });
 
 function loadGallery() {
     $.each( galleryClips, function( index, video ) {
@@ -202,8 +208,16 @@ function loadGallery() {
 
 function loadVideo(videoId){
   var converter = new Showdown.converter();
-  var description = '## ' + galleryClips[videoId].title + '\n\n' + galleryClips[videoId].description;
-  var text = converter.makeHtml(description);
+  //var description = '## ' + galleryClips[videoId].title + '\n\n' + galleryClips[videoId].description;
+  //var text = converter.makeHtml(description);
+  var title = galleryClips[videoId].title;
+  var description;
+  descriptionsDB.get(galleryClips[videoId].entryId, function(r){ description = r.description; });
+console.log( title +"+"+ description );
+  var descriptionText = '## ' + title + '\n\n' + description;
+  var text = converter.makeHtml(descriptionText);
+  $('#video-description').html(text);
+
   $('#video-description').html(text);
   previousDescription = text;
   mw.ready( function(){
@@ -227,13 +241,9 @@ function loadVideo(videoId){
   });
 }
 
-
-function previewVideo(videoId){
-  var converter = new Showdown.converter();
-  var description = '## ' + galleryClips[videoId].title + '\n\n' + galleryClips[videoId].description;
-  var text = converter.makeHtml(description);
-  $('#video-description').html(text);
-}
+function findDescription(kEntryId) {
+  descriptionsDB.get(kEntryId, function(r){return r.description;});
+  }
 
 function checkArrows(page) {
   if (page == 1) {
@@ -263,6 +273,16 @@ function scrollUp () {
   checkArrows(page);
 }
 
+function loadDatabase() {
+// load up our database of descriptions
+descriptionsDB = new Lawnchair({adaptor: "dom"});
+$(descriptionsArray).each(function(i,desc){
+    console.log (descriptionsArray[i].kEntryId + ": " + descriptionsArray[i].description);
+    descriptionsDB.save({key: descriptionsArray[i].kEntryId, "kEntryId": descriptionsArray[i].kEntryId, "description": descriptionsArray[i].description});
+//    descriptions.save({key: descriptionsArray[i].kEntryId, description: descriptionsArray[i].description});
+    });
+}
+
 function scrollDown () {
   if (thumbnailTop== undefined) {
     thumbnailTop = -283;
@@ -284,9 +304,25 @@ function showUpload() {
               height: 450,});
 }
 
+function previewVideo(videoId){
+  var converter = new Showdown.converter();
+  var title = galleryClips[videoId].title;
+  
+  var description;
+  descriptionsDB.get(galleryClips[videoId].entryId, function(r){ description = r.description; });
+
+  //var description = descriptionsDB.get(galleryClips[videoId].kEntryId, function(r){return r.description;});
+console.log( title +"+"+ description );
+  var descriptionText = '## ' + title + '\n\n' + description;
+  var text = converter.makeHtml(descriptionText);
+  $('#video-description').html(text);
+}
+
 $(function(){
     mw.setConfig('EmbedPlayer.KalturaAttribution', false );
     mw.setConfig('EmbedPlayer.PlayerSelector', false );
+    setTimeout(loadDatabase(), 5000)
+    setTimeout(loadGallery(),10000);
 });
 
 </script>

@@ -9,6 +9,8 @@
 
 function saveDescription(kEntryId,description) {
     //alert(description)
+   var data = "save=true&kEntryId="+kEntryId+"&description="+description;
+     console.log(data);
   $.ajax({type:"POST", 
           url:"db.php",
           async:false,
@@ -71,7 +73,7 @@ function saveDescription(kEntryId,description) {
     console.log(entries[0].entryId);
     kAddEntryId = (entries[0].entryId);
     //while kAdd
-    saveDescription(description,kAddEntryID);
+    saveDescription(kAddEntryId, description);
 	}
 
 	delegate.progressHandler = function(args)

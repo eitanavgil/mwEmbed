@@ -40,11 +40,12 @@ if (isset($_GET))
       $result = sqlite_query($dh, $sql);
       if (sqlite_num_rows($result) > 0)
       {
-        echo "description = [";
+        echo "descriptions = [";
 
         while (sqlite_has_more($result)) 
         {
-          $row = sqlite_fetch_single($result);
+          $row = sqlite_fetch_array($result);
+          //echo "<pre>"; print_r($row['description']); echo "</pre>";
           echo "{'kEntryId':'"
             .$row['kEntryId']
             ."','description':'"

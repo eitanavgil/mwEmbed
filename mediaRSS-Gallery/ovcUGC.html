@@ -126,7 +126,12 @@ div.thumbnail.selected{
 <script type="text/javascript" src="libs/showdown.js"></script>
 
 <script type="text/javascript">
-
+if(!window.console) {
+    window.console = new function() {
+          this.log = function(str) {};
+              this.dir = function(str) {};
+                };
+}
 var kWidgetId = "_22646",
     kPartnerId = 22646,
     thumbHeight = 135,

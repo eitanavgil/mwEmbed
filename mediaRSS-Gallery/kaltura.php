@@ -17,6 +17,9 @@ Template Name: Kaltura
 <li><a href="http://www.openvideoconference.org/user_generated_gallery/ovcUGC.html" rel="#iframe" title="UGC">UGC</a></li>
 </ul>
 </div>
+<div id="countrydivcontainer" style="width: 1000px; height: auto; margin-bottom: 1em; padding-top: 15px; margin-top: -12px; color: black;">
+<p>Check out some of the confirmed programming!</p>
+</div>
 
 <script type="text/javascript">
 

@@ -38,7 +38,7 @@ if (isset($_GET))
           $row = sqlite_fetch_array($result);
           $descriptions[] = array("kEntryId" => $row['kEntryId'], "description" => $row['description']);
           }
-        echo json_encode($descriptions, JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP);
+        echo json_encode($descriptions); //, JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP);
         }
       else
       {

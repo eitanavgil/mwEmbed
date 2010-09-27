@@ -10,18 +10,20 @@ Template Name: Kaltura
 ?>
 
 <?php get_header(); ?>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 
-<div id="galleryTabs"></div>
-<div id="galleryIframe"></div>
+<div>
+<ul id="countrytabs" class="shadetabs" style="padding-left: 0px; margin-top: -10px;">
+<li><a href="http://www.openvideoconference.org/user_generated_gallery/video_library.html" rel="#iframe" title="2009 Video Showcase">ovc2009</a></li>
+<li><a href="http://www.openvideoconference.org/user_generated_gallery/ovcUGC.html" rel="#iframe" title="UGC">UGC</a></li>
+</ul>
+</div>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">
 
-  $(function() {
-          $("#galleryTabs").tabs();
-            });
+var countries=new ddajaxtabs("countrytabs", "countrydivcontainer")
+countries.setpersist(true)
+countries.setselectedClassTarget("link") //"link" or "linkparent"
+countries.init()
 
 </script>
 

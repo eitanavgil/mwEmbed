@@ -12,32 +12,51 @@
  	 	
  	</script>
 </head>
+<style type="text/css">
+body {
+  font-size: 12px;
+  border: 0;
+  padding: 8px;;
+  margin: 0;
+  font-family: Sans-Serif;
+  font-size: 12px;
+}
+
+</style>
 <body>
 <h3> Swarm Transport:</h3>
 
-Install the swarmTransport add-on and this video will be served via p2p next <a href="http://wikipedia.p2p-next.org/">swarm transport</a> <br /> 
+Install the <a href="http://swarmplayer.p2p-next.org/">SwarmPlayer add-on</a> and this video will be served via streaming bittorrent. 
+<p>
  <table border="1" cellpadding="6" width="950">
   
  	<tr> 		
- 	<td valign="top" width="410"> 		
+ 	<td valign="top" width="410"> 	
+ 	<i>Note: it may take a few seconds to buffer the clip</i>	
 	 	<video 
-	 		style="width:512px;height:288px"	 		
-	 		apiTitleKey="Yochai_Benkler_-_On_Autonomy,_Control_and_Cultural_Experience.ogg"
-	 		apiProvider="commons"
-	 		class="kskin">
+	 	style="width:512px;height:288px"	 			 			 	
+	 	poster="http://footage.stealthisfilm.com/video/5/frame/0:03:56.640.jpg" 
+	 	src="http://footage.stealthisfilm.com/stream/Yochai%20Benkler%20-%20On%20Autonomy%2C%20Control%20and%20Cultureal%20Experience.ogg"	 		
+	 	>
+	 		<track srclang="en" src="Yochai_Benkler_-_On_Autonomy,_Control_and_Cultural_Experience.srt" />
 	 	</video>
  	<td valign="top">
- 			Commons Video API based timedText discovery<br> 
-
- 	<textarea style="width:600px;height:180px">
+ 			<h3> Source code used to invoke p2p with kaltura html5 client library: </h3> 
+ 	<textarea style="width:600px;height:300px"> 	
+ <script type="text/javascript" src="http://html5.kaltura.org/js"></script>
+ <script type="text/javascript"> 	
+ 	mw.setConfig( 'SwarmTransport.Enable', true );
+ 	 	
+ 	mw.setConfig( 'SwarmTransport.Recommend', true );  	 	
+</script>
 <video 
-	style="width:512px;height:288px"	 		
-	apiTitleKey="Yochai_Benkler_-_On_Autonomy,_Control_and_Cultural_Experience.ogg"
-	apiProvider="commons"
-	class="kskin">
-</video>
- 	
- 	</textarea> 
+ style="width:512px;height:288px"
+ poster="http://footage.stealthisfilm.com/video/5/frame/0:03:56.640.jpg" 
+ src="http://footage.stealthisfilm.com/stream/Yochai%20Benkler%20-%20On%20Autonomy%2C%20Control%20and%20Cultureal%20Experience.ogg"	 		
+>
+	<track srclang="en" src="Yochai_Benkler_-_On_Autonomy,_Control_and_Cultural_Experience.srt" />
+</video>	 	
+</textarea> 
 	</td>
  	</tr>
 

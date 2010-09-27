@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>sample mv embed</title>
-	<script type="text/javascript" src="http://html5.kaltura.org/js"></script>
+	<title>sample mv embed</title>	
+	<script type="text/javascript" src="../mwEmbed/mwEmbed.js"></script>
  	<script type="text/javascript">
  	
  	// Set configuration: 
- 	mw.setConfig( 'enableSwarmTransport', true );
+ 	mw.setConfig( 'SwarmTransport.Enable', true );
  	 	
- 	mw.setConfig( 'recommendSwarmTransport', true ); 
+ 	mw.setConfig( 'SwarmTransport.Recommend', true ); 
  	 	
  	</script>
 </head>
@@ -19,7 +19,7 @@ Install the swarmTransport add-on and this video will be served via p2p next <a 
  <table border="1" cellpadding="6" width="950">
   
  	<tr> 		
- 	<td id="apiExample" valign="top" width="410"> 		
+ 	<td valign="top" width="410"> 		
 	 	<video 
 	 		style="width:512px;height:288px"	 		
 	 		apiTitleKey="Yochai_Benkler_-_On_Autonomy,_Control_and_Cultural_Experience.ogg"
@@ -29,7 +29,7 @@ Install the swarmTransport add-on and this video will be served via p2p next <a 
  	<td valign="top">
  			Commons Video API based timedText discovery<br> 
 
- 	<textarea id="apiExampleTextArea" style="width:600px;height:180px">
+ 	<textarea style="width:600px;height:180px">
 <video 
 	style="width:512px;height:288px"	 		
 	apiTitleKey="Yochai_Benkler_-_On_Autonomy,_Control_and_Cultural_Experience.ogg"

@@ -287,8 +287,9 @@ function saveEntry() {
   }
 
 function titleAndSaveEntry() {
-  
+
   saveEntry();
+  setTagsFromForm();
   addEntries();
   }
 

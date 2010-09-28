@@ -242,10 +242,27 @@ function saveDescription(kEntryId,description) {
 	var screenName;
 	var siteUrl;
 
-	function onLoadHandler()
+	$(function()
 	{
 
       $("#add-button").hide();
+
+var params = {
+				allowScriptAccess: "always",
+				allowNetworking: "all",
+				wmode: "transparent"
+
+			};
+			var attributes  = {
+				id: "uploader",
+				name: "KUpload"
+			};
+			// set flashVar object
+			var flashVars = <?php echo json_encode($flashVars); ?>;
+			 <!--embed flash object-->
+			swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/11500", "uploader", "200", "30", "9.0.0", "expressInstall.swf", flashVars, params,attributes);
+			//swfobject.embedSWF("./KSU.swf", "uploader", "200", "30", "9.0.0", "expressInstall.swf", flashVars, params,attributes);
+
 		  
     tagsInput = document.getElementById("tagsInput");
 		tagsStartIndex = 0; //document.getElementById("tagsStartIndex");
@@ -265,7 +282,7 @@ function saveDescription(kEntryId,description) {
 //		permissions = document.getElementById("permissions");
 //		screenName = document.getElementById("screenName");
 //		siteUrl = document.getElementById("siteUrl");
-	}
+	});
 
 
 

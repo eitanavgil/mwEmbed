@@ -133,10 +133,6 @@ div.thumbnail.selected{
 .navbar .disabled{
   display:none;
 }
-html,body{
-  background: transparent;
-  background-image: none;
-}
 #nav li ul{
   z-index:-1;
 }

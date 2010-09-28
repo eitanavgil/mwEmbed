@@ -38,8 +38,38 @@ Template Name: Kaltura User Generated Gallery
 	$flashVars["jsDelegate"]   = "delegate"; 
 ?>
 
-
 <?php get_header(); ?>
+
+
+<!--[if IE]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://html5.kaltura.org/js"></script>  
+<script src="http://apis.kaltura.org/kalturaJsClient/kaltura.min.js.php" language="javascript"></script>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/ksu.js"></script>
+
+<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/lawnchair/src/Lawnchair.js"></script>
+<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/lawnchair/src/adaptors/LawnchairAdaptorHelpers.js"></script>
+<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/lawnchair/src/adaptors/DOMStorageAdaptor.js"></script>
+<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/showdown.js"></script>
+
+
+<script type="text/javascript">
+
+// Kaltura Session Key and Partner ID are provided by PHP Kaltura Client on the Server
+var ks = "<?php echo $ks;?>";
+var kPartnerId = <?php echo KALTURA_PARTNER_ID ?>;
+
+</script>
+
+
+<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/user_generated_gallery.js"></script>
+
 
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 
@@ -47,7 +77,7 @@ Template Name: Kaltura User Generated Gallery
     <link rel="stylesheet" href="http://www.openvideoconference.org/user_generated_gallery/style.css" type="text/css" media="screen" /> 
 
 
-<div id="gallery">
+<div id="gallery" style="width:970px;position:relative;left:-15px;margin-left:auto;margin-right:auto">
 		<div id="upload-now">
       <p align="right">
 			  <a href="#" id="start-upload" onclick="showUpload()">Upload a Video</a>
@@ -75,33 +105,27 @@ Template Name: Kaltura User Generated Gallery
     </div>
 
 </div>
-<div id="ksu">
+<div id="ksu" style="display:none;visibility:visible">
+  <!---set style to enable widget overlap -->
+<style>
+#ksu { margin: 0px; overflow:hidden }
+	#flashContainer{ position:relative; }
+		#flashContainer span{ color:#333; font-size:16px; }
+		object, embed{ position:absolute; top:0; left:0; z-index:999;}
+</style>
+
+
 	<div id="flashContainer">
 		<form>
 			<input id="browse-button" type="button" value="Select a File">
 		</form>
 		<div id="uploader" style="display:none"> 
 		</div>
-		<script language="JavaScript" type="text/javascript">
-			var params = {
-				allowScriptAccess: "always",
-				allowNetworking: "all",
-				wmode: "transparent"
-
-			};
-			var attributes  = {
-				id: "uploader",
-				name: "KUpload"
-			};
-			// set flashVar object
-			var flashVars = <?php echo json_encode($flashVars); ?>;
-			 <!--embed flash object-->
-			swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/11500", "uploader", "200", "30", "9.0.0", "expressInstall.swf", flashVars, params,attributes);
-			//swfobject.embedSWF("./KSU.swf", "uploader", "200", "30", "9.0.0", "expressInstall.swf", flashVars, params,attributes);
-		</script>
 	</div>
 	<br/>
-    <div id="progress-bar"></div>
+  <div id="progress-bar"></div><br/>
+  <div id="flash"></div><br/>
+
 	<div id="userInput">
 	  <form>
 			<input type="text" value="title here" id="titleInput" /><br />
@@ -114,33 +138,8 @@ we recommend using Markdown and writing the credits for your video like this:
       <input id="save-button" type="button" value="Save" 	onclick="saveEntry()">
       <input id="add-button" type="button" value="Complete Upload" 	onclick="titleAndSaveEntry()">
 		</form>
-    <div id="flash">
-    </div>
+    
+  </div>
 
 </div>
-
-<!--[if IE]>
-<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-<script type="text/javascript" src="http://html5.kaltura.org/js"></script>  
-<script src="http://apis.kaltura.org/kalturaJsClient/kaltura.min.js.php" language="javascript"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
-<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/lawnchair/src/Lawnchair.js"></script>
-<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/lawnchair/src/adaptors/LawnchairAdaptorHelpers.js"></script>
-<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/lawnchair/src/adaptors/DOMStorageAdaptor.js"></script>
-<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/showdown.js"></script>
-
-
-<script type="text/javascript">
-
-// Kaltura Session Key and Partner ID are provided by PHP Kaltura Client on the Server
-var ks = "<?php echo $ks;?>";
-var kPartnerId = <?php echo KALTURA_PARTNER_ID ?>;
-
-</script>
-
-<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/user_generated_gallery.js"></script>
-
 <?php get_footer(); ?>

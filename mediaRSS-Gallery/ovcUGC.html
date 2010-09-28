@@ -165,8 +165,15 @@ mediaRSS = $.ajax({
               }
             });
 
-//load descriptions
-$.getJSON('db.php', function(json){ descriptionsArray=json; });
+function loadDatabase() {
+// load up our database of descriptions
+descriptionsDB = new Lawnchair({adaptor: "dom"});
+$(descriptionsArray).each(function(i,desc){
+    console.log (descriptionsArray[i].kEntryId + ": " + descriptionsArray[i].description);
+    descriptionsDB.save({key: descriptionsArray[i].kEntryId, "kEntryId": descriptionsArray[i].kEntryId, "description": descriptionsArray[i].description});
+//    descriptions.save({key: descriptionsArray[i].kEntryId, description: descriptionsArray[i].description});
+    });
+}
 
 function loadGallery() {
     $.each( galleryClips, function( index, video ) {
@@ -280,16 +287,6 @@ function scrollUp () {
   checkArrows(page);
 }
 
-function loadDatabase() {
-// load up our database of descriptions
-descriptionsDB = new Lawnchair({adaptor: "dom"});
-$(descriptionsArray).each(function(i,desc){
-    console.log (descriptionsArray[i].kEntryId + ": " + descriptionsArray[i].description);
-    descriptionsDB.save({key: descriptionsArray[i].kEntryId, "kEntryId": descriptionsArray[i].kEntryId, "description": descriptionsArray[i].description});
-//    descriptions.save({key: descriptionsArray[i].kEntryId, description: descriptionsArray[i].description});
-    });
-}
-
 function scrollDown () {
   if (thumbnailTop== undefined) {
     thumbnailTop = -283;
@@ -328,8 +325,13 @@ console.log( title +"+"+ description );
 $(function(){
     mw.setConfig('EmbedPlayer.KalturaAttribution', false );
     mw.setConfig('EmbedPlayer.PlayerSelector', false );
-    setTimeout(loadDatabase(), 5000)
-    setTimeout(loadGallery(),10000);
+//load descriptions
+$.getJSON('db.php', function(json){ descriptionsArray=json; });
+
+    setTimeout("loadDatabase()", 3000);
+
+
+    setTimeout("loadGallery()",8000);
 });
 
 </script>

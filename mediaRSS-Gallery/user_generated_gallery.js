@@ -20,7 +20,7 @@ var kWidgetId = "_22646",
 
 mediaRSS = $.ajax({
             type: "GET",
-            url: "proxy.php",
+            url: "http://www.openvideoconference.org/user_generated_gallery/proxy.php",
             async:false,
             dataType: "xml",
             success: function(xml) { 
@@ -173,11 +173,7 @@ function scrollDown () {
 }
 
 function showUpload() {
-  $('<iframe src="./ksu.php"/>').dialog({
-              title: "Upload a Video", 
-              autoOpen: true,
-              width: 650,
-              height: 450,});
+  $('#ksu').dialog('open');
 }
 
 function previewVideo(videoId){
@@ -198,9 +194,15 @@ $(function(){
     mw.setConfig('EmbedPlayer.KalturaAttribution', false );
     mw.setConfig('EmbedPlayer.PlayerSelector', false );
 //load descriptions
-$.getJSON('db.php', function(json){ descriptionsArray=json; });
+$.getJSON('http://www.openvideoconference.org/user_generated_gallery/db.php', function(json){ descriptionsArray=json; });
+$('#ksu').dialog({
+              title: "Upload a Video", 
+              autoOpen: false,
+              width: 650,
+              height: 450,});
 
-    onLoadHandler();
+
+//    onLoadHandler();
 
     setTimeout("loadDatabase()", 3000);
 

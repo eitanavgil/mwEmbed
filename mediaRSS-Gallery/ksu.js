@@ -7,15 +7,55 @@
 //kClient = new KalturaClient(kUploadConfiguration);
 //kClient.setKs(ks); //set in the php file
 
+
+/// Awesome CSS spinner by http://kilianvalkhof.com/2010/css-xhtml/css3-loading-spinners-without-images/
+function hideSpinner() {
+  $("spinner").hide()
+  $("#flash").show();
+  }
+
+function showSpinner() {
+  
+  $("#flash").hide();
+  $("#spinner").show();
+  var count = 0;
+  function rotateSpinner() {
+    var elem = document.getElementById('spinner1');
+    var elem2 = document.getElementById('spinner2');
+    var elem3 = document.getElementById('spinner3');
+    var elem4 = document.getElementById('spinner4');
+    var elem5 = document.getElementById('spinner5');
+    var elem6 = document.getElementById('spinner6');
+    elem.style.MozTransform = 'scale(0.5) rotate('+count+'deg)';
+    elem2.style.MozTransform = 'scale(0.5) rotate('+count+'deg)';
+    elem3.style.MozTransform = 'scale(0.5) rotate('+count+'deg)';
+    elem4.style.MozTransform = 'scale(0.5) rotate('+count+'deg)';
+    elem5.style.MozTransform = 'scale(0.5) rotate('+count+'deg)';
+    elem6.style.MozTransform = 'scale(0.5) rotate('+count+'deg)';
+    elem.style.WebkitTransform = 'scale(0.5) rotate('+count+'deg)';
+    elem2.style.WebkitTransform = 'scale(0.5) rotate('+count+'deg)';
+    elem3.style.WebkitTransform = 'scale(0.5) rotate('+count+'deg)';
+    elem4.style.WebkitTransform = 'scale(0.5) rotate('+count+'deg)';
+    elem5.style.WebkitTransform = 'scale(0.5) rotate('+count+'deg)';
+    elem6.style.WebkitTransform = 'scale(0.5) rotate('+count+'deg)';
+    if (count==360) { count = 0 }
+    count+=45;
+    window.setTimeout(rotateSpinner, 100);
+  }
+  window.setTimeout(rotateSpinner, 100);
+
+}  
+
 function saveDescription(kEntryId,description,name) {
     //alert(description)
+  showSpinner();
    var data = "name="+name+"&kEntryId="+kEntryId+"&description="+description;
      console.log(data);
   $.ajax({type:"POST", 
           url:"http://www.openvideoconference.org/user_generated_gallery/db.php",
           async:false,
           data: "name="+name+"&kEntryId="+kEntryId+"&description="+description, 
-          success: function(msg){console.log("saved description to entryID: "+msg)}})
+          success: function(msg){hideSpinner();console.log("saved description to entryID: "+msg)}})
 		flashAdvice("Thank you for your upload.\n You may now close this dialog.");
 }
 
@@ -257,7 +297,7 @@ var ksuattributes  = {
 	{
 
       $("#add-button").hide();
-
+      $("#spinner").hide();
 		  
     tagsInput = document.getElementById("tagsInput");
 		tagsStartIndex = 0; //document.getElementById("tagsStartIndex");

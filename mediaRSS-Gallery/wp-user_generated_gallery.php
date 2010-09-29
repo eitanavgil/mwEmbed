@@ -78,6 +78,7 @@ var ksuflashVars = <?php echo json_encode($flashVars); ?>;
 
     <link rel="stylesheet" href="http://www.openvideoconference.org/wp-content/themes/ovcclassic/style.css" type="text/css" media="screen" /> 
     <link rel="stylesheet" href="http://www.openvideoconference.org/user_generated_gallery/style.css" type="text/css" media="screen" /> 
+    <link rel="stylesheet" href="http://www.openvideoconference.org/user_generated_gallery/spinner.css" type="text/css" media="screen" /> 
 
 
 <div id="gallery" style="width:970px;position:relative;left:-15px;margin-left:auto;margin-right:auto">
@@ -135,6 +136,16 @@ object, embed{ position:absolute; top:0; left:0; z-index:1001;}
 	<br/>
   <div id="progress-bar"></div><br/>
   <div id="flash"></div><br/>
+  <div id="spinner">
+    <div class="spinner1"></div>
+    <div class="spinner2"></div>
+    <div class="spinner3"></div>
+    <div class="spinner4"></div>
+    <div class="spinner5"></div>
+    <div class="spinner6"></div>
+    <div class="spinner7"></div>
+    <div class="spinner8"></div>
+  </div><br/>
 
 	<div id="userInput">
 	  <form>

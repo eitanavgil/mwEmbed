@@ -8,7 +8,6 @@
 //kClient.setKs(ks); //set in the php file
 
 
-/// Awesome CSS spinner by http://kilianvalkhof.com/2010/css-xhtml/css3-loading-spinners-without-images/
 function hideSpinner() {
   $("spinner").hide()
   $("#flash").show();
@@ -18,6 +17,7 @@ function showSpinner() {
   
   $("#flash").hide();
   $("#spinner").show();
+ /// Awesome CSS spinner by http://kilianvalkhof.com/2010/css-xhtml/css3-loading-spinners-without-images/
   var count = 0;
   function rotateSpinner() {
     var elem = document.getElementById('spinner1');
@@ -44,18 +44,18 @@ function showSpinner() {
   }
   window.setTimeout(rotateSpinner, 100);
 
-}  
+ 
+}
 
 function saveDescription(kEntryId,description,name) {
     //alert(description)
-  showSpinner();
    var data = "name="+name+"&kEntryId="+kEntryId+"&description="+description;
      console.log(data);
   $.ajax({type:"POST", 
           url:"http://www.openvideoconference.org/user_generated_gallery/db.php",
           async:false,
           data: "name="+name+"&kEntryId="+kEntryId+"&description="+description, 
-          success: function(msg){hideSpinner();console.log("saved description to entryID: "+msg)}})
+          success: function(msg){console.log("saved description to entryID: "+msg)}})
 		flashAdvice("Thank you for your upload.\n You may now close this dialog.");
 }
 
@@ -103,7 +103,7 @@ function saveDescription(kEntryId,description,name) {
       addEntries();
       }
     else {
-      flashAdvice("please title and tag your video");
+      flashAdvice("please describe your video");
       $("#save-button").hide();
       $("#add-button").show();
       }
@@ -114,6 +114,7 @@ function saveDescription(kEntryId,description,name) {
     console.log(entries[0].entryId);
     kAddEntryId = (entries[0].entryId);
     //while kAdd
+    flashAdvice("please wait while your video is saved");
     setTimeout("saveDescription(kAddEntryId, description, name)",5000);
 	}
 
@@ -328,6 +329,7 @@ function uploaderIsReady() {
   }
 
 function saveEntry() {
+
   title = titleInput.value;
   name = title;
   tags = tagsInput.value;
@@ -349,7 +351,7 @@ function titleAndSaveEntry() {
 function flashAdvice( advice ) {
   $("#flash").hide();
   $("#flash").html("<p>" + advice + "</p>");
-  $("#flash").show('slow');
+  $("#flash").show();
   }
 
 

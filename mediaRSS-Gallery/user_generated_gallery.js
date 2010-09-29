@@ -227,7 +227,9 @@ $('#ksu').dialog({
 //    onLoadHandler();
 
 
+    //setTimeout("loadMediaRSS()", 10);
     setTimeout("loadMediaRSS()", 10);
+    
     setTimeout("loadDatabase()", 3000);
 
     setTimeout("loadGallery()",8000);

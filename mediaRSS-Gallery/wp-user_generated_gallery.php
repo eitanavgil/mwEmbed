@@ -98,8 +98,8 @@ var ksuflashVars = <?php echo json_encode($flashVars); ?>;
     </div>
 
     <div class="navbar">
-        <span class="left-arrow" id="nav-link-previous">⇦</span>
-        <span class="right-arrow" id="nav-link-next">⇨</span>
+        <span class="left-arrow" id="nav-link-previous">&uArr;</span>
+        <span class="right-arrow" id="nav-link-next">&dArr;</span>
     </div>
 
     <div id="mediaRSS" style="display:none">
@@ -134,9 +134,7 @@ object, embed{ position:absolute; top:0; left:0; z-index:1001;}
 
 	</div>
 	<br/>
-  <div id="progress-bar"></div><br/>
-  <div id="flash"></div><br/>
-  <div id="spinner">
+   <div id="spinner">
     <div class="spinner1"></div>
     <div class="spinner2"></div>
     <div class="spinner3"></div>
@@ -146,6 +144,9 @@ object, embed{ position:absolute; top:0; left:0; z-index:1001;}
     <div class="spinner7"></div>
     <div class="spinner8"></div>
   </div><br/>
+
+  <div id="progress-bar"></div><br/>
+  <div id="flash"></div><br/>
 
 	<div id="userInput">
 	  <form>

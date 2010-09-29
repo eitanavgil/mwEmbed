@@ -1,9 +1,10 @@
 if(!window.console) {
     window.console = new function() {
-          this.log = function(str) {};
-              this.dir = function(str) {};
-                };
-}
+      this.log = function(str) {};
+      this.dir = function(str) {};
+      };
+    }
+
 var kWidgetId = "_22646",
     kPartnerId = 22646,
     thumbHeight = 135,
@@ -18,24 +19,28 @@ var kWidgetId = "_22646",
     descriptionsArray,
     galleryClips = new Array();
 
-mediaRSS = $.ajax({
+function loadMediaRSS() {
+    $.ajax({
             type: "GET",
             url: "http://www.openvideoconference.org/user_generated_gallery/proxy.php",
             async:false,
             dataType: "xml",
-            success: function(xml) { 
+            success: function(xml) {
+            //debugger;
               $(xml).find("item").each(function() {
-                var item = $(this);
-                var title = item.find("title").text();
-                var entryId = item.find("entryId").text();
-                var description = item.find("description").text();
-                description = description.replace("Kaltura Item", "");
-                galleryClips.push({ 'entryId' : entryId,  'title' : title,  'description' :  description }); 
-                console.log( title + " " + entryId + " " + description );
+                console.log( "parsing item" );
+                var thisitem = $(this);
+                console.log( thisitem.find("title").text() );
+                var thistitle = thisitem.find("title").text();
+                var thisentryId = thisitem.find("entryId").text();
+                var thisdescription = thisitem.find("description").text();
+                thisdescription = thisdescription.replace("Kaltura Item", "");
+                console.log( "saving: " + thistitle + " " + thisentryId + " " + thisdescription );
+                galleryClips.push({ 'entryId' : thisentryId,  'title' : thistitle,  'description' :  thisdescription }); 
                 });
-//              loadGallery();
               }
             });
+}
 
 function loadDatabase() {
 // load up our database of descriptions
@@ -204,8 +209,9 @@ $('#ksu').dialog({
 
 //    onLoadHandler();
 
-    setTimeout("loadDatabase()", 3000);
 
+    setTimeout("loadMediaRSS()", 10);
+    setTimeout("loadDatabase()", 3000);
 
     setTimeout("loadGallery()",8000);
 });

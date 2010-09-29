@@ -64,6 +64,8 @@ Template Name: Kaltura User Generated Gallery
 // Kaltura Session Key and Partner ID are provided by PHP Kaltura Client on the Server
 var ks = "<?php echo $ks;?>";
 var kPartnerId = <?php echo KALTURA_PARTNER_ID ?>;
+// set flashVar object
+var ksuflashVars = <?php echo json_encode($flashVars); ?>;
 
 </script>
 
@@ -80,7 +82,7 @@ var kPartnerId = <?php echo KALTURA_PARTNER_ID ?>;
 <div id="gallery" style="width:970px;position:relative;left:-15px;margin-left:auto;margin-right:auto">
 		<div id="upload-now">
       <p align="right">
-			  <a href="#" id="start-upload" onclick="showUpload()">Upload a Video</a>
+			  <a id="start-upload" onclick="showUpload()">Upload a Video</a>
       </p>
 		</div>
     <div class="video-highlight box270">
@@ -109,9 +111,9 @@ var kPartnerId = <?php echo KALTURA_PARTNER_ID ?>;
   <!---set style to enable widget overlap -->
 <style>
 #ksu { margin: 0px; overflow:hidden }
-	#flashContainer{ position:relative; }
-		#flashContainer span{ color:#333; font-size:16px; }
-		object, embed{ position:absolute; top:0; left:0; z-index:999;}
+#flashContainer{ position:relative; }
+#flashContainer span{ color:#333; font-size:16px; }
+object, embed{ position:absolute; top:0; left:0; z-index:1001;}
 </style>
 
 
@@ -119,8 +121,15 @@ var kPartnerId = <?php echo KALTURA_PARTNER_ID ?>;
 		<form>
 			<input id="browse-button" type="button" value="Select a File">
 		</form>
-		<div id="uploader" style="display:none"> 
+		<div id="uploader"> 
 		</div>
+    <script type="text/javascript">
+			 <!--embed flash object-->
+			swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/11500", "uploader", "200", "30", "9.0.0", "expressInstall.swf", ksuflashVars, ksuparams,ksuattributes);
+			//swfobject.embedSWF("./KSU.swf", "uploader", "200", "30", "9.0.0", "expressInstall.swf", flashVars, params,attributes);
+    </script>
+
+
 	</div>
 	<br/>
   <div id="progress-bar"></div><br/>

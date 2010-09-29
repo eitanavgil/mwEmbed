@@ -7,14 +7,14 @@
 //kClient = new KalturaClient(kUploadConfiguration);
 //kClient.setKs(ks); //set in the php file
 
-function saveDescription(kEntryId,description) {
+function saveDescription(kEntryId,description,name) {
     //alert(description)
-   var data = "save=true&kEntryId="+kEntryId+"&description="+description;
+   var data = "name="+name+"&kEntryId="+kEntryId+"&description="+description;
      console.log(data);
   $.ajax({type:"POST", 
-          url:"db.php",
+          url:"http://www.openvideoconference.org/user_generated_gallery/db.php",
           async:false,
-          data: "save=true&kEntryId="+kEntryId+"&description="+description, 
+          data: "name="+name+"&kEntryId="+kEntryId+"&description="+description, 
           success: function(msg){console.log("saved description to entryID: "+msg)}})
 		flashAdvice("Thank you for your upload.\n You may now close this dialog.");
 }
@@ -24,6 +24,7 @@ function saveDescription(kEntryId,description) {
   var title;
   var tags;
   var description;
+  var name;
   var kAddEntryId;
 
 
@@ -73,7 +74,7 @@ function saveDescription(kEntryId,description) {
     console.log(entries[0].entryId);
     kAddEntryId = (entries[0].entryId);
     //while kAdd
-    setTimeout("saveDescription(kAddEntryId, description)",5000);
+    setTimeout("saveDescription(kAddEntryId, description, name)",5000);
 	}
 
 	delegate.progressHandler = function(args)
@@ -288,6 +289,7 @@ function uploaderIsReady() {
 
 function saveEntry() {
   title = titleInput.value;
+  name = title;
   tags = tagsInput.value;
   description = $('#descriptionInput')[0].value;
   console.log(tags);

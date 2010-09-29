@@ -19,27 +19,36 @@ var kWidgetId = "_22646",
     descriptionsArray,
     galleryClips = new Array();
 
+
+var jsonMediaRSS;
+
+
+
 function loadMediaRSS() {
-    $.ajax({
+  $.getJSON('http://www.openvideoconference.org/user_generated_gallery/playlist.json', function(json){ jsonMediaRSS=json; });
+  /*  $.ajax({
             type: "GET",
-            url: "http://www.openvideoconference.org/user_generated_gallery/proxy.php",
+            url: "http://www.openvideoconference.org/user_generated_gallery/jsonMediaRSSproxy.php",
             async:false,
-            dataType: "xml",
-            success: function(xml) {
+        //    dataType: "xml",
+            success: function(json) {
+            jsonResult = json;
+            console.log(json.item);
             //debugger;
               $(xml).find("item").each(function() {
                 console.log( "parsing item" );
                 var thisitem = $(this);
-                console.log( thisitem.find("title").text() );
+                console.log( thisitem.find("title") );
                 var thistitle = thisitem.find("title").text();
                 var thisentryId = thisitem.find("entryId").text();
-                var thisdescription = thisitem.find("description").text();
-                thisdescription = thisdescription.replace("Kaltura Item", "");
-                console.log( "saving: " + thistitle + " " + thisentryId + " " + thisdescription );
-                galleryClips.push({ 'entryId' : thisentryId,  'title' : thistitle,  'description' :  thisdescription }); 
+                console.log( "saving: " + thistitle + " " + thisentryId );
+                galleryClips.push({ 'entryId' : thisentryId,  'title' : thistitle });
                 });
+            // tried jParse, seems to only be designed to output variables lib remains installed, but is unused
+            console.log( $(xml).jParse({item: { title: title, entryId: kEntryId}}) );
               }
             });
+                */
 }
 
 function loadDatabase() {
@@ -47,12 +56,18 @@ function loadDatabase() {
 descriptionsDB = new Lawnchair({adaptor: "dom"});
 $(descriptionsArray).each(function(i,desc){
     console.log (descriptionsArray[i].kEntryId + ": " + descriptionsArray[i].description);
-    descriptionsDB.save({key: descriptionsArray[i].kEntryId, "kEntryId": descriptionsArray[i].kEntryId, "description": descriptionsArray[i].description});
+    descriptionsDB.save({key: descriptionsArray[i].kEntryId, "kEntryId": descriptionsArray[i].kEntryId, "description": descriptionsArray[i].description, "name": descriptionsArray[i].name});
 //    descriptions.save({key: descriptionsArray[i].kEntryId, description: descriptionsArray[i].description});
     });
 }
 
 function loadGallery() {
+  $(jsonMediaRSS.rss.channel.item).each(function(index, value){ 
+      var thisentryId = jsonMediaRSS.rss.channel.item[index].guid.split('|')[1];
+      galleryClips.push({ 'entryId' : thisentryId });
+      });
+
+
     $.each( galleryClips, function( index, video ) {
         
         // Get the url of the thumbnail from Kaltura
@@ -101,7 +116,8 @@ function loadVideo(videoId){
   var converter = new Showdown.converter();
   //var description = '## ' + galleryClips[videoId].title + '\n\n' + galleryClips[videoId].description;
   //var text = converter.makeHtml(description);
-  var title = galleryClips[videoId].title;
+  var title; //= galleryClips[videoId].title;
+  descriptionsDB.get(galleryClips[videoId].entryId, function(r){ title = r.name; });
   var description;
   descriptionsDB.get(galleryClips[videoId].entryId, function(r){ description = r.description; });
 console.log( title +"+"+ description );
@@ -183,7 +199,8 @@ function showUpload() {
 
 function previewVideo(videoId){
   var converter = new Showdown.converter();
-  var title = galleryClips[videoId].title;
+  var title; //= galleryClips[videoId].title;
+  descriptionsDB.get(galleryClips[videoId].entryId, function(r){ title = r.name; });
   
   var description;
   descriptionsDB.get(galleryClips[videoId].entryId, function(r){ description = r.description; });

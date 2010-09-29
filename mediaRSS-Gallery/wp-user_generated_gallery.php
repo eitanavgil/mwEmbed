@@ -46,6 +46,7 @@ Template Name: Kaltura User Generated Gallery
 <![endif]-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/jparse/jparse.min.js"></script>
 <script type="text/javascript" src="http://html5.kaltura.org/js"></script>  
 <script src="http://apis.kaltura.org/kalturaJsClient/kaltura.min.js.php" language="javascript"></script>
 

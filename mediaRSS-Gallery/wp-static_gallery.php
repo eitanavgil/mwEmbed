@@ -304,9 +304,13 @@ $(function(){
     <link rel="stylesheet" href="http://www.openvideoconference.org/wp-content/themes/ovcclassic/style.css" type="text/css" media="screen" /> 
     <link rel="stylesheet" href="http://www.openvideoconference.org/user_generated_gallery/style.css" type="text/css" media="screen" /> 
     <link rel="stylesheet" href="http://www.openvideoconference.org/user_generated_gallery/spinner.css" type="text/css" media="screen" /> 
-
-
-<div id="gallery" style="width:970px;position:relative;left:-15px;margin-left:auto;margin-right:auto">
+<div style="clear:both">
+  <ul id="galleryTabs">
+    <li><a class="activeGalleryTab">Highlights from 2009</a></li>
+    <li><a href="http://www.openvideoconference.org/video_uploads/">Community Video Gallery</a></li>
+  </ul>
+</div><br/><br/>
+<div id="gallery" style="position:relative;margin-left:auto;margin-right:auto">
     <div class="video-highlight box270">
         <div id="video-player"></div>
     </div>
@@ -321,14 +325,12 @@ $(function(){
         <span class="left-arrow" id="nav-link-previous">&uArr;</span>
         <span class="right-arrow" id="nav-link-next">&dArr;</span>
     </div>
-    </div>
+</div>
 
     <div id="mediaRSS" style="display:none">
     </div>
     
     <div id="upload-dialog">
     </div>
-
-</div>
 
 <?php get_footer(); ?>

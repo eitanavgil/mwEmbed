@@ -46,11 +46,18 @@ You may check out a read-only working copy anonymously over HTTP:<br />
 
 <h2 id="compile_docs">Compile Developer Docs</h2>
 
-    java -jar ~/src/jsdoc-toolkit/jsrun.jar ~/src/jsdoc-toolkit/app/run.js -t=/home/papyromancer/src/jsdoc-toolkit/templates/jsdoc/ mwEmbed.js loader.js mwEmbedLoader.js ./modules/**/*/*.js
+To compile the development documentation you will need to install [jsdoc-toolkit](http://code.google.com/p/jsdoc-toolkit/)
 
+using the following command will place the documentation in a subfolder of your working directory called `jsdoc`
+
+    java -jar <jsdoc-toolkit path>/jsrun.jar <jsdoc-toolkit path>app/run.js -t=<full jsdoc-toolkit path>/templates/jsdoc/ mwEmbed.js loader.js mwEmbedLoader.js ./modules/**/*/*.js
+
+the documentation may be concatenated to build the README files for both the MIT licensed media player and the gpl licensed media library.
 
     cat overview.markdown features.markdown basic_usage.markdown advanced_examples.markdown mit.markdown troubleshooting.markdown showcase.markdown license.markdown > README
     cat overview.markdown features.markdown basic_usage.markdown mit.markdown troubleshooting.markdown showcase.markdown > README.mit
+
+READMEs and individual pages may be converted to html using your favorite markdown to html converter:
 
     bluecloth README > docs/README.html
 

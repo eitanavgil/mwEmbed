@@ -1,0 +1,68 @@
+ /* Primary Styles
+    Author: Andrew Davis <andrew.davis@kaltura.com>
+ */
+
+
+body { 
+  background: #38ACEC;
+  color: bbb;
+  font-family: 'Nobile', Georgia, Times, serif;
+  font-size:95%;
+  line-height:130%;
+}
+
+#title a{
+  font-family: 'Neuton', Helvetica, Arial, sans-serif;
+  font-size: 32px;
+  float: right;
+  clear: right;
+  text-decoration:none;
+  color:#036;
+  margin-top:40px;
+}
+
+#demo-list, #demo-docs, #demo-source {
+padding: 10px;
+background:white;
+border-radius: 10px;
+-webkit-border-radius: 10px;
+color:black;
+}
+#demo-list, #demo-docs, #demonstration{
+  margin-top:20px;
+}
+
+#source-container {
+  float:right;
+  margin-bottom:40px;
+}
+.syntaxhighlighter, #source-code, #the-source{
+  width: 100%;
+  overflow:visible;
+  font-family: 'Inconsolata', 'Andale Mono', 'Monocoa', 'Courier New', monospace;
+}
+button {
+height:20px;
+}
+li {list-style:none;}
+#button-pane {
+float:right;
+margin-top:20px;
+margin-bottom:20px;
+}
+
+#demo-docs {
+background:transparent;
+color:white;
+  font-family: 'Neuton', Georgia, Times, serif;
+  font-size:2.5em;
+  line-height:1.25em;
+  text-align:justify;
+  overflow:auto;
+}
+#demo-docs a{
+color:gray;
+}
+#demo-docs h1{
+  text-align:left;
+}

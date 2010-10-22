@@ -145,6 +145,23 @@ if ( navigator.userAgent.indexOf('Android') == -1 ) {
 } else {
   handheld = true;
 }
+if ( navigator.userAgent.indexOf('Firefox') == -1 ) {
+} else {
+  handheld = true;
+}
+
+  handheld = true;
+
+// replace our source code textarea with a codeMirror editor if we're on a desktop
+  if (handheld == false) {
+    editor = new CodeMirror.fromTextArea("source-code", {
+      parserfile: ["parsexml.js", "parsecss.js", "tokenizejavascript.js", "parsejavascript.js", "parsehtmlmixed.js"],
+      stylesheet: ["js/codemirror/css/xmlcolors.css", "js/codemirror/css/jscolors.css", "js/codemirror/css/csscolors.css"],
+      path: "js/codemirror/js/"
+    });
+      $("#source").hide();
+  }
+
 
 // switch to editor for handhelds
   function switchToEdit() {
@@ -219,39 +236,6 @@ $(function(){
 
   // View Bindings
 
-  // Populate the list for the Demo Index div
-  $('#demo-list').html('<ul class="demos"></ul>');
-  // Add the Demo to the list
-  $.each( demonstrations, function(index, demo) {
-    $('.demos').append('<li><a href="#/demos/'+demo.key+'" id="'+demo.key+'">'+demo.name+'</a></li>');
-  });
-
-  // replace our source code textarea with a codeMirror editor if we're on a desktop
-  if (handheld == false) {
-    editor = new CodeMirror.fromTextArea("source-code", {
-      parserfile: ["parsexml.js", "parsecss.js", "tokenizejavascript.js", "parsejavascript.js", "parsehtmlmixed.js"],
-      stylesheet: ["js/codemirror/css/xmlcolors.css", "js/codemirror/css/jscolors.css", "js/codemirror/css/csscolors.css"],
-      path: "js/codemirror/js/"
-    });
-      $("#source").hide();
-  }
-
-  // Our Sinatra Routings tie to our Controllers and Helpers, declared above ^^ (maybe a nasty practice IRL)
-  var app = $.sammy(function() {
-                                                    //    this.element_selector = '#code';    
-    // Load up a demo based on its key
-    this.get('#/demos/:key', function(context) {
-      loadDemonstration(this.params['key']);
-      showDemoSlug(this.params['key']);
-    });
-  });
-
-  // Start Sinatra Application Routing
-  $(function() {
-    
-   
-    app.run('#/demos/player-fallback');
-
     //bind the preview button to the updatePreview function
     $("#update-preview").bind('click', function() {
         if ( editor != undefined ) {
@@ -269,6 +253,29 @@ $(function(){
     }
     });
 
+
+  // Populate the list for the Demo Index div
+  $('#demo-list').html('<ul class="demos"></ul>');
+  // Add the Demo to the list
+  $.each( demonstrations, function(index, demo) {
+    $('.demos').append('<li><a href="#/demos/'+demo.key+'" id="'+demo.key+'">'+demo.name+'</a></li>');
+  });
+
+  // Our Sinatra Routings tie to our Controllers and Helpers, declared above ^^ (maybe a nasty practice IRL)
+  var app = $.sammy(function() {
+                                                    //    this.element_selector = '#code';    
+    // Load up a demo based on its key
+    this.get('#/demos/:key', function(context) {
+      loadDemonstration(this.params['key']);
+      showDemoSlug(this.params['key']);
+    });
+  });
+
+  // Start Sinatra Application Routing
+  $(function() {
+    
+    app.run('#/demos/player-fallback');
+   
   });
 
 });

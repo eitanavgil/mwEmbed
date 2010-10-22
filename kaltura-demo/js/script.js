@@ -217,8 +217,9 @@ $(function(){
           $("#update-preview").hide();
           $("#source-code").hide();
           $("#source-code").val(new_source);
-          $("#source").html("<pre id='the-source' class='brush: js'>");
+          $("#source").html("<pre id='the-source' class='brush: js; html-script: true'>");
           $("#the-source").text(new_source);
+          $("#source").append("</pre>");
           SyntaxHighlighter.highlight( document.getElementById("the-source") );
           $('#button-pane').html('');
         }

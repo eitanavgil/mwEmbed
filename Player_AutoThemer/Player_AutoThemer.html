@@ -25,12 +25,7 @@
 			}
 		);
 			
-		$j( '#cnnCVP1' ).playerThemer(
-			{
-				// Overide any default Interface componets config::				 
-				// Documentation forthcoming
-			}
-		);
+		$j( '#cnnCVP1' ).playerThemer();
 	});
 </script>
 
@@ -62,6 +57,35 @@
 	<div style="width:416px;float:right;">
 		<h3>Fully binded player</h3>
 		
+		<div id="myVidInteface" class="cnn_relpostn" style="width:416px;height:280px;">
+			<video class="PlayerThemer" poster="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/elephants-dream.jpg" duration="10:53" preload="auto">
+				<source type="video/webm" src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/elephants-dream_400p.webm" />
+				<source type="video/h264" src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/elephants-dream_iphone.m4v" />
+				<source type="video/ogg" src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/elephants-dream_400p.ogv" />
+			</video>			
+			<div  class="centerPlayButton cnn_mtt1plybttn" id="cnnCVP2">
+				<div id="play_button">
+					<a href="#">
+						<img border="0" src="http://i.cdn.turner.com/cnn/.element/img/3.0/1px.gif">
+					</a>
+				</div>
+			</div>
+			<ul class="controls"  style="position:absolute;bottom:46px;height:25px;opacity:.8;right:0px;left:0px;background-color:#111">
+				<li class="play-control" style="cursor:pointer;position:absolute;left:0px;width:34px;height:25px;background: url(AutoThemerFiles/play_button.png)"></li>
+				<li class="progress-control">
+					<ul class="progress-holder">
+						<li class="load-progress"></li>
+						<li class="play-progress" style="z-index:3;position:absolute;top:-5px;background: url(AutoThemerFiles/playhead.png);width:9px;height:16px"></li>
+					</ul>
+				</li>
+				<li class="time-control">
+					<span class="current-time-display">00:00</span><span> / </span><span class="duration-display">00:46</span>
+				</li>
+				<li class="volume-control"><div class="volume-control-level"></div></li>
+				<li class="fullscreen-control"></li>
+			</ul>		
+		</div>
+		
 		<div class="cnn_relpostn" style="width:416px;height:280px;">
 			<div id="cnnCVP1">
 				<div class="cnn_mtt1img">
@@ -73,13 +97,7 @@
 					<source src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb_trailer_400p.ogv"></source>	
 					</video>				
 				</div>						
-				<div  class="centerPlayButton cnn_mtt1plybttn" id="cnnCVP2">
-					<div id="play_button">
-						<a href="#">
-							<img border="0" src="http://i.cdn.turner.com/cnn/.element/img/3.0/1px.gif">
-						</a>
-					</div>
-				</div>
+				
 				<div class="widgetOverlay" style="position:absolute;width:150px;top:5px;right:10px;font-size:x-small;">
 					<span style="background-color:#000;margin:-1px;padding:2px;color:#FFF">INFO</span>
 					<span style="background-color:#000;margin:-1px;padding:2px;color:#FFF">MORE VIDEOS</span>

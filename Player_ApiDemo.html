@@ -5,7 +5,14 @@
 	<script type="text/javascript" src="http://html5.kaltura.org/js"></script>
 </head>
 <script type="text/javascript">
+
+//var event;
+
+function logME(event) { // log a media event
+  $('#mediaeventlog').append(event+'\n');
+}
 mw.ready( function(){
+  logME('* the media player is ready');
 	//update the player and selected src
 	function updateTypeLoop(){
 		var vid =  $j('#vid1').get(0);
@@ -33,12 +40,12 @@ mw.ready( function(){
 });
 </script>
 <body>
-<h3> Sample Player Config:</h3>
-<div style="position:absolute; left: 500px; height:700px; width:300px; background: #eee; border:solid thin black">
+<h3> Kaltura HTML5 Video Player Javascript API</h3>
+<div style="position:absolute; left: 500px; width:300px; background: #eee; border:solid thin black">
 	<table style="font-size:.8em">
-	<tr>
+  <tr>
 		<td colspan="2">
-			<a href="#" id="chooseplayer">Choose Player</a>
+			<b>Player Info</b>
 		</td>
 	</tr>
 	<tr>
@@ -46,8 +53,14 @@ mw.ready( function(){
 		<td id="format" style="font-style:italic"> </td> 		
 	</tr>
 	<tr>
-		<td width="100">Player:</td>
-		<td id="playertitle" style="font-style:italic"> </td>
+		<td width="100">Player: </td>
+		<td id="playertitle" style="font-style:italic"> </td> 		
+	</tr>
+  <tr>
+		<td width="100">Media Events:</td>
+  </tr>
+  <tr>
+		<td colspan="2"><textarea style="width:288px" rows="10" id="mediaeventlog"></textarea></td>
 	</tr>
 	
 	

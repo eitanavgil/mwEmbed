@@ -327,11 +327,9 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
     //if(file_exists("../.svn/entries")) {
     //  $svn = File('../.svn/entries');
     //  $svnrev = $svn[3];
+    //  echo 'packaged from http://www.kaltura.org/svnroot/html5video/ svn revision #' . $svnrev;
     //  unset($svn);
-    //} else {
-    //  $svnrev = 'unknown';
-    //}
-    //echo 'packaged from http://www.kaltura.org/svnroot/html5video/ svn revision #' . $svnrev;
+    //} else { }
 		echo $stats;
 	} else {
 		echo "Error: " . $zip->getStatusString();

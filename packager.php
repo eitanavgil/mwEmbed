@@ -323,6 +323,15 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 
 		echo 'Download <a href="'. $packageName . '.' . $versionString .'.zip">' . $packageName. '.' . $versionString . '.zip</a> ( ' .
 			formatBytes( filesize( dirname( __FILE__ ) . "/" . $filename  ) ). ' )<br />';
+    // PRINT SVN REVISION NUMBER
+    //if(file_exists("../.svn/entries")) {
+    //  $svn = File('../.svn/entries');
+    //  $svnrev = $svn[3];
+    //  unset($svn);
+    //} else {
+    //  $svnrev = 'unknown';
+    //}
+    //echo 'packaged from http://www.kaltura.org/svnroot/html5video/ svn revision #' . $svnrev;
 		echo $stats;
 	} else {
 		echo "Error: " . $zip->getStatusString();

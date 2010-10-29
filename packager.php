@@ -87,6 +87,9 @@ switch( $packageName ) {
 	case 'kaltura-html5player-widget':
 		pakageClassList( $packageName,  $html5PlayerClassList, $html5PlayerConfig,  $html5PlayerStyleList );
 	break;
+	case 'vamp-html5player':
+		
+	break;
 	default:
 		print "Package Name was not valid";
 	exit();

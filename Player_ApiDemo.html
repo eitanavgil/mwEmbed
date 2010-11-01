@@ -45,8 +45,6 @@ function logME(event) {
 // when mw is ready we can begin programming it
 mw.ready( function(){
 	vid =  $j('#vid1').get(0);
-  
-  console.log(vid.play);
 
     vid.addEventListener( "play", function(e) { logME('* playback started'); });
 

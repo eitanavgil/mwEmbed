@@ -1,4 +1,4 @@
-f<?php
+<?php
 // Set your return content type
 header('Content-type: application/xml');
 

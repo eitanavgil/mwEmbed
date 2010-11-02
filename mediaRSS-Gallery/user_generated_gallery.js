@@ -160,11 +160,31 @@ function checkArrows(page) {
     $('.left-arrow').show();
   }
   if (page == 3) {
-    $('.right-arrow').show();
+    $('.left-arrow').show();
   }
   if (page == 4) {
-    $('.right-arrow').hide();
+    $('.left-arrow').show();
   }
+  if (page == 5) {
+    $('.left-arrow').show();
+  }
+  if (page == 6) {
+    $('.left-arrow').show();
+  }
+  if (page == 7) {
+    $('.left-arrow').show();
+  }
+  if (page == 8) {
+    $('.left-arrow').show();
+  }
+  if (page == 9) {
+    $('.left-arrow').hide();
+  }
+ 
+ 
+ 
+ 
+ 
 }
 
 function scrollUp () {

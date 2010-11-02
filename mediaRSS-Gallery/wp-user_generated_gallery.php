@@ -79,14 +79,19 @@ var ksuflashVars = <?php echo json_encode($flashVars); ?>;
     <link rel="stylesheet" href="http://www.openvideoconference.org/wp-content/themes/ovcclassic/style.css" type="text/css" media="screen" /> 
     <link rel="stylesheet" href="http://www.openvideoconference.org/user_generated_gallery/style.css" type="text/css" media="screen" /> 
     <link rel="stylesheet" href="http://www.openvideoconference.org/user_generated_gallery/spinner.css" type="text/css" media="screen" /> 
-
-
-<div id="gallery" style="width:970px;position:relative;left:-15px;margin-left:auto;margin-right:auto">
+<div id="tabbers">
+<ul id="galleryTabs">
+  <li><a href="http://www.openvideoconference.org/video/">Highlights from 2009</a></li>
+  <li><span class="activeGalleryTab">Community Video Gallery</span></li>
+</ul>
+</div><br/>
 		<div id="upload-now">
       <p align="right">
 			  <a id="start-upload" onclick="showUpload()">Upload a Video</a>
       </p>
 		</div>
+<div id="gallery" style="position:relative;margin-left:auto;margin-right:auto">
+
     <div class="video-highlight box270">
         <div id="video-player"></div>
     </div>

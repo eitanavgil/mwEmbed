@@ -25,7 +25,7 @@ var jsonMediaRSS;
 
 
 function loadMediaRSS() {
-  $.getJSON('http://www.openvideoconference.org/user_generated_gallery/playlist.json', function(json){ jsonMediaRSS=json; });
+  $.getJSON('./playlist.json', function(json){ jsonMediaRSS=json; });
   /*  $.ajax({
             type: "GET",
             url: "http://www.openvideoconference.org/user_generated_gallery/jsonMediaRSSproxy.php",
@@ -236,7 +236,7 @@ $(function(){
     mw.setConfig('EmbedPlayer.KalturaAttribution', false );
     mw.setConfig('EmbedPlayer.PlayerSelector', false );
 //load descriptions
-$.getJSON('http://www.openvideoconference.org/user_generated_gallery/db.php', function(json){ descriptionsArray=json; });
+$.getJSON('./db.php', function(json){ descriptionsArray=json; });
 $('#ksu').dialog({
               title: "Upload a Video", 
               autoOpen: false,

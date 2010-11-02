@@ -11,10 +11,10 @@ Template Name: Kaltura User Generated Gallery
 
 <!--include external scripts and define constants -->
 <?php 
-	require_once("/home/openvideoalliance/user_generated_gallery/kaltura_client_v3/KalturaClient.php"); 
+	require_once("./kaltura_client_v3/KalturaClient.php"); 
 	
 	//define constants in ksu-settings.php
-  include "/home/openvideoalliance/user_generated_gallery/ksu-settings.php";
+  include "./ksu-settings.php";
 
 	//define session variables
 	$partnerUserID          = 'openvideoconference.tv';
@@ -46,18 +46,18 @@ Template Name: Kaltura User Generated Gallery
 <![endif]-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/jparse/jparse.min.js"></script>
+<script type="text/javascript" src="./libs/jparse.min.js"></script>
 <script type="text/javascript" src="http://html5.kaltura.org/js"></script>  
 <script src="http://apis.kaltura.org/kalturaJsClient/kaltura.min.js.php" language="javascript"></script>
 
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
-<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/ksu.js"></script>
+<script type="text/javascript" src="./ksu.js"></script>
 
-<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/lawnchair/src/Lawnchair.js"></script>
-<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/lawnchair/src/adaptors/LawnchairAdaptorHelpers.js"></script>
-<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/lawnchair/src/adaptors/DOMStorageAdaptor.js"></script>
-<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/libs/showdown.js"></script>
+<script type="text/javascript" src="./libs/lawnchair/src/Lawnchair.js"></script>
+<script type="text/javascript" src="./libs/lawnchair/src/adaptors/LawnchairAdaptorHelpers.js"></script>
+<script type="text/javascript" src="./libs/lawnchair/src/adaptors/DOMStorageAdaptor.js"></script>
+<script type="text/javascript" src="./libs/showdown.js"></script>
 
 
 <script type="text/javascript">
@@ -71,14 +71,14 @@ var ksuflashVars = <?php echo json_encode($flashVars); ?>;
 </script>
 
 
-<script type="text/javascript" src="http://www.openvideoconference.org/user_generated_gallery/user_generated_gallery.js"></script>
+<script type="text/javascript" src="./user_generated_gallery.js"></script>
 
 
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 
     <link rel="stylesheet" href="http://www.openvideoconference.org/wp-content/themes/ovcclassic/style.css" type="text/css" media="screen" /> 
-    <link rel="stylesheet" href="http://www.openvideoconference.org/user_generated_gallery/style.css" type="text/css" media="screen" /> 
-    <link rel="stylesheet" href="http://www.openvideoconference.org/user_generated_gallery/spinner.css" type="text/css" media="screen" /> 
+    <link rel="stylesheet" href="./style.css" type="text/css" media="screen" /> 
+    <link rel="stylesheet" href="./spinner.css" type="text/css" media="screen" /> 
 <div id="tabbers">
 <ul id="galleryTabs">
   <li><a href="http://www.openvideoconference.org/video/">Highlights from 2009</a></li>

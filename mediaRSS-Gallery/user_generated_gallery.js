@@ -187,11 +187,13 @@ function checkArrows(page) {
  
 }
 
+var scrollFactor = 274;
+
 function scrollUp () {
   if (thumbnailTop== undefined) {
-    thumbnailTop = 283;
+    thumbnailTop = scrollFactor;
   } else {
-    thumbnailTop = thumbnailTop+283;
+    thumbnailTop = thumbnailTop+scrollFactor;
   }
   $('#thumbs-container').animate({
     top: (thumbnailTop)+"px",
@@ -202,9 +204,9 @@ function scrollUp () {
 
 function scrollDown () {
   if (thumbnailTop== undefined) {
-    thumbnailTop = -283;
+    thumbnailTop = 0-scrollFactor;
   } else {
-    thumbnailTop = thumbnailTop-283;
+    thumbnailTop = thumbnailTop-scrollFactor;
   }
   $('#thumbs-container').animate({
     top: (thumbnailTop)+"px",

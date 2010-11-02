@@ -14,6 +14,7 @@ var kWidgetId = "_22646",
     previousDescription = undefined,
     thumbnailTop = undefined,
     page = 1,
+    lastPage,
     mediaRSS,
     descriptionsDB,
     descriptionsArray,
@@ -68,6 +69,7 @@ function loadGallery() {
       });
 
 
+    lastPage = parseInt(galleryClips.length / 8) + 1;
     $.each( galleryClips, function( index, video ) {
         
         // Get the url of the thumbnail from Kaltura
@@ -153,38 +155,19 @@ function findDescription(kEntryId) {
   }
 
 function checkArrows(page) {
-  if (page == 1) {
+  console.log('page ' + page + '/' + lastPage);
+  if (page === 1) {
+    $('.right-arrow').show();
     $('.left-arrow').hide();
   }
-  if (page == 2) {
+  else if (page === lastPage) {
     $('.left-arrow').show();
+    $('.right-arrow').hide();
   }
-  if (page == 3) {
+  else { 
     $('.left-arrow').show();
+    $('.right-arrow').show();
   }
-  if (page == 4) {
-    $('.left-arrow').show();
-  }
-  if (page == 5) {
-    $('.left-arrow').show();
-  }
-  if (page == 6) {
-    $('.left-arrow').show();
-  }
-  if (page == 7) {
-    $('.left-arrow').show();
-  }
-  if (page == 8) {
-    $('.left-arrow').show();
-  }
-  if (page == 9) {
-    $('.left-arrow').hide();
-  }
- 
- 
- 
- 
- 
 }
 
 var scrollFactor = 274;

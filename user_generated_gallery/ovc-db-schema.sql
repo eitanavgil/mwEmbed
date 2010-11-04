@@ -1,6 +1,9 @@
 CREATE TABLE users (
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	  username VARCHAR(255) NOT NULL UNIQUE,
+	  name_last VARCHAR(255) NOT NULL,
+	  name_first VARCHAR(255) NOT NULL,
+	  email VARCHAR(255) NOT NULL,
     password CHAR(40) NOT NULL,
     group_id INT(11) NOT NULL,
     created DATETIME,
@@ -19,6 +22,7 @@ CREATE TABLE groups (
 
 CREATE TABLE videos (
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    kaltura_entry_id CHAR(40) NOT NULL,
     user_id INT(11) NOT NULL,
     title VARCHAR(255) NOT NULL,
     description TEXT,

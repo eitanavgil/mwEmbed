@@ -29,12 +29,12 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/themes/base/jquery-ui.css" type="text/css" media="all" />
 	
-	<!--  <script type="text/javascript" src="http://html5.kaltura.org/js"></script> -->
 	<script type="text/javascript" src="http://html5.kaltura.org/js"></script>
+	<!-- 	<script type="text/javascript" src="../mwEmbed/mwEmbedLoader.js"></script> -->
 	
 	<script type="text/javascript">	
 	mw.ready(function(){		
-		mw.load( [ 'mw.EmbedPlayerNative' , '$j.postMessage' , 'mw.IFramePlayerApiClient' ] , function(){						
+		mw.load( [ 'mw.EmbedPlayerNative', '$j.postMessage', 'mw.IFramePlayerApiClient' ] , function(){						
 			// Add resize binding:			
 			$j('#resizable').resizable();		
 			
@@ -64,9 +64,7 @@
 				// run append iframe directly
 			};
 			appendIframe();
-			bindIframePlayer();	
-				
-					
+			bindIframePlayer();
 		});
 		function bindIframePlayer(){
 			// Bind the iFrame player:				
@@ -96,7 +94,6 @@
 			$j('#vid').bind('pause', function(){
 				$j('#playPauseLog').append( "Pause Event\n" );				
 			});			
-			
 		}	
 	});	 
 	</script>

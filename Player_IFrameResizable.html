@@ -67,8 +67,13 @@
 			bindIframePlayer();
 		});
 		function bindIframePlayer(){
+			// Establish the "server" domain via mwEmbed path: 
+			var mwPathUri = mw.parseUri( mw.getMwEmbedPath() );
+			var iframeServer = mwPathUri.protocol + '://' + mwPathUri.host;
 			// Bind the iFrame player:				
-			$j( '#vid' ).iFramePlayer();
+			$j( '#vid' ).iFramePlayer({
+				'iframeServer' : iframeServer
+			});
 			
 			// Now we can use all the normal player calls bindings and attributes: 
 			$j( '#triggerPlay' ).click(function(){								

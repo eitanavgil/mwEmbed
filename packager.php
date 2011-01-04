@@ -97,7 +97,7 @@ switch( $packageName ) {
 
 // Get the entire string from the deployed version:
 function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig, $html5PlayerStyleList ){
-	global $versionString, $licenseHeader;
+	global $versionString, $licenseHeader, $wgMwEmbedEnabledModules;
 
 	$zip = new ZipArchive();
 	$filename = './' . $packageName . '.' . $versionString . '.zip';
@@ -129,8 +129,8 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 	require_once( 'includes/noMediaWikiConfig.php' );
 
 	// Override some values from no-mediawikiConfig
-	global $wgUseMwEmbedLoaderModuleList, $wgUseGzip,
-	$wgExtensionJavascriptModules, $IP, $wgScriptLoaderRelativeCss, $wgEnableScriptLocalization ;
+	global $wgMwEmbedEnabledModules, $wgUseGzip,
+	$wgMwEmbedEnabledModules, $IP, $wgScriptLoaderRelativeCss, $wgEnableScriptLocalization ;
 	
 	$wgEnableScriptLocalization  = true;
 	
@@ -143,7 +143,7 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 
 	// Disable gzip for package
 	$wgUseGzip = false;
-	$wgExtensionJavascriptModules = array(
+	$wgMwEmbedEnabledModules = array(
 		'EmbedPlayer' => 'modules/EmbedPlayer',
 		'TimedText'	=> 'modules/TimedText'
 	);
@@ -229,7 +229,7 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 	foreach( $objects as $path => $object ){
 		$ext = substr($path, strrpos( $path, '.' )+1 );
 		$isValidModule = false;
-		foreach( $wgExtensionJavascriptModules as $moduleName => $modulePath ){
+		foreach( $wgMwEmbedEnabledModules as $moduleName => $modulePath ){
 			if( strpos( $path, $modulePath ) !== false ){
 				$isValidModule = true;
 			}
@@ -237,10 +237,7 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 		
 		// Special case of core loader.js file
 		if( $path == '../mwEmbed/loader.js' ){
-			$loaderText = file_get_contents( $path );
-			$loaderText = preg_replace( '/mwEnabledModuleList\s*\=\s*\[(.*)\]/siU',
-				'mwEnabledModuleList=[\'' . implode( "','", array_keys( $wgExtensionJavascriptModules ) ) . '\']',
-			 	$loaderText);
+			$loaderText = file_get_contents( $path );			
 			 	
 			// Add local package config to the static loader.js
 			$loaderText.= "\nmw.setConfig( " . trim( json_encode( $html5PlayerConfig ) ) . ");\n";					
@@ -252,7 +249,7 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 		// Add message language component
 		if( $path == '../mwEmbed/components/mw.Language.js' ) {
 			$langText = file_get_contents( $path );
-			foreach( $wgExtensionJavascriptModules as $moduleName => $modulePath ){
+			foreach( $wgMwEmbedEnabledModules as $moduleName => $modulePath ){
 				$messages = array();
 				include( '../mwEmbed/' . $modulePath . '/' . $moduleName . '.i18n.php' );
 				$langText.= "\n" . 'mw.addMessages(' . FormatJson::encode( $messages['en'] ) . ');' . "\n";			

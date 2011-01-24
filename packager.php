@@ -144,11 +144,11 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 	// Disable gzip for package
 	$wgUseGzip = false;
 	$wgMwEmbedEnabledModules = array(
-		'EmbedPlayer' => 'modules/EmbedPlayer',
-		'TimedText'	=> 'modules/TimedText'
+		'EmbedPlayer' => 'EmbedPlayer',
+		'TimedText'	=> 'TimedText'
 	);
 
-
+	
 
 	/*******************
 	* CSS
@@ -174,7 +174,7 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 		array( " {\n", "\n}\n", ";\n" ),
 		$scriptOutput );
 
-	//Output combined css
+	// Output combined css
 	$zip->addFromString( $rootFileFolder. "/mwEmbed-player-static.css", $scriptOutput);
 
 	/*******************
@@ -185,13 +185,13 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 	$_GET['class'] = implode(',', $html5PlayerClassList);
 	$myResourceLoader = new ResourceLoader();
 
+
 	ob_start();
 	// Run ResourceLoader action:
 	if( !$myResourceLoader->outputFromCache() ){
 		$myResourceLoader->doResourceLoader();
 	}	
 	$scriptOutput = ob_get_clean();
-
 	// Add the license header:
 	$scriptOutput = $licenseHeader . "\n" . $scriptOutput;
 
@@ -251,7 +251,7 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 			$langText = file_get_contents( $path );
 			foreach( $wgMwEmbedEnabledModules as $moduleName => $modulePath ){
 				$messages = array();
-				include( '../mwEmbed/' . $modulePath . '/' . $moduleName . '.i18n.php' );
+				include( '../mwEmbed/modules/' . $modulePath . '/' . $moduleName . '.i18n.php' );
 				$langText.= "\n" . 'mw.addMessages(' . FormatJson::encode( $messages['en'] ) . ');' . "\n";			
 			}
 			$zip->addFromString( $rootFileFolder . '/components/mw.Language.js',  $langText);

@@ -46,11 +46,11 @@ A few sample jQuery UI themes are included in the skins/jquery.ui.themes folder 
 
 You can remove the kaltura attribution for the player by adding the following javascript:
 
-    <script type="text/javascript">mw.setConfig('EmbedPlayer.kalturaAttribution', false );</script>
+    <script type="text/javascript">mw.setConfig('EmbedPlayer.KalturaAttribution', false );</script>
 
 You can remove the kaltura attribution for the player by adding the following javascript: 
 
-    <script type="text/javascript">mw.setConfig('EmbedPlayer.kalturaAttribution', false );</script>
+    <script type="text/javascript">mw.setConfig('EmbedPlayer.KalturaAttribution', false );</script>
 
 ## Analytics
 

@@ -37,9 +37,17 @@ $html5PlayerConfig = array(
 $html5PlayerClassList = array(
 	// Core library ( includes core components and loader)
  	'mwEmbed',
+	'mw.Uri',
 
 	// Core Abstract player and skin
 	'mw.EmbedPlayer',
+
+	'mw.MediaElement',
+	'mw.MediaPlayer',
+	'mw.MediaPlayers',
+	'mw.MediaSource',
+	'mw.EmbedTypes',
+
 	'mw.PlayerControlBuilder',
 	'j.fn.hoverIntent',
 
@@ -67,6 +75,7 @@ $html5PlayerClassList = array(
 
 	// TimedText Module
 	'mw.TimedText',
+	'mw.TextSource',
 	'j.fn.menu',
 );
 

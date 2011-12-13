@@ -9,7 +9,7 @@ if( !isset( $_GET['name'] ) ){
 	die( 'Please supply a package name' );
 }
 
-$versionString = '1.1x';
+$versionString = '1.6a';
 
 $licenseHeader = '/**
  * @license
@@ -47,6 +47,7 @@ $html5PlayerClassList = array(
 	'mw.MediaPlayers',
 	'mw.MediaSource',
 	'mw.EmbedTypes',
+	'mw.processEmbedPlayers',
 
 	'mw.PlayerControlBuilder',
 	'j.fn.hoverIntent',
@@ -230,8 +231,8 @@ function pakageClassList($packageName, $html5PlayerClassList, $html5PlayerConfig
 		die( "could not find package directory template for $packageName ");
 	}
 
-	// Add the jQuery: libraries/jquery/jquery-1.4.2.js
-	$zip->addFile( '../mwEmbed/libraries/jquery/jquery-1.4.2.min.js', $rootFileFolder . '/jquery-1.4.2.min.js' );
+	// Add the jQuery: libraries/jquery/jquery-1.6.4.min.js
+	$zip->addFile( '../mwEmbed/libraries/jquery/jquery-1.6.4.min.js', $rootFileFolder . '/jquery-1.6.4.min.js' );
 
 	// Loop over the directories if we find an "image", "swf", or "jar" add it with full path
 	$objects = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( '../mwEmbed/' ), RecursiveIteratorIterator::SELF_FIRST );

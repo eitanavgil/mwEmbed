@@ -9,7 +9,7 @@
 		<!-- Include the css and javascript  -->
 		<style type="text/css">
 			@import url("../skins/jquery.ui.themes/kaltura-dark/jquery-ui-1.7.2.css");
-		</style>  
+		</style>
 		<style type="text/css">
 			@import url("../mwEmbed-player-static.css");
 		</style>	
@@ -49,13 +49,17 @@
 				var val = parseFloat($j('#seekPercent').attr("value"));
 				val = parseInt(val, 10)/100;
 				var player=$j('#vp').get(0);
-				player.doSeek(val);
+				player.seek(val);
 			}
 			function seekPercentChanged() {
 				var val = parseFloat($j('#seekPercent').attr("value"));
 				val = parseInt(val, 10);
 				$j('#btnSeek').attr("value", "Seek to " + val + "%");
 			}
+			mw.ready( function() {
+				var player=$j('#vp'); //.get(0);
+				player.bind('play', function() { $j('#btnPlay').attr("value", "Pause"); });
+			});
 		</script>
 
 		<input type="button" id="btnPlay" onclick="playerPause();" value="Play" />

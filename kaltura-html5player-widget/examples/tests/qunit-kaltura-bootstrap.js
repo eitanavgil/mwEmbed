@@ -1,7 +1,8 @@
 //must come after qunit-bootstrap.js and after mwEmbedLoader.php
 if( window.QUnit ){
 	
-	mw.setConfig( 'forceMobileHTML5', true );	
+	mw.setConfig( 'forceMobileHTML5', true );
+	mw.setConfig('EmbedPlayer.EnableIframeApi', true );
 	if( window['jsCallbackReady'] ){
 		window['orgJsCallbackReady'] = window['jsCallbackReady'];
 	}

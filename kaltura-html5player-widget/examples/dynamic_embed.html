@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<!--  Include jQuery --> 	  	
+		<script type="text/javascript" src="../jquery-1.6.4.min.js" ></script>
+		<!-- Include the css and javascript -->
+		<style type="text/css">
+			@import url("../skins/jquery.ui.themes/kaltura-dark/jquery-ui-1.7.2.css");
+		</style>  
+		<style type="text/css">
+			@import url("../mwEmbed-player-static.css");
+		</style>	
+		<script type="text/javascript" src="../mwEmbed-player-static.js" ></script>
+	</head>
+	<body>
+
+		<div style="width:480px; height:267px;" id="mwplayer"></div>
+
+		<script>
+			mw.ready(function(){
+				$j('#mwplayer').append('<video id="vid1" width="480" height="267" poster="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb480.jpg" durationHint="33"><source src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb_trailer_360p.webm" type="video/webm" /><source	src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb_trailer_iphone270P.m4v" type="video/h264" /><source src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb_trailer_400p.ogv" type="video/ogg" /></video>');
+				$j('#vid1').embedPlayer();
+			});
+		</script>
+
+	</body>

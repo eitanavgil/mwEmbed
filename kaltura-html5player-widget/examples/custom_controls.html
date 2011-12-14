@@ -57,9 +57,9 @@
 				$j('#btnSeek').attr("value", "Seek to " + val + "%");
 			}
 			mw.ready( function() {
-				var player=$j('#vp').get(0);
-				player.bindHelper('onplay', function() { $j('#btnPlay').attr("value", "Pause"); });
-				player.bindHelper('onpause', function() { $j('#btnPlay').attr("value", "Play"); });
+				var player=$j('#vp');
+				player.bind('onplay', function() { $j('#btnPlay').attr("value", "Pause"); });
+				player.bind('onpause', function() { $j('#btnPlay').attr("value", "Play"); });
 			});
 		</script>
 

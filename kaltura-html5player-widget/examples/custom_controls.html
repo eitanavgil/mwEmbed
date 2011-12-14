@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Custom controls sample</title>
+		<title>Custom Controls Sample</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 		<!--  Include jQuery --> 	
@@ -57,8 +57,9 @@
 				$j('#btnSeek').attr("value", "Seek to " + val + "%");
 			}
 			mw.ready( function() {
-				var player=$j('#vp'); //.get(0);
-				player.bind('play', function() { $j('#btnPlay').attr("value", "Pause"); });
+				var player=$j('#vp').get(0);
+				player.bindHelper('onplay', function() { $j('#btnPlay').attr("value", "Pause"); });
+				player.bindHelper('onpause', function() { $j('#btnPlay').attr("value", "Play"); });
 			});
 		</script>
 

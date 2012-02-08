@@ -301,11 +301,12 @@ mw.KWidgetSupport.prototype = {
 		// Add isPluginEnabled to embed player:
 		embedPlayer.isPluginEnabled = function( pluginName ) {
 			// Always check with lower case first letter of plugin name: 
-			if( _this.getPluginConfig( embedPlayer, pluginName[0].toLowerCase() + pluginName.substr(1), 'plugin' ) ){
-				return true;
-			}
-			// also check upper case first letter: 
-			if( _this.getPluginConfig( embedPlayer, pluginName[0].toUpperCase() + pluginName.substr(1), 'plugin' ) ){
+			var pluginName = pluginName[0].toLowerCase() + pluginName.substr(1);
+			if( _this.getPluginConfig( embedPlayer, pluginName , 'plugin' ) ){
+				// check for the disableHTML5 attribute
+				if( _this.getPluginConfig( embedPlayer, pluginName , 'disableHTML5' ) ){
+					return false;
+				}
 				return true;
 			}
 			return false;
@@ -1005,3 +1006,4 @@ mw.getEntryIdSourcesFromApi = function( widgetId, entryId, size, callback ){
 };
 
 })( window.mw, jQuery );
+

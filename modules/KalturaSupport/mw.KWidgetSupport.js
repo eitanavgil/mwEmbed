@@ -304,13 +304,22 @@ mw.KWidgetSupport.prototype = {
 			if( _this.getPluginConfig( embedPlayer, pluginName[0].toLowerCase() + pluginName.substr(1), 'plugin' ) ){
 				return true;
 			}
+			// also check upper case first letter: 
+			if( _this.getPluginConfig( embedPlayer, pluginName[0].toUpperCase() + pluginName.substr(1), 'plugin' ) ){
+				return true;
+			}
 			return false;
 		};
 		
 		// Add getFlashvars to embed player:
 		embedPlayer.getFlashvars = function() {
 			var fv = $( embedPlayer ).data( 'flashvars' );
-			if( !fv ){
+			if( !fv
+					&& 
+				mw.getConfig( 'KalturaSupport.PlayerConfig' )
+					&& 
+				mw.getConfig( 'KalturaSupport.PlayerConfig' )['vars']
+			){
 				fv = mw.getConfig( 'KalturaSupport.PlayerConfig' )['vars'] || {};
 			}
 			return fv;
@@ -662,7 +671,7 @@ mw.KWidgetSupport.prototype = {
 		var bootstrapData = mw.getConfig("KalturaSupport.IFramePresetPlayerData");
 		// Insure the bootStrap data has all the required info: 
 		if( bootstrapData 
-			&& bootstrapData.partner_id == embedPlayer.kwidgetid.replace('_', '')
+			&& bootstrapData.partner_id == embedPlayer.kwidgetid.replace( '_', '' )
 			&& bootstrapData.ks
 		){
 			mw.log( 'KWidgetSupport::loaded player data from KalturaSupport.IFramePresetPlayerData config' );

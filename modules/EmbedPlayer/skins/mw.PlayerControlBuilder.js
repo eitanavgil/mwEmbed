@@ -397,13 +397,14 @@ mw.PlayerControlBuilder.prototype = {
 			// There is a bug with mozfullscreenchange event in firefox 10: 
 			// https://bugzilla.mozilla.org/show_bug.cgi?id=724816
 			// so we have to have an extra binding to check for size change and then restore. 
-			if( $.browser.mozilla && $.browser.version == 10 ){
+			if( $.browser.mozilla ){
+				// put in a timeout to give the browser time to ~enter~ fullscreen initially. 
 				setTimeout( function(){
 					$( window ).bind('resize.postFullScreenResize', function(){
 						$(window).unbind( '.postFullScreenResize' );
 						_this.restoreWindowPlayer();
 					})
-				}, 100);
+				}, 250 );
 			}
 		}
 		

@@ -65,7 +65,7 @@ mw.IFramePlayerApiClient.prototype = {
 		$.each( this.exportedMethods, function( na, method ){
 			_this.playerProxy[ method ] = function(){
 				// Call any local named callbacks
-				if( namedMethodCallbacks[ method ] ){
+				if( $.isFunction( namedMethodCallbacks[ method ] ) ){
 					namedMethodCallbacks[ method ].apply( this, $.makeArray( arguments ) );
 				}
 				_this.postMessage( {
@@ -306,6 +306,9 @@ mw.IFramePlayerApiClient.prototype = {
 		    $.each(obj, function(n, na) {
 		        v = obj[n];
 		        t = typeof(v);
+		        // skip functions
+		        if( t == 'function' )
+		        	return true;
 		        if (obj.hasOwnProperty(n)) {
 		            if (t == "string") v = '"' + v + '"'; else if (t == "object" && v !== null) v = _this.stringify(v);
 		            json.push((arr ? "" : '"' + n + '":') + String(v));
@@ -320,7 +323,7 @@ mw.IFramePlayerApiClient.prototype = {
 jQuery.fn.iFramePlayer = function( readyCallback ){
 	// only support ONE iframe player at a time 
 	var playerProxy = this[0];
-	mw.log( "$.iFramePlayer::" + playerProxy.id );
+	mw.log( "IframePlayerApiClient:: $.iFramePlayer::" + playerProxy.id );
 	
 	// Setup pointer to real iframe
 	var iframePlayerId = $( playerProxy ).attr('id') + '_ifp';
@@ -331,7 +334,7 @@ jQuery.fn.iFramePlayer = function( readyCallback ){
 	// Once the proxy ready event is received from the server complete the handshake
 	// and send the proxyAcknowledgment back to the iframe server
 	$( playerProxy ).bind('proxyReady', function(){
-		mw.log("iFramePlayer::proxyReady");
+		mw.log( "IframePlayerApiClient:: iFramePlayer::proxyReady" );
 		playerProxy.proxyAcknowledgment();
 	});
 	

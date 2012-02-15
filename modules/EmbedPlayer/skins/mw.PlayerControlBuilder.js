@@ -385,7 +385,7 @@ mw.PlayerControlBuilder.prototype = {
 		var triggerOnOpenFullScreen = true;
 		
 		// Check for native support for fullscreen and we are in an iframe server
-		if ( false && window.fullScreenApi.supportsFullScreen && mw.getConfig('EmbedPlayer.IsIframeServer' ) ) {
+		if ( window.fullScreenApi.supportsFullScreen && mw.getConfig('EmbedPlayer.IsIframeServer' ) ) {
 			var parentWindow = window.parent; 
 			var parentTarget = parentWindow.document.getElementById( this.embedPlayer.id );
 			// Add a binding to catch "escape" fullscreen

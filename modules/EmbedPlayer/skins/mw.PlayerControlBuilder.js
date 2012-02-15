@@ -130,10 +130,13 @@ mw.PlayerControlBuilder.prototype = {
 		if( _this.isOverlayControls() ){
 			$controlBar.hide();
 		} else {
-			embedPlayer.height =  embedPlayer.$interface.height() - this.getHeight();
-			$( embedPlayer ).css('height', embedPlayer.height +'px' );
-			// update native element height:
-			$('#' + embedPlayer.pid ).css('height', embedPlayer.height);
+			// only update player height if its not already set.
+			if( !embedPlayer.height ){
+				embedPlayer.height =  embedPlayer.$interface.height() - this.getHeight();
+				$( embedPlayer ).css('height', embedPlayer.height +'px' );
+				// update native element height:
+				$('#' + embedPlayer.pid ).css('height', embedPlayer.height);
+			}
 		}
 
 		$controlBar.css( {
@@ -382,7 +385,7 @@ mw.PlayerControlBuilder.prototype = {
 		var triggerOnOpenFullScreen = true;
 		
 		// Check for native support for fullscreen and we are in an iframe server
-		if ( window.fullScreenApi.supportsFullScreen && mw.getConfig('EmbedPlayer.IsIframeServer' ) ) {
+		if ( false && window.fullScreenApi.supportsFullScreen && mw.getConfig('EmbedPlayer.IsIframeServer' ) ) {
 			var parentWindow = window.parent; 
 			var parentTarget = parentWindow.document.getElementById( this.embedPlayer.id );
 			// Add a binding to catch "escape" fullscreen

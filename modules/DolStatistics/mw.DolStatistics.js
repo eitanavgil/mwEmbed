@@ -20,6 +20,8 @@ mw.DolStatistics.prototype = {
 
 	// hold list of cue points per 10% of video duration
 	percentCuePoints: {},
+	// hold the indexed percent values
+	percentCuePointsMap: {}, 
 
 	init: function( embedPlayer, callback ){
 		var _this = this;
@@ -133,6 +135,7 @@ mw.DolStatistics.prototype = {
 		for( var i=0; i<=100; i=i+10 ) {
 			var cuePoint = Math.round( duration / 100 * i );
 			_this.percentCuePoints[ cuePoint ] = false;
+			_this.percentCuePointsMap[ cuePoint ] = i;
 		}
 
 		mw.log('DolStatistics:: calcCuePoints:: ', _this.percentCuePoints);
@@ -154,8 +157,7 @@ mw.DolStatistics.prototype = {
 			
 		if( percentCuePoints[ currentTime ] === false ) {
 			percentCuePoints[ currentTime ] = true;
-			var percent = Math.round(currentTime * 100 / duration );
-			_this.sendStatsData( 'percentReached', percent );
+			_this.sendStatsData( 'percentReached', _this.percentCuePointsMap[ currentTime ] );
 		}
 	},
 
@@ -296,6 +298,7 @@ mw.DolStatistics.prototype = {
 		this.playheadInterval = 0;
 		this.embedPlayer.unbindHelper( this.bindPostFix );
 		this.percentCuePoints = {};
+		this.percentCuePointsMap = {};
 		this.duration = 0;
 	},
 

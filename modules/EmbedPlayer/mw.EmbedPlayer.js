@@ -1909,7 +1909,7 @@ mw.EmbedPlayer.prototype = {
 			this.preMuteVolume = this.volume;
 			var percent = 0;
 		}
-		this.setVolume( percent, true );
+		this.setVolume( percent );
 		// Update the interface
 		this.setInterfaceVolume( percent );
 		// trigger the onToggleMute event

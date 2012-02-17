@@ -851,7 +851,7 @@ mw.KWidgetSupport.prototype = {
 			
 			// Setup a source object:
 			var source = {
-				'data-bitrate' : asset.bitrate * 8,
+				'data-bandwidth' : asset.bitrate * 1024,
 				'data-width' : asset.width,
 				'data-height' : asset.height
 			};

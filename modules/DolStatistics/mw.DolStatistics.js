@@ -100,7 +100,7 @@ mw.DolStatistics.prototype = {
 						});
 					})
 				break;
-				case 'changedVolume': 
+				case 'changeVolume': 
 				case 'volumeChanged':
 					embedPlayer.addJsListener(eventName + _this.bindPostFix, function( eventData ) {
 						_this.sendStatsData( eventName, eventData.newVolume );

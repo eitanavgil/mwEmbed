@@ -116,8 +116,12 @@ mw.DolStatistics.prototype = {
 						var eventData = '';
 						if( typeof argValue == 'object' ){ 
 							eventData = JSON.stringify( argValue );
+							eventData = eventData.replace(/\"/g,'');
 						} else {
-							eventData = argValue;
+							// check if argValue is the id in which case send nothing. 
+							if( argValue != embedPlayer.id ){
+								eventData = argValue;
+							}
 						}
 						_this.sendStatsData( eventName, eventData );
 					});
@@ -174,7 +178,7 @@ mw.DolStatistics.prototype = {
 		embedPlayer.bindHelper('onplay' + _this.bindPostFix, function() {
 			if( ! _this.playheadInterval ) {
 				_this.playheadInterval = setInterval( function(){
-					_this.sendStatsData( 'playerUpdatePlayhead' , embedPlayer.currentTime);
+					_this.sendStatsData( 'playerUpdatePlayhead', Math.round( embedPlayer.currentTime ) );
 				}, intervalTime );
 			}
 		});
@@ -188,10 +192,14 @@ mw.DolStatistics.prototype = {
 
 	/* Retrive video duration */
 	getDuration: function() {
-		if( ! this.duration ){
-			this.duration = this.embedPlayer.evaluate('{duration}');
+		// try to get the "raw" duration 
+		if( this.embedPlayer.getPlayerElement() ){
+			var rawDur = this.embedPlayer.getPlayerElement().duration
+			if( ! isNaN( rawDur ) ){
+				return rawDur;
+			}
 		}
-		return this.duration;
+		return this.embedPlayer.evaluate('{duration}');
 	},
 
 	getBitrate: function() {
@@ -214,43 +222,54 @@ mw.DolStatistics.prototype = {
 		var params = {};
 		// App name
 		params['app'] = this.appName;
-		// Grab from plugin config
-		var configAttrs = [ 'DEVID', 'ASSETNAME', 'ASSETID' ];
-		for( var x=0; x<configAttrs.length; x++) {
-			params[ configAttrs[x] ] = _this.getConfig( configAttrs[x] ) || '';
-		}
-		// The auto played property; 
-		params['AUTO'] = embedPlayer.autoplay;
-		// Embedded Page URL
-		params['GENURL'] =  _this.getConfig('GENURL') || window.kWidgetSupport.getHostPageUrl();
-		// Embedded Page Title
-		params['GENTITLE'] =  _this.getConfig('GENTITLE') || mw.getConfig( 'EmbedPlayer.IframeParentTitle' );
-		// User Agent
-		params['USRAGNT'] =  _this.getConfig('USRAGNT') || window.navigator.userAgent;
-		// Current Timestamp
-		params['GENTIME'] = new Date().getTime();
-		// Widget ID
-		params['WIGID'] = this.embedPlayer.kwidgetid;
-		// Flavor Bitrate
-		params['BITRATE'] = this.getBitrate();
-		// Video length
-		params['VIDLEN'] = this.getDuration();
-		// Player protocol ( hard coded to html5 )
-		params['KDPPROTO'] = 'html5'; //mw.parseUri( mw.getConfig( 'Kaltura.ServiceUrl' ) ).protocol;
-		// Kaltura Player ID
-		params['KDPID'] = this.embedPlayer.kuiconfid;
-		// Kaltura Session ID
-		params['KSESSIONID'] = this.embedPlayer.evaluate('{configProxy.sessionId}');
-		// Kaltura Playback ID ( kSessionId + playbackCounter )
-		params['KPLAYBACKID'] = this.embedPlayer.evaluate('{configProxy.sessionId}') + $( this.embedPlayer ).data('DolStatisticsCounter');
-		// Kaltura session Seq 
-		params['KSESSIONSEQ'] = $( this.embedPlayer ).data('DolStatisticsCounter');
+		// The asset id: 
+		params['ASSETNAME'] = _this.getConfig('ASSETNAME');
 		// Kaltura Event name
 		params['KDPEVNT'] = eventName;
 		// KDP Event Data
-		params['KDPDAT_VALUE'] = eventData.toString();
+		if( eventData != '' ){
+			params['KDPDAT_VALUE'] = eventData.toString();
+		}
+		// Flavor Bitrate
+		params['BITRATE'] = this.getBitrate();
 		// Always include the current time: 
-		params['KDPDAT_PLAYHEAD'] = this.embedPlayer.currentTime;
+		params['KDPDAT_PLAYHEAD'] = Math.round( this.embedPlayer.currentTime * 1000 ) / 1000;
+		// The auto played property; 
+		params['AUTO'] = embedPlayer.autoplay;
+		// Current Timestamp
+		params['GENTIME'] = new Date().getTime();
+		// Asset Id
+		params['ASSETID'] = _this.getConfig( 'ASSETID' );
+		// Kaltura Player ID
+		params['KDPID'] = this.embedPlayer.kuiconfid;
+		// Video length
+		params['VIDLEN'] = this.getDuration();
+		// Widget ID
+		params['WIGID'] = this.embedPlayer.kwidgetid;
+		// Kaltura session Seq 
+		params['KSESSIONSEQ'] = $( this.embedPlayer ).data('DolStatisticsCounter');
+		// Kaltura Session ID
+		params['KSESSIONID'] = this.embedPlayer.evaluate('{configProxy.sessionId}');
+		// User Agent
+		params['USRAGNT'] =  _this.getConfig('USRAGNT') || window.navigator.userAgent;
+		// Embedded Page URL
+		params['GENURL'] =  _this.getConfig('GENURL') || window.kWidgetSupport.getHostPageUrl();
+		// Kaltura Playback ID ( kSessionId + playbackCounter )
+		params['KPLAYBACKID'] = this.embedPlayer.evaluate('{configProxy.sessionId}') + $( this.embedPlayer ).data('DolStatisticsCounter');
+		// Embedded Page Title
+		params['GENTITLE'] =  _this.getConfig('GENTITLE') || mw.getConfig( 'EmbedPlayer.IframeParentTitle' );
+		// Device id
+		params['DEVID'] =  _this.getConfig( 'DEVID' );
+		// Player protocol ( hard coded to html5 )
+		params['KDPPROTO'] = 'html5'; //mw.parseUri( mw.getConfig( 'Kaltura.ServiceUrl' ) ).protocol;
+		
+		// Add custom params
+		for( var i =0; i < 10; i++ ){
+			// Check for custom data key value pairs ( up to 9 ) 
+			if( _this.getConfig( 'customDataKey' + i ) &&  _this.getConfig( 'customDataValue' + i ) ){
+				params[ _this.getConfig( 'customDataKey' + i ) ] =  _this.getConfig( 'customDataValue' + i );
+			}
+		}
 		
 		// try and pull the page title from the parent:
 		try{
@@ -260,13 +279,6 @@ mw.DolStatistics.prototype = {
 		}
 		
 		
-		// Add custom params
-		for( var i =0; i < 10; i++ ){
-			// Check for custom data key value pairs ( up to 9 ) 
-			if( _this.getConfig( 'customDataKey' + i ) &&  _this.getConfig( 'customDataValue' + i ) ){
-				params[ _this.getConfig( 'customDataKey' + i ) ] =  _this.getConfig( 'customDataValue' + i );
-			}
-		}
 		// filter out undefined == NULL 
 		// TODO this is kind of an ugly hack we should have 
 		// evaluate support fallback names for undefined properties 

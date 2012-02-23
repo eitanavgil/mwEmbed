@@ -227,7 +227,7 @@ mw.DolStatistics.prototype = {
 		// Setup event params
 		var params = {};
 		// App name
-		params['app'] = this.appName;
+		params['app'] = _this.getConfig('APP') || this.appName;
 		// The asset id: 
 		params['ASSETNAME'] = _this.getConfig('ASSETNAME');
 		// Kaltura Event name
@@ -262,8 +262,13 @@ mw.DolStatistics.prototype = {
 		params['GENURL'] =  _this.getConfig('GENURL') || window.kWidgetSupport.getHostPageUrl();
 		// Kaltura Playback ID ( kSessionId + playbackCounter )
 		params['KPLAYBACKID'] = this.embedPlayer.evaluate('{configProxy.sessionId}') + $( this.embedPlayer ).data('DolStatisticsCounter');
-		// Embedded Page Title
-		params['GENTITLE'] =  _this.getConfig('GENTITLE');
+
+		// Embedded Page Title:
+		try{
+			params['GENTITLE'] = parent.document.title;
+		} catch( e ){
+			// no title at all if we can't access the parent
+		}
 		// Device id
 		params['DEVID'] =  _this.getConfig( 'DEVID' );
 		// Player protocol ( hard coded to html5 )
@@ -276,16 +281,6 @@ mw.DolStatistics.prototype = {
 				params[ _this.getConfig( 'customDataKey' + i ) ] =  _this.getConfig( 'customDataValue' + i );
 			}
 		}
-		
-		// try and pull the page title from the parent:
-		if( ! params['GENTITLE'] ){
-			try{
-				params['HTML5GenTitle'] = parent.document.title;
-			} catch (e){
-				// could not get title from parent frame
-			}
-		}
-		
 		
 		// filter out undefined == NULL 
 		// TODO this is kind of an ugly hack we should have 
@@ -304,18 +299,21 @@ mw.DolStatistics.prototype = {
 		// If we have access to parent, call the jsFunction provided
 		if( this.getConfig( 'jsFunctionName' ) && window.parent ) {
 			var callbackName = this.getConfig( 'jsFunctionName' );
-			this._executeFunctionByName( callbackName, window.parent, params);
-		} else {
-			// Use beacon to send event data
-			var statsUrl = this.getConfig( 'protocol' ) + '://' + this.getConfig( 'host' ) + '?' + $.param(params);
-			$('body').append(
-				$( '<img />' ).attr({
-					'src' : statsUrl,
-					'width' : 0,
-					'height' : 0
-				})
-			);
+			var executeSuccess = this._executeFunctionByName( callbackName, window.parent, params);
+			// Check that the function executes correctly, else call the fallback statsUrl
+			if( executeSuccess !== false ){
+				return ;
+			}
 		}
+		// Use beacon to send event data
+		var statsUrl = this.getConfig( 'protocol' ) + '://' + this.getConfig( 'host' ) + '?' + $.param(params);
+		$('body').append(
+			$( '<img />' ).attr({
+				'src' : statsUrl,
+				'width' : 0,
+				'height' : 0
+			})
+		);
 	},
 
 	destroy: function() {
@@ -336,9 +334,10 @@ mw.DolStatistics.prototype = {
 			context = context[namespaces[i]];
 		}
 		try {
-			return context[func].apply(this, args);
+			return context[func].apply( this, args );
 		} catch( e ){
 			mw.log("DolStatistics:: Error could not find function: " + functionName );
+			return false;
 		}
 	}
 };

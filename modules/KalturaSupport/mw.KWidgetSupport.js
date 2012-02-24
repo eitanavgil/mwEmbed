@@ -214,7 +214,6 @@ mw.KWidgetSupport.prototype = {
 				});
 			}
 		}
-		
 		// Apply player Sources
 		if( playerData.flavors ){
 			_this.addFlavorSources( embedPlayer, playerData.flavors );
@@ -855,6 +854,7 @@ mw.KWidgetSupport.prototype = {
 			var entryId = asset.entryId;
 			// Setup a source object:
 			var source = {
+				'data-sizebytes' : asset.size * 1024,
 				'data-bandwidth' : asset.bitrate * 1024,
 				'data-width' : asset.width,
 				'data-height' : asset.height

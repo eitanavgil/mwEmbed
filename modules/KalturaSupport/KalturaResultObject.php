@@ -156,7 +156,7 @@ class KalturaResultObject {
         if ( !is_null ( $this->isCarousel ) ){
             return $this->isCarousel;
         }
-        $this->isCarousel = !! $this->getPlayerConfig( 'carousel' );
+		$this->isCarousel = ( !! $this->getPlayerConfig('playlistAPI', 'kpl0Url') ) && ( !! $this->getPlayerConfig( 'related' ) );
         return $this->isCarousel;
     }
 	// Check if the requested url is a playlist
@@ -166,7 +166,7 @@ class KalturaResultObject {
 			return $this->isPlaylist;
 		}
 		// Check if its a playlist url exists ( better check for playlist than playlist id )
-		$this->isPlaylist = !! $this->getPlayerConfig('playlistAPI', 'kpl0Url');;
+		$this->isPlaylist = !! $this->getPlayerConfig('playlistAPI', 'kpl0Url');
 		return $this->isPlaylist;
 	}
 	function isJavascriptRewriteObject() {
@@ -365,9 +365,7 @@ class KalturaResultObject {
 		if( $this->urlParameters[ 'flashvars' ] ) {
 			$flashVars = $this->urlParameters[ 'flashvars' ];
 			foreach( $flashVars as $fvKey => $fvValue) {
-				if( $fvKey && $fvValue ) {
-					$vars[ $fvKey ] = $this->formatString( $fvValue );
-				}
+				$vars[ $fvKey ] = $this->formatString( $fvValue );
 			}
 		}
 
@@ -387,7 +385,6 @@ class KalturaResultObject {
 				$vars[ $key ] = $this->formatString($value);
 			}
 		}
-		
 		// Set Plugin attributes from uiVars/flashVars to our plugins array
 		foreach( $vars as $key => $value ) {
 			// If this is not a plugin setting, continue
@@ -411,7 +408,6 @@ class KalturaResultObject {
 					$pluginAttribute => $value
 				);
 			}
-
 			// Removes from vars array (keep only flat vars)
 			unset( $vars[ $key ] );
 		}
@@ -587,12 +583,7 @@ class KalturaResultObject {
 
 	function getPlaylistResult(){
 		// Get the first playlist list:
-        if ( $this->isCarousel() ) {
-            $playlistId = $this->getPlayerConfig( 'carousel', 'playlist_id' );
-        }
-        else {
-            $playlistId =  $this->getFirstPlaylistId();
-        }
+		$playlistId =  $this->getFirstPlaylistId();
 
 		$playlistObject = $this->getPlaylistObject( $playlistId  );
 		
